@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avantis Hub: User Manual</title>
+<style>
+  :root {
+    --orange: #f2955a;
+    --cyan: #5dd6e8;
+    --text: #c3c5cf;
+    --dim: #7c7f8e;
+    --line: rgba(255,255,255,0.1);
+    --danger: #ef6a5b;
+  }
+  body {
+    background-color: #0e0d13;
+    background-image: linear-gradient(180deg, #0e0d13, #15141b 55%, #23252d);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    line-height: 1.6;
+  }
+  h1 { color: #fff; font-size: 28px; margin-bottom: 4px; }
+  .subtitle { color: var(--dim); font-size: 14px; margin-bottom: 28px; }
+  nav { font-size: 14px; margin-bottom: 36px; }
+  nav a { margin-right: 18px; }
+  h2 {
+    color: var(--cyan);
+    font-size: 18px;
+    margin-top: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+  }
+  h3 { color: #fff; font-size: 15px; margin-top: 26px; margin-bottom: 6px; }
+  ol, ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: #fff; }
+  a { color: var(--orange); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    background: rgba(255,255,255,0.07);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: #e6e7ee;
+  }
+  .note {
+    border-left: 3px solid var(--orange);
+    background: rgba(242,149,90,0.08);
+    padding: 10px 14px;
+    margin: 18px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .warn { border-left-color: var(--danger); background: rgba(239,106,91,0.08); }
+  .release { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 30px; }
+  .version { color: #fff; font-size: 20px; font-weight: 600; }
+  .date { color: var(--dim); font-size: 13px; margin-left: 10px; }
+  .footer { margin-top: 60px; text-align: center; color: var(--dim); font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>Avantis Hub: User Manual</h1>
+<div class="subtitle">Trigger an Allen &amp; Heath Avantis from MIDI, OSC, Ableton Live and your phone.</div>
+<nav><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></nav>
+
+<div class="note">This is the first version of the manual. It covers the essentials for getting set up and running a service. More detail is on the way.</div>
+
+<h2>What Avantis Hub does</h2>
+<p>Avantis Hub sits between the things that send cues (a MIDI controller, Ableton Live, QLab, a phone) and an Allen &amp; Heath Avantis console. A note, a control change, an OSC message or a button press becomes a mute, a fader move or a scene recall on the console.</p>
+<p>It runs on a Mac on the same network as the console. A companion app for iPhone and iPad puts your quick buttons in your hand.</p>
+
+<h2>Connect to the console</h2>
+<ol>
+<li>Put the Mac on the same network as the Avantis.</li>
+<li>Click the console pill at the top of the window (or open <strong>Settings &gt; Console</strong>).</li>
+<li>Type the console's IP address in <strong>Console IP</strong>.</li>
+<li>Set <strong>Base MIDI channel</strong> to match the console's own setting under Utility / Control / MIDI. The console's default is 12 to 16.</li>
+<li>Click <strong>Connect</strong>. The pill turns to Connected and the channel names fill in on the right.</li>
+</ol>
+<p>The hub remembers each console as a <strong>board</strong>, with its own profiles and its own channel names. Use New Board if you work with more than one console.</p>
+
+<h2>Armed, Disarmed and Panic</h2>
+<p>Nothing reaches the console unless the hub is <strong>Armed</strong>. While it is Disarmed you can build, test triggers and watch what would happen without changing a thing on the console.</p>
+<ul>
+<li><strong>Armed</strong> (top right): click to arm or disarm.</li>
+<li><strong>Panic</strong>: disarms at once and stops anything in progress. It does not mute or change anything on the console. It only stops the hub from sending.</li>
+</ul>
+<div class="note warn">Arm the hub only when you mean it to act. A trigger that arrives while armed is carried out straight away.</div>
+
+<h2>Build and Show</h2>
+<p>The window has two views. Press <strong>Tab</strong> to swap between them.</p>
+<ul>
+<li><strong>Build</strong> is for setting up: triggers on the left, mappings in the middle, the console's channels on the right.</li>
+<li><strong>Show</strong> is for running a service: faders, quick buttons, the current scene and a list of what has fired.</li>
+</ul>
+
+<h2>Mappings</h2>
+<p>A mapping says "when this arrives, do that". There are two ways to make one, both in Build view.</p>
+<h3>Learn</h3>
+<ol>
+<li>Click <strong>Learn</strong> at the top right.</li>
+<li>Touch the control on the console: move the fader or press the mute you want.</li>
+<li>Send the trigger: play the note, move the controller or send the OSC message.</li>
+</ol>
+<p>The hub joins the two into a mapping. Click Learn again to cancel.</p>
+<h3>By hand</h3>
+<ol>
+<li>Send the trigger once so it shows in the Triggers column, then click <strong>Use</strong> beside it. Or click <strong>New mapping</strong>.</li>
+<li>With the mapping selected, click a channel, DCA, group or scene on the right to add it as a target.</li>
+<li>Choose what it does: <strong>Toggle</strong>, <strong>Set</strong> to a fixed state or level, <strong>Momentary</strong>, or <strong>Value</strong> to follow a controller between a minimum and maximum.</li>
+<li>Click <strong>Done</strong> to save, or Cancel (or Esc) to back out.</li>
+</ol>
+<p>A fader change can <strong>Snap</strong> straight to its level or <strong>Glide</strong> there over a time you set.</p>
+
+<h2>Quick buttons</h2>
+<p>A quick button does several things with one press, such as unmuting the band and bringing three faders up. Make them in Show view.</p>
+<ul>
+<li>Each button can have a keyboard shortcut, a MIDI trigger and its own OSC address.</li>
+<li><strong>Require confirm</strong> makes a button need two presses from a person. MIDI and OSC triggers always fire on the first.</li>
+<li>A button can run other buttons first, so "Start of service" can run "Band on" and "Pastor up".</li>
+</ul>
+
+<h2>Sending cues to the hub</h2>
+<h3>MIDI</h3>
+<p>The hub creates a MIDI port called <strong>Avantis Hub</strong>. Send to it from any app on the same Mac.</p>
+<h3>OSC</h3>
+<p>Turn on <strong>Listen for OSC</strong> under the Inputs pill. The default port is UDP 9300. A few useful addresses:</p>
+<ul>
+<li><code>/hub/scene 12</code> recalls scene 12.</li>
+<li><code>/hub/input/9/mute 0</code> unmutes input 9. <code>1</code> mutes it.</li>
+<li><code>/hub/input/5/fader -10.0</code> sets a fader in dB.</li>
+<li><code>/hub/trigger/pastor-up</code> presses the quick button of that name.</li>
+<li><code>/hub/panic</code> does the same as the Panic button.</li>
+</ul>
+<h3>Ableton Live</h3>
+<p>With AbletonOSC installed in Live, turn on <strong>Read song information from Ableton Live</strong> under the Inputs pill. In Session view, a clip presses the quick button with the same name when it starts playing. Only clips on a track whose name starts with "Hub" count. The hub only reads from Live. It never plays, stops or moves it.</p>
+
+<h2>iPhone and iPad</h2>
+<ol>
+<li>Install Avantis Hub on the iPhone or iPad and join the same network as the Mac.</li>
+<li>On the Mac, open <strong>Settings &gt; Devices</strong> and click <strong>Pair a Device</strong>. A 6-digit code appears.</li>
+<li>On the device, pick the Mac from the list and enter the code.</li>
+</ol>
+<p>The device shows the quick buttons you allow it, the hub's status, and Panic. On the Mac, click a device in Settings &gt; Devices to choose which buttons it sees, whether it may use Panic, and whether it may control the console directly from Shortcuts.</p>
+<p>A device only ever talks to the hub. Everything it asks for goes through the same Armed check as any other trigger.</p>
+
+<h2>The menu bar</h2>
+<p>Closing the window leaves the hub running. The menu bar icon shows whether it is armed and connected, and opens a small panel with Armed, Panic and your quick buttons. To stop the hub, choose Quit.</p>
+
+<h2>Using more than one Mac</h2>
+<p>Under <strong>Settings &gt; Sharing</strong>, choose a folder that syncs, such as one in Dropbox. Every Mac that chooses the same folder uses the same boards, profiles and quick buttons. Paired devices and backups stay with each Mac.</p>
+
+<h2>Updates</h2>
+<p>The hub checks for a new version once a day and tells you when there is one. Nothing downloads or installs until you say so, and it never checks while armed. To check yourself, choose <strong>Avantis Hub &gt; Check for Updates</strong>.</p>
+
+<div class="footer">Avantis Hub by Black Mile Studios</div>
+</body>
+</html>

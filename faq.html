@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avantis Hub: FAQ</title>
+<style>
+  :root {
+    --orange: #f2955a;
+    --cyan: #5dd6e8;
+    --text: #c3c5cf;
+    --dim: #7c7f8e;
+    --line: rgba(255,255,255,0.1);
+    --danger: #ef6a5b;
+  }
+  body {
+    background-color: #0e0d13;
+    background-image: linear-gradient(180deg, #0e0d13, #15141b 55%, #23252d);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    line-height: 1.6;
+  }
+  h1 { color: #fff; font-size: 28px; margin-bottom: 4px; }
+  .subtitle { color: var(--dim); font-size: 14px; margin-bottom: 28px; }
+  nav { font-size: 14px; margin-bottom: 36px; }
+  nav a { margin-right: 18px; }
+  h2 {
+    color: var(--cyan);
+    font-size: 18px;
+    margin-top: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+  }
+  h3 { color: #fff; font-size: 15px; margin-top: 26px; margin-bottom: 6px; }
+  ol, ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: #fff; }
+  a { color: var(--orange); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    background: rgba(255,255,255,0.07);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: #e6e7ee;
+  }
+  .note {
+    border-left: 3px solid var(--orange);
+    background: rgba(242,149,90,0.08);
+    padding: 10px 14px;
+    margin: 18px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .warn { border-left-color: var(--danger); background: rgba(239,106,91,0.08); }
+  .release { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 30px; }
+  .version { color: #fff; font-size: 20px; font-weight: 600; }
+  .date { color: var(--dim); font-size: 13px; margin-left: 10px; }
+  .footer { margin-top: 60px; text-align: center; color: var(--dim); font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>Avantis Hub: FAQ</h1>
+<div class="subtitle">Common questions about setting up and running Avantis Hub.</div>
+<nav><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></nav>
+
+<div class="note">This is a first set of questions. More will be added as they come up.</div>
+
+<h2>Connecting</h2>
+<h3>The hub will not connect to the console.</h3>
+<ul>
+<li>Check the Mac and the console are on the same network and the IP address is right.</li>
+<li>Check the Base MIDI channel matches the console's setting under Utility / Control / MIDI.</li>
+<li>If the Mac asked whether Avantis Hub may find devices on your local network, it needs to be allowed, in System Settings &gt; Privacy &amp; Security &gt; Local Network.</li>
+</ul>
+<h3>Some channels show "?" for their fader or mute.</h3>
+<p>The console tells the hub about a fader or mute when it changes, and has no way to be asked where everything is. Until a channel moves, the hub shows what it remembers from last time, dimmed, or a question mark if it has never seen it.</p>
+
+<h2>Triggers</h2>
+<h3>I sent a note and nothing happened on the console.</h3>
+<ul>
+<li>Is the hub <strong>Armed</strong>? Disarmed, it shows the trigger and sends nothing.</li>
+<li>Is the console connected?</li>
+<li>Look at the Monitor at the bottom of the window. It says what arrived and why anything was ignored.</li>
+</ul>
+<h3>Nothing shows in the Triggers column.</h3>
+<p>For MIDI, check the sending app is sending to the port called "Avantis Hub". For OSC, check Listen for OSC is on and the sender is using the hub's port (9300 unless you changed it).</p>
+<h3>Can a trigger arm the hub?</h3>
+<p>No. Arming is done at the Mac, on purpose.</p>
+
+<h2>Safety</h2>
+<h3>What exactly does Panic do?</h3>
+<p>It disarms the hub and stops any glide in progress. It sends nothing to the console, so nothing is muted or moved by it.</p>
+<h3>Can a phone change anything on the console?</h3>
+<p>Only through the hub, and only while the hub is armed. By default a device can press the quick buttons you allow it. Controlling channels directly from Shortcuts is off until you turn it on for that device, and it is held to the limits you set under Settings &gt; Devices.</p>
+<h3>What if I open the app twice?</h3>
+<p>Only one hub runs at a time. Opening it again brings the running one forward. An armed hub is never pushed aside by a second copy.</p>
+
+<h2>iPhone and iPad</h2>
+<h3>The device cannot find the Mac.</h3>
+<p>Both need to be on the same network, and the hub needs to be running on the Mac. Some guest and venue networks block devices from seeing each other.</p>
+<h3>A paired device has stopped working.</h3>
+<p>If it was revoked on the Mac, it needs to pair again with a new code. Otherwise check the network, then pull down to refresh on the device.</p>
+
+<h2>Updates</h2>
+<h3>Check for Updates says the hub is armed.</h3>
+<p>The hub does not check while armed, so nothing can interrupt a service. Disarm it and check again.</p>
+<h3>Will an update change my mappings?</h3>
+<p>No. Your boards, profiles and quick buttons are kept apart from the app, and the hub keeps dated backups of every profile.</p>
+
+<div class="footer">Avantis Hub by Black Mile Studios</div>
+</body>
+</html>
