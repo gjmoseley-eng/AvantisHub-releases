@@ -5,5 +5,25 @@
         <link>https://gjmoseley-eng.github.io/AvantisHub-releases/appcast.xml</link>
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
+        <item>
+            <title>Version 0.9.1</title>
+            <pubDate>Tue, 06 Oct 2026 18:55:00 -0500</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>0.9.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>What's New</h3>
+<ul>
+<li>Help menu: the User Manual, FAQ and Release Notes.</li>
+</ul>
+<p>This version is mainly here to prove that updating works.</p>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.1/AvantisHub-0.9.1.zip"
+                sparkle:edSignature="D/nFyGR7gBzQ0kLyIktyYyAVgb08Yoypkq4GPTz4p0UTkEk8vXJ4SePfEPjCS3yi5HdN2Mi8nsBsQ3oLcrD3AQ=="
+                length="5506736"
+                type="application/octet-stream" />
+        </item>
     </channel>
 </rss>
