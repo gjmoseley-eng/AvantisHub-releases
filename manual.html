@@ -6,157 +6,745 @@
 <title>Avantis Hub: User Manual</title>
 <style>
   :root {
-    --orange: #f2955a;
-    --cyan: #5dd6e8;
-    --text: #c3c5cf;
-    --dim: #7c7f8e;
-    --line: rgba(255,255,255,0.1);
-    --danger: #ef6a5b;
+    --orange: #f2955a; --cyan: #5dd6e8; --text: #c3c5cf; --dim: #7c7f8e;
+    --line: rgba(255,255,255,0.1); --danger: #ef6a5b; --panel: rgba(255,255,255,0.04);
   }
+  * { box-sizing: border-box; }
   body {
     background-color: #0e0d13;
     background-image: linear-gradient(180deg, #0e0d13, #15141b 55%, #23252d);
     background-attachment: fixed;
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-    line-height: 1.6;
+    max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; line-height: 1.6;
   }
-  h1 { color: #fff; font-size: 28px; margin-bottom: 4px; }
-  .subtitle { color: var(--dim); font-size: 14px; margin-bottom: 28px; }
-  nav { font-size: 14px; margin-bottom: 36px; }
-  nav a { margin-right: 18px; }
-  h2 {
-    color: var(--cyan);
-    font-size: 18px;
-    margin-top: 40px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 8px;
-  }
-  h3 { color: #fff; font-size: 15px; margin-top: 26px; margin-bottom: 6px; }
+  h1 { color: #fff; font-size: 30px; margin-bottom: 4px; }
+  .subtitle { color: var(--dim); font-size: 14px; margin-bottom: 24px; }
+  nav.top { font-size: 14px; margin-bottom: 30px; }
+  nav.top a { margin-right: 18px; }
+  h2 { color: var(--cyan); font-size: 21px; margin-top: 56px; border-bottom: 1px solid var(--line); padding-bottom: 8px; scroll-margin-top: 16px; }
+  h3 { color: #fff; font-size: 16px; margin-top: 30px; margin-bottom: 6px; scroll-margin-top: 16px; }
+  h4 { color: var(--orange); font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; margin: 22px 0 4px; }
   ol, ul { padding-left: 22px; }
   li { margin-bottom: 6px; }
   strong { color: #fff; }
   a { color: var(--orange); }
-  code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 13px;
-    background: rgba(255,255,255,0.07);
-    padding: 1px 5px;
-    border-radius: 4px;
-    color: #e6e7ee;
-  }
-  .note {
-    border-left: 3px solid var(--orange);
-    background: rgba(242,149,90,0.08);
-    padding: 10px 14px;
-    margin: 18px 0;
-    border-radius: 0 6px 6px 0;
-  }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: rgba(255,255,255,0.07); padding: 1px 5px; border-radius: 4px; color: #e6e7ee; }
+  pre { background: rgba(0,0,0,0.35); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: #fff; font-weight: 600; }
+  .note { border-left: 3px solid var(--orange); background: rgba(242,149,90,0.08); padding: 10px 14px; margin: 18px 0; border-radius: 0 6px 6px 0; }
   .warn { border-left-color: var(--danger); background: rgba(239,106,91,0.08); }
+  .tip { border-left-color: var(--cyan); background: rgba(93,214,232,0.07); }
+  .toc { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 20px; columns: 2; column-gap: 32px; font-size: 14px; }
+  .toc a { display: block; text-decoration: none; padding: 2px 0; }
+  .toc a:hover { text-decoration: underline; }
+  figure { margin: 22px 0; }
+  figure img { max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); display: block; }
+  figure.phone img { max-width: 300px; }
+  figure.small img { max-width: 520px; }
+  figure.pair { display: flex; gap: 18px; flex-wrap: wrap; }
+  figure.pair img { max-width: 280px; }
+  figcaption { color: var(--dim); font-size: 13px; margin-top: 8px; }
+  .chip { display: inline-block; font-family: ui-monospace, Menlo, monospace; font-size: 12px; padding: 0 6px; border-radius: 4px; border: 1px solid var(--line); }
   .release { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 30px; }
   .version { color: #fff; font-size: 20px; font-weight: 600; }
   .date { color: var(--dim); font-size: 13px; margin-left: 10px; }
-  .footer { margin-top: 60px; text-align: center; color: var(--dim); font-size: 12px; }
+  .footer { margin-top: 70px; text-align: center; color: var(--dim); font-size: 12px; }
+  @media (max-width: 640px) { .toc { columns: 1; } }
+</style>
+<style>
+  .tools { position: sticky; top: 0; z-index: 5; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    padding: 10px 0; margin: 0 0 18px; background: linear-gradient(#0e0d13 70%, rgba(14,13,19,0)); }
+  .tools input { flex: 1 1 220px; min-width: 0; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: rgba(255,255,255,0.06); color: #fff; font-size: 15px; }
+  .tools input:focus { outline: none; border-color: var(--cyan); }
+  .tools button { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,0.05);
+    color: var(--text); font-size: 13px; cursor: pointer; }
+  .tools button:hover { border-color: var(--orange); color: #fff; }
+  #count { color: var(--dim); font-size: 13px; }
+  details.sec { border-bottom: 1px solid var(--line); }
+  details.sec > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+  details.sec > summary::-webkit-details-marker { display: none; }
+  details.sec > summary::before { content: "\25B8"; color: var(--dim); font-size: 14px; transition: transform .15s; }
+  details.sec[open] > summary::before { transform: rotate(90deg); }
+  details.sec > summary h2 { border: none; margin: 18px 0; padding: 0; flex: 1; }
+  details.sec > .body { padding-bottom: 18px; }
+  details.qa { border: 1px solid var(--line); border-radius: 8px; margin: 8px 0; background: var(--panel); }
+  details.qa > summary { cursor: pointer; padding: 10px 14px; color: #fff; font-weight: 600; list-style: none; }
+  details.qa > summary::-webkit-details-marker { display: none; }
+  details.qa > summary::before { content: "+"; color: var(--orange); display: inline-block; width: 18px; }
+  details.qa[open] > summary::before { content: "\2212"; }
+  details.qa > .body { padding: 0 14px 10px 32px; }
+  mark { background: rgba(242,149,90,0.35); color: #fff; border-radius: 3px; padding: 0 1px; }
+  .hidden { display: none !important; }
+  .empty { color: var(--dim); padding: 30px 0; text-align: center; }
 </style>
 </head>
 <body>
 <h1>Avantis Hub: User Manual</h1>
 <div class="subtitle">Trigger an Allen &amp; Heath Avantis from MIDI, OSC, Ableton Live and your phone.</div>
-<nav><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></nav>
+<nav class="top"><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></nav>
 
-<div class="note">This is the first version of the manual. It covers the essentials for getting set up and running a service. More detail is on the way.</div>
+<div class="tools">
+<input id="q" type="search" placeholder="Search this page" autocomplete="off" aria-label="Search this page">
+<button type="button" id="open-all">Expand all</button>
+<button type="button" id="close-all">Collapse all</button>
+<span id="count"></span>
+</div>
+<div class="toc">
+<a href="#what">1. What Avantis Hub does</a>
+<a href="#need">2. What you need</a>
+<a href="#start">3. Getting started</a>
+<a href="#window">4. The window at a glance</a>
+<a href="#safety">5. Armed, Disarmed and Panic</a>
+<a href="#console">6. Connecting to the console</a>
+<a href="#boards">7. Boards and profiles</a>
+<a href="#build">8. Build view</a>
+<a href="#mappings">9. Mappings</a>
+<a href="#targets">10. What can be controlled</a>
+<a href="#glides">11. Snap and Glide</a>
+<a href="#show">12. Show view</a>
+<a href="#buttons">13. Quick buttons</a>
+<a href="#inputs">14. Sending cues: MIDI, OSC, Ableton Live</a>
+<a href="#osc">15. OSC reference</a>
+<a href="#monitor">16. The Monitor</a>
+<a href="#menubar">17. The menu bar</a>
+<a href="#devices">18. iPhone and iPad</a>
+<a href="#shortcuts">19. Shortcuts on iPhone and iPad</a>
+<a href="#names">20. When channel names change</a>
+<a href="#sharing">21. Using more than one Mac</a>
+<a href="#settings">22. Settings, tab by tab</a>
+<a href="#updates">23. Updates</a>
+<a href="#keys">24. Keyboard shortcuts</a>
+<a href="#trouble">25. Troubleshooting</a>
+</div>
 
-<h2>What Avantis Hub does</h2>
-<p>Avantis Hub sits between the things that send cues (a MIDI controller, Ableton Live, QLab, a phone) and an Allen &amp; Heath Avantis console. A note, a control change, an OSC message or a button press becomes a mute, a fader move or a scene recall on the console.</p>
-<p>It runs on a Mac on the same network as the console. A companion app for iPhone and iPad puts your quick buttons in your hand.</p>
+<details class="sec" open><summary><h2 id="what">1. What Avantis Hub does</h2></summary><div class="body">
+<p>Avantis Hub sits between the things that send cues and an Allen &amp; Heath Avantis console. A MIDI note, a control change, an OSC message, a clip starting in Ableton Live or a tap on a phone becomes a mute, a fader move, a scene recall or a whole group of changes on the console.</p>
+<p>It runs on a Mac on the same network as the console and talks to the console's own MIDI-over-network port, so nothing needs to be installed on the console and no MIDI cable is involved.</p>
+<p>The hub is built for live use, so it is cautious by design:</p>
+<ul>
+<li>Nothing is ever sent to the console unless the hub is <strong>Armed</strong>.</li>
+<li><strong>Panic</strong> stops the hub sending at once.</li>
+<li>The screen shows what the console reports, never what the hub hopes happened.</li>
+<li>It will not echo the console's own changes back to it, so two systems cannot chase each other in a loop.</li>
+</ul>
 
-<h2>Connect to the console</h2>
+</div></details><details class="sec" open><summary><h2 id="need">2. What you need</h2></summary><div class="body">
+<ul>
+<li>A Mac running macOS 15 or later.</li>
+<li>An Allen &amp; Heath Avantis on the same network as the Mac, by cable or Wi-Fi.</li>
+<li>Something to send cues: any MIDI app or controller on the Mac, anything that sends OSC, or Ableton Live with AbletonOSC. None is required. You can run everything from quick buttons alone.</li>
+<li>Optional: an iPhone or iPad running iOS or iPadOS 18 or later, on the same network, for the companion app.</li>
+</ul>
+
+</div></details><details class="sec" open><summary><h2 id="start">3. Getting started</h2></summary><div class="body">
+<p>The shortest path from a fresh install to a working cue:</p>
+<ol>
+<li>Open Avantis Hub. It starts <strong>Disarmed</strong>, in Build view.</li>
+<li>Click the console pill at the top, type the console's IP address and click <strong>Connect</strong>. The channel names appear in the right-hand column. See <a href="#console">Connecting to the console</a>.</li>
+<li>Click <strong>Learn</strong>. Move a fader or press a mute on the console, then send the note or message that should control it. A mapping appears.</li>
+<li>Click <strong>Armed</strong>.</li>
+<li>Send the note again. The console responds, and the Monitor at the bottom shows what was sent.</li>
+</ol>
+<p>The first time the hub tries to reach the console, macOS may ask whether Avantis Hub may find devices on your local network. Allow it, or the hub cannot connect.</p>
+
+</div></details><details class="sec" open><summary><h2 id="window">4. The window at a glance</h2></summary><div class="body">
+<figure class=""><img src="img/mac-build.png" alt="Build view: triggers on the left, mappings in the middle, the console's channels on the right, and the Monitor underneath." loading="lazy"><figcaption>Build view: triggers on the left, mappings in the middle, the console's channels on the right, and the Monitor underneath.</figcaption></figure>
+<p>Across the top, from left to right:</p>
+<table>
+<tr><th>Control</th><th>What it is for</th></tr>
+<tr><td><strong>Build / Show</strong></td><td>Swaps between the two views. Build is for setting up, Show is for running a service. <strong>Tab</strong> swaps too.</td></tr>
+<tr><td><strong>Profile</strong></td><td>The set of mappings and quick buttons in use, and the menu for managing them. See <a href="#boards">Boards and profiles</a>.</td></tr>
+<tr><td><strong>Console pill</strong></td><td>The board's name, address and connection state. Click it for the board's settings.</td></tr>
+<tr><td><strong>Inputs pill</strong></td><td>Which inputs are on (MIDI, Live, OSC and its port) and a running count of messages received. Click it for the MIDI, OSC and Ableton settings.</td></tr>
+<tr><td><strong>Update</strong></td><td>Only appears when a new version was found while the hub was armed. See <a href="#updates">Updates</a>.</td></tr>
+<tr><td><strong>Learn</strong></td><td>Build view only. Makes a mapping by example.</td></tr>
+<tr><td><strong>Armed / Disarmed</strong></td><td>Whether the hub may send to the console. Click to change. It glows only when armed <em>and</em> connected.</td></tr>
+<tr><td><strong>Panic</strong></td><td>Disarms at once and stops everything in progress.</td></tr>
+</table>
+<p>Colour is used the same way everywhere: <strong style="color:#6aa9ff">blue</strong> is something coming in (a trigger), <strong style="color:#f2955a">orange</strong> is something on the console (a target), and <strong style="color:#5dd6e8">cyan</strong> means live and armed.</p>
+
+</div></details><details class="sec" open><summary><h2 id="safety">5. Armed, Disarmed and Panic</h2></summary><div class="body">
+<p>This is the most important idea in the hub.</p>
+<h3>Disarmed</h3>
+<p>The hub listens, shows every trigger that arrives and tells you in the Monitor what it would have done, but sends nothing. Build and test here. A press that arrives while disarmed is ignored outright: it is not stored up for later, and a toggle does not quietly flip its memory.</p>
+<h3>Armed</h3>
+<p>Triggers, quick buttons and the faders in Show view all act on the console straight away. The Armed button glows cyan when the hub is armed and the console is connected. Armed with no console keeps the word but loses the glow, and the menu bar icon turns red.</p>
+<div class="note warn">Arm the hub only when you mean it to act. A trigger that arrives while armed is carried out at once.</div>
+<h3>Panic</h3>
+<p>Panic disarms the hub and stops any glide where it is. It sends <strong>nothing</strong> to the console: nothing is muted, nothing moves, no scene is recalled. Its only job is to stop the hub. After Panic the hub stays disarmed until someone arms it at the Mac.</p>
+<p>Panic is also available from the menu bar panel, from a paired phone or iPad that is allowed to use it, and as the OSC message <code>/hub/panic</code>.</p>
+<h3>Other things that disarm the hub</h3>
+<ul>
+<li>Switching to another board.</li>
+<li>Choosing or leaving a shared setup folder.</li>
+</ul>
+<p>Losing the console does not disarm the hub, but nothing can be sent until it is back.</p>
+<h3>There is no remote arming</h3>
+<p>No MIDI message, OSC message, phone or shortcut can arm the hub. Arming happens at the Mac, on purpose, with one exception you choose yourself: <strong>Arm when the console connects</strong> in the Console settings.</p>
+<h3>Quitting while armed</h3>
+<p>Quitting an armed hub asks first, because it stops every trigger mid-service. Opening a second copy never pushes an armed hub aside. See <a href="#menubar">The menu bar</a>.</p>
+
+</div></details><details class="sec" open><summary><h2 id="console">6. Connecting to the console</h2></summary><div class="body">
 <ol>
 <li>Put the Mac on the same network as the Avantis.</li>
-<li>Click the console pill at the top of the window (or open <strong>Settings &gt; Console</strong>).</li>
-<li>Type the console's IP address in <strong>Console IP</strong>.</li>
-<li>Set <strong>Base MIDI channel</strong> to match the console's own setting under Utility / Control / MIDI. The console's default is 12 to 16.</li>
-<li>Click <strong>Connect</strong>. The pill turns to Connected and the channel names fill in on the right.</li>
+<li>Click the console pill, or open <strong>Settings &gt; Console</strong>.</li>
+<li>Type the console's address in <strong>Console IP</strong>. You will find it on the console under Utility / Control / Network.</li>
+<li>Set <strong>Base MIDI channel</strong> to match the console, under Utility / Control / MIDI. The console's default is 12 to 16. The hub shows the range as "12 to 16" because the console uses five MIDI channels in a row.</li>
+<li>Click <strong>Connect</strong>.</li>
 </ol>
-<p>The hub remembers each console as a <strong>board</strong>, with its own profiles and its own channel names. Use New Board if you work with more than one console.</p>
-
-<h2>Armed, Disarmed and Panic</h2>
-<p>Nothing reaches the console unless the hub is <strong>Armed</strong>. While it is Disarmed you can build, test triggers and watch what would happen without changing a thing on the console.</p>
+<p>When it connects, the pill reads Connected and the console sends its channel names and colours, which fill in the Board Targets column.</p>
+<div class="note">The address and MIDI channel are locked while connected. Disconnect to change them.</div>
+<h3>If the connection drops</h3>
+<p>The hub keeps trying on its own, quickly at first and then every few seconds, and the pill shows which attempt it is on. When the console comes back it carries on. Nothing is sent while it is away.</p>
+<h3>What the hub knows about the console</h3>
+<p>The console tells the hub about a fader or a mute when it changes. It has no way to be asked where everything is right now. So:</p>
 <ul>
-<li><strong>Armed</strong> (top right): click to arm or disarm.</li>
-<li><strong>Panic</strong>: disarms at once and stops anything in progress. It does not mute or change anything on the console. It only stops the hub from sending.</li>
+<li>A channel that has not moved since the hub connected shows what the hub remembers from last time, <strong>dimmed</strong>.</li>
+<li>A channel the hub has never seen move shows <strong>?</strong>.</li>
+<li>As soon as a fader or mute changes, by hand or by a cue, the hub shows the live value.</li>
 </ul>
-<div class="note warn">Arm the hub only when you mean it to act. A trigger that arrives while armed is carried out straight away.</div>
-
-<h2>Build and Show</h2>
-<p>The window has two views. Press <strong>Tab</strong> to swap between them.</p>
+<p>Remembered values are for your eyes only. The hub never uses a remembered value to decide anything.</p>
+<h3>Starting up automatically</h3>
 <ul>
-<li><strong>Build</strong> is for setting up: triggers on the left, mappings in the middle, the console's channels on the right.</li>
-<li><strong>Show</strong> is for running a service: faders, quick buttons, the current scene and a list of what has fired.</li>
+<li><strong>Connect when the app opens</strong> connects to the active board as soon as the hub starts.</li>
+<li><strong>Arm when the console connects</strong> arms the hub the moment it connects, with nobody clicking Armed. After Panic or a manual disarm it stays disarmed until you arm it yourself.</li>
 </ul>
+<div class="note warn">With both on, a Mac that powers up near a console is ready to change it with no one at the screen. That is the point of the option, and also the reason to switch it on deliberately.</div>
 
-<h2>Mappings</h2>
-<p>A mapping says "when this arrives, do that". There are two ways to make one, both in Build view.</p>
-<h3>Learn</h3>
+</div></details><details class="sec" open><summary><h2 id="boards">7. Boards and profiles</h2></summary><div class="body">
+<h3>Boards</h3>
+<p>A <strong>board</strong> is one console: its name, its address and its MIDI channel. The hub also remembers each board's channel names, colours and last known levels, so they show even when you are not connected.</p>
+<p>If you work with more than one console (a sanctuary and a youth room, say), make a board for each with <strong>New Board</strong> and pick between them with the <strong>Board</strong> menu in the Console settings. Switching boards disconnects and disarms.</p>
+<p><strong>Delete Board</strong> removes the board, its profiles and what the hub remembers of that console. It cannot be undone, and the last board cannot be deleted.</p>
+<h3>Profiles</h3>
+<p>A <strong>profile</strong> is a complete set of mappings and quick buttons, such as "Sunday morning" or "Youth night". Each profile belongs to one board. The Profile menu in the header switches between them and holds these commands:</p>
+<table>
+<tr><th>Command</th><th>What it does</th></tr>
+<tr><td>New Profile</td><td>An empty profile on this board.</td></tr>
+<tr><td>Duplicate</td><td>A full copy, including quick buttons, their triggers and the buttons they run.</td></tr>
+<tr><td>Rename</td><td>Changes the name only.</td></tr>
+<tr><td>Delete</td><td>Removes the profile. It can be brought back with Restore Deleted Profile.</td></tr>
+<tr><td>Copy to Board</td><td>Copies the profile to another board. Targets are matched to that board's channels by name where the names agree.</td></tr>
+<tr><td>Export to File / Import from File</td><td>Saves a profile as a file, or loads one, for moving between Macs or keeping a copy.</td></tr>
+<tr><td>Restore from Backup</td><td>Goes back to an earlier saved version of this profile.</td></tr>
+<tr><td>Restore Deleted Profile</td><td>Brings back a profile that was deleted, even one deleted on another Mac sharing the setup.</td></tr>
+</table>
+<h3>Saving and backups</h3>
+<p>There is no Save command. Every change is saved as you make it. The hub keeps the last 30 dated backups of each profile, which is what Restore from Backup shows. <strong>Edit &gt; Undo</strong> and <strong>Redo</strong> cover mapping and quick button changes.</p>
+
+</div></details><details class="sec" open><summary><h2 id="build">8. Build view</h2></summary><div class="body">
+<p>Build view has three columns and the Monitor underneath.</p>
+<table>
+<tr><th>Column</th><th>What it shows</th></tr>
+<tr><td><strong style="color:#6aa9ff">Triggers</strong></td><td>Every trigger the hub has recently received, newest first. This is where you check that a cue is arriving at all.</td></tr>
+<tr><td><strong>Mappings</strong></td><td>The mappings in this profile. Selecting one opens its inspector below the list.</td></tr>
+<tr><td><strong style="color:#f2955a">Board targets</strong></td><td>Everything on the console a mapping can control, with the console's own names and colours.</td></tr>
+</table>
+<p>Drag the gap between two columns to resize them, and double-click it to put the width back. Drag the top edge of the Monitor to make it taller or shorter. The sizes are remembered.</p>
+<h3>The Triggers column</h3>
+<ul>
+<li>Each trigger shows what it was (for example "Note 69 (A3) · ch 13") and its last value. Hover over one to see where it came from.</li>
+<li><strong>Use</strong> makes it the trigger of the selected mapping.</li>
+<li>A trigger that presses a quick button is marked as such.</li>
+<li>When the hub has song information, a <strong>Song locators</strong> section lists each marker and the bar it falls on. These can be used as triggers too.</li>
+</ul>
+<h3>The Board targets column</h3>
+<ul>
+<li>The header says <strong>Names from board</strong> when connected. When not connected it says when the names were last seen.</li>
+<li>Type in the search field to find a channel, DCA or scene by name or number.</li>
+<li>Channels are grouped by type. Click the arrow beside a group, then beside a channel, to see what can be controlled on it.</li>
+<li>Each channel shows its number, its colour, its name, its level and a MUTE badge when muted.</li>
+<li>A target already used by the selected mapping is highlighted.</li>
+</ul>
+</div></details><details class="sec" open><summary><h2 id="mappings">9. Mappings</h2></summary><div class="body">
+<p>A mapping says "when <em>this</em> arrives, do <em>that</em>". It has one trigger and one or more targets.</p>
+<h3>Making a mapping with Learn</h3>
 <ol>
-<li>Click <strong>Learn</strong> at the top right.</li>
-<li>Touch the control on the console: move the fader or press the mute you want.</li>
-<li>Send the trigger: play the note, move the controller or send the OSC message.</li>
+<li>Click <strong>Learn</strong>. A bar appears across the top with two steps.</li>
+<li><strong>Choose the target:</strong> move the fader or press the mute on the console, or click a target in the right-hand column.</li>
+<li><strong>Send the trigger:</strong> play the note, move the controller or send the OSC message.</li>
 </ol>
-<p>The hub joins the two into a mapping. Click Learn again to cancel.</p>
-<h3>By hand</h3>
+<p>The hub joins the two into a mapping and opens it. While Learn is running, triggers are recorded, not run, so nothing happens on the console. If the trigger you send is already used by another mapping, the bar warns you: learning it adds a second mapping and both will fire. Click Learn again, or Cancel, to stop.</p>
+<h3>Making a mapping by hand</h3>
 <ol>
-<li>Send the trigger once so it shows in the Triggers column, then click <strong>Use</strong> beside it. Or click <strong>New mapping</strong>.</li>
-<li>With the mapping selected, click a channel, DCA, group or scene on the right to add it as a target.</li>
-<li>Choose what it does: <strong>Toggle</strong>, <strong>Set</strong> to a fixed state or level, <strong>Momentary</strong>, or <strong>Value</strong> to follow a controller between a minimum and maximum.</li>
-<li>Click <strong>Done</strong> to save, or Cancel (or Esc) to back out.</li>
+<li>Click <strong>+ New mapping</strong>.</li>
+<li>Set the trigger: click <strong>Use</strong> beside a trigger in the left column, or choose its type and type its number and channel in the inspector.</li>
+<li>Click a target in the right column. Click another to add it as a second row on the same trigger.</li>
+<li>Choose the mode and its values (below).</li>
+<li>Click <strong>Done</strong>.</li>
 </ol>
-<p>A fader change can <strong>Snap</strong> straight to its level or <strong>Glide</strong> there over a time you set.</p>
-
-<h2>Quick buttons</h2>
-<p>A quick button does several things with one press, such as unmuting the band and bringing three faders up. Make them in Show view.</p>
+<h3>The inspector</h3>
+<p>Selecting a mapping opens its inspector under the list.</p>
+<figure class=""><img src="img/mac-inspector.png" alt="The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use." loading="lazy"><figcaption>The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use.</figcaption></figure>
 <ul>
-<li>Each button can have a keyboard shortcut, a MIDI trigger and its own OSC address.</li>
-<li><strong>Require confirm</strong> makes a button need two presses from a person. MIDI and OSC triggers always fire on the first.</li>
-<li>A button can run other buttons first, so "Start of service" can run "Band on" and "Pastor up".</li>
+<li><strong>Done</strong> keeps the mapping as it is now and closes the inspector.</li>
+<li><strong>Cancel</strong>, the close button or <strong>Esc</strong> backs out. The mapping goes back to how it was when you opened it, and a brand new mapping is removed.</li>
+<li><strong>Delete Mapping</strong> removes it.</li>
+<li><strong>Change Target</strong> replaces a row's target with the next one you click. The small x clears a row.</li>
+</ul>
+<p>A new MIDI trigger starts on the channel you used last, to save retyping it.</p>
+<h3>Trigger types</h3>
+<table>
+<tr><th>Type</th><th>Fires when</th></tr>
+<tr><td>Note</td><td>A MIDI note on that number and channel is played. Note names follow Ableton Live and Logic, where middle C (note 60) is C3.</td></tr>
+<tr><td>Control change (CC)</td><td>A controller on that number and channel sends a value.</td></tr>
+<tr><td>Program change</td><td>That program number is sent on that channel.</td></tr>
+<tr><td>OSC</td><td>A message arrives on that exact address. Addresses are not case sensitive.</td></tr>
+<tr><td>Song locator</td><td>Playback in Ableton Live reaches a marker with that name. Needs song information: see <a href="#inputs">Sending cues</a>.</td></tr>
+</table>
+<h3>Modes</h3>
+<table>
+<tr><th>Mode</th><th>What each press does</th><th>Good for</th></tr>
+<tr><td><strong>Toggle</strong></td><td>Flips between on and off.</td><td>One pad that mutes and unmutes.</td></tr>
+<tr><td><strong>Set</strong></td><td>Puts every target at the value you chose, whatever the console shows now.</td><td>Cues that must always end the same way, such as "pastor unmuted at -5 dB".</td></tr>
+<tr><td><strong>Momentary</strong></td><td>On while held, off when released.</td><td>Talkback-style holds.</td></tr>
+<tr><td><strong>Value</strong></td><td>Follows the incoming value between a Min and a Max.</td><td>A physical fader or knob riding a level.</td></tr>
+</table>
+<p>For mutes, the hub says <strong>Muted</strong> and <strong>Unmuted</strong> instead of on and off, because "on" for a mute means silent, which reads backwards. Assignments say On and Off.</p>
+<p>For a fader in Value mode, Min and Max are levels in dB. A controller at its lowest gives Min and at its highest gives Max. Tick <strong>-inf</strong> to make Min fully off. <strong>Invert</strong> turns it round, so the controller at its highest gives Min.</p>
+<h3>The mapping list</h3>
+<ul>
+<li><strong>By trigger</strong> groups the list under each trigger, with everything it controls. <strong>By target</strong> groups it under each channel, with everything that controls it. A mapping with several targets appears under each.</li>
+<li>Target chips are drawn in the console's colour for that channel.</li>
+<li>The switch at the right turns a mapping off without deleting it.</li>
+<li>Quick buttons that have a MIDI trigger are listed too, so the list answers "what does this note do?" in full. Click one to open the button's editor.</li>
+<li>A warning triangle means another mapping uses the same trigger on the same target. Both fire on every trigger, so they can cancel each other. Change one trigger, or switch one off.</li>
 </ul>
 
-<h2>Sending cues to the hub</h2>
+</div></details><details class="sec" open><summary><h2 id="targets">10. What can be controlled</h2></summary><div class="body">
+<p>The hub offers what the console's control protocol exposes, and no more.</p>
+<table>
+<tr><th>On the console</th><th>How many</th><th>Mute</th><th>Fader</th></tr>
+<tr><td>Inputs</td><td>64</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mono Groups, Auxes, Matrices</td><td>40 each</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Stereo Groups, Auxes, Matrices</td><td>20 each</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mono and Stereo FX Sends, FX Returns</td><td>12 each</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mains</td><td>3</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>DCAs</td><td>16</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mute Groups</td><td>8</td><td>Yes</td><td>No</td></tr>
+<tr><td>Scenes</td><td>500</td><td colspan="2">Recall</td></tr>
+</table>
+<p>Inputs also offer:</p>
+<ul>
+<li><strong>Main assign:</strong> whether the input feeds the main mix.</li>
+<li><strong>Aux sends</strong> and <strong>FX sends</strong> from that input.</li>
+<li><strong>DCA assign:</strong> membership of each of the 16 DCAs.</li>
+<li><strong>Mute group assign:</strong> membership of each of the 8 mute groups.</li>
+</ul>
+<p>How many of each your console actually uses depends on how it is configured. A target for a mix your show does not have simply does nothing.</p>
+<h3>Levels</h3>
+<p>Faders run from -inf (off) through 0 dB (unity) to +10 dB. The console moves in steps of about half a dB, so a level lands on the nearest step.</p>
+<h3>Scenes</h3>
+<p>Type a scene number in the <strong>Scenes</strong> group and click <strong>Recall scene</strong> to add it as a target. The hub can recall a scene but cannot read the list of scene names, and it only learns the current scene when one is recalled.</p>
+
+</div></details><details class="sec" open><summary><h2 id="glides">11. Snap and Glide</h2></summary><div class="body">
+<p>Every fader change can either <strong>Snap</strong>, jumping straight to its level, or <strong>Glide</strong>, travelling there over a time you set in seconds. You choose per mapping, per quick button action, and once for all phones and iPads.</p>
+<ul>
+<li>A glide runs from wherever the fader is now. If the hub does not know the level yet, it snaps instead.</li>
+<li>While a fader is gliding, its dB readout in Show view turns cyan.</li>
+<li>A glide <strong>stops where it is</strong> if you move that fader on the console or drag it in Show view, on Panic, on disarming, or if the console is lost. The hand on the fader always wins.</li>
+<li>A new change to the same fader replaces the glide in progress.</li>
+</ul>
+<h3>The shape of a glide</h3>
+<p>In <strong>Settings &gt; Console</strong>, <strong>Shape of a glide</strong> applies to every glide:</p>
+<ul>
+<li><strong>Even</strong> covers the same number of dB in every moment.</li>
+<li><strong>Eased</strong> starts and ends gently, which sounds more like a hand.</li>
+</ul>
+
+</div></details><details class="sec" open><summary><h2 id="show">12. Show view</h2></summary><div class="body">
+<figure class=""><img src="img/mac-show.png" alt="Show view: the surface, quick buttons and status." loading="lazy"><figcaption>Show view: the surface, quick buttons and status.</figcaption></figure>
+<p>Show view is the one to leave open during a service. The surface is on the left and the status is on the right.</p>
+<h3>Layers</h3>
+<p>The tabs across the top choose which channels are shown: DCAs first, then Inputs twelve at a time, then Groups, Auxes, Matrices, FX and Mains with Mute Groups.</p>
+<h3>A channel strip</h3>
+<ul>
+<li><strong>Label and name:</strong> the channel's number and the name from the console, with the console's colour.</li>
+<li><strong>Blue outline and badge:</strong> a channel with a blue outline is controlled by a mapping, and the badge at its top right names the trigger, such as "CC 20" or "C4". A "+1" means there are more. Click the badge to open the mapping, or to pick from a list if there are several. The <strong>Mapped</strong> key at the top right of the surface is the reminder of what the outline means.</li>
+<li><strong>Fader:</strong> lit in the channel's colour, and brighter the higher it sits. A muted channel loses its glow, so the ones passing signal stand out.</li>
+<li><strong>dB readout</strong> under the fader. It is cyan while the fader is gliding.</li>
+<li><strong>Mute</strong> button.</li>
+</ul>
+<p>The faders are made for a live console, so nothing jumps by accident:</p>
+<ul>
+<li>Dragging moves the level from where it is, wherever you grab. Pressing on the track does not jump the fader there.</li>
+<li>A click near the 0 dB mark, without dragging, sets unity.</li>
+<li>While dragging, the fader catches lightly at unity.</li>
+</ul>
+<p>Faders and mutes here go through the same Armed check as everything else. While disarmed they are locked, and a note above the strips says so. What is drawn is always what the console reported, so a change that was refused does not move anything on screen.</p>
+<h3>Dimmed and unknown values</h3>
+<p>A dimmed fader or mute is remembered from an earlier connection and may have changed since. A <strong>?</strong> means the hub has never seen that control move. See <a href="#console">What the hub knows about the console</a>.</p>
+<h3>The status column</h3>
+<ul>
+<li><strong>Current scene:</strong> the last scene recalled, by the hub or at the console. "Not known yet" until one is.</li>
+<li><strong>Up next:</strong> when the hub has song information, the next few markers and what each will do.</li>
+<li><strong>Last trigger:</strong> the most recent trigger and its result, including why it was ignored if it was.</li>
+<li><strong>Last fired:</strong> a running list of what the hub and the console have changed, with times. The last 30 entries are kept.</li>
+</ul>
+
+</div></details><details class="sec" open><summary><h2 id="buttons">13. Quick buttons</h2></summary><div class="body">
+<p>A quick button does several things with one press: unmute the band and bring three faders up, recall a scene and mute the lobby feed. They live at the bottom of Show view, in the menu bar panel and on paired phones and iPads.</p>
+<h3>Making and editing</h3>
+<ul>
+<li>Click <strong>+</strong> in the Quick buttons panel to make one.</li>
+<li>Click <strong>Edit</strong>, then a button, to change it. While editing, drag buttons to reorder them.</li>
+<li>The <strong>-</strong> and <strong>+</strong> beside Edit change the size of the tiles.</li>
+</ul>
+<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
+<h3>In the editor</h3>
+<table>
+<tr><th>Field</th><th>What it does</th></tr>
+<tr><td>Name and Color</td><td>How the button looks everywhere, including on phones. There are six colours.</td></tr>
+<tr><td>Keyboard shortcut</td><td>Click, then press the keys. It needs Command, Option or Control. Esc cancels and Delete clears.</td></tr>
+<tr><td>MIDI trigger</td><td>Click, then play the note or send the CC or program change that should press the button. Nothing is sent to the console while it waits.</td></tr>
+<tr><td>OSC address</td><td>Made from the name when the button is first saved, such as <code>/hub/trigger/pastor-up</code>. It stays the same if you rename the button later, so cues built on it keep working.</td></tr>
+<tr><td>Require confirm</td><td>The button needs two presses from a person: a click, a shortcut or a tap on a phone. The second press must follow within two seconds. MIDI and OSC always fire on the first, because whatever sends them cannot press twice.</td></tr>
+<tr><td>Runs these buttons first</td><td>Other buttons this one runs before its own actions.</td></tr>
+<tr><td>Actions</td><td>The changes it makes, in order. Click <strong>+ Add action</strong>, then pick a target. A mute action is set to Muted or Unmuted, and a fader action to a level, each with its own Snap or Glide. The x removes an action.</td></tr>
+<tr><td>Test</td><td>Sends the actions to the console once. Needs the hub armed and connected.</td></tr>
+<tr><td>Save, Delete</td><td>Save keeps the button. The x at the top closes without saving. Delete removes the button, and takes it out of any button that ran it.</td></tr>
+</table>
+<h3>Buttons that run other buttons</h3>
+<p>"Start of service" can run "Band on" and "Pastor up" and then add its own changes. A button runs whatever those buttons do <em>at the moment it is pressed</em>, so changing one changes every button that runs it. Where two set the same thing, the later one wins. The editor shows how many changes a press sends in all. A button cannot be made to run itself, directly or in a circle.</p>
+<p>When a button fires, the buttons it ran light up with it, on the Mac and on phones.</p>
+<h3>Pressing</h3>
+<p>Click the tile, use its shortcut, send its MIDI trigger or OSC address, tap it on a phone, or use the menu bar panel. A tile is dimmed when the hub is disarmed or not connected. Hover over a tile to see its OSC address.</p>
+
+</div></details><details class="sec" open><summary><h2 id="inputs">14. Sending cues: MIDI, OSC, Ableton Live</h2></summary><div class="body">
+<p>Click the <strong>Inputs</strong> pill for these settings. They are also under <strong>Settings &gt; Inputs</strong>.</p>
 <h3>MIDI</h3>
-<p>The hub creates a MIDI port called <strong>Avantis Hub</strong>. Send to it from any app on the same Mac.</p>
+<p>The hub creates a MIDI port called <strong>Avantis Hub</strong>. Any app on the same Mac can send to it: choose it as a MIDI output in Ableton Live, MainStage, QLab, a controller editor and so on. There is nothing to switch on.</p>
+<p>To use a hardware controller, route it to the Avantis Hub port with your DAW or a MIDI routing app.</p>
 <h3>OSC</h3>
-<p>Turn on <strong>Listen for OSC</strong> under the Inputs pill. The default port is UDP 9300. A few useful addresses:</p>
 <ul>
-<li><code>/hub/scene 12</code> recalls scene 12.</li>
-<li><code>/hub/input/9/mute 0</code> unmutes input 9. <code>1</code> mutes it.</li>
-<li><code>/hub/input/5/fader -10.0</code> sets a fader in dB.</li>
-<li><code>/hub/trigger/pastor-up</code> presses the quick button of that name.</li>
-<li><code>/hub/panic</code> does the same as the Panic button.</li>
+<li><strong>Listen for OSC</strong> turns the listener on.</li>
+<li><strong>UDP port</strong> is 9300 unless you change it. Press Return after a change.</li>
 </ul>
+<p>Anything on the network can send to this port, which is one more reason nothing reaches the console unless the hub is Armed. See the <a href="#osc">OSC reference</a>.</p>
 <h3>Ableton Live</h3>
-<p>With AbletonOSC installed in Live, turn on <strong>Read song information from Ableton Live</strong> under the Inputs pill. In Session view, a clip presses the quick button with the same name when it starts playing. Only clips on a track whose name starts with "Hub" count. The hub only reads from Live. It never plays, stops or moves it.</p>
-
-<h2>iPhone and iPad</h2>
+<p>The hub can read from Live directly through <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a>, a free control surface script for Live.</p>
 <ol>
-<li>Install Avantis Hub on the iPhone or iPad and join the same network as the Mac.</li>
+<li>Install AbletonOSC and choose it in Live under Settings &gt; Link, Tempo &amp; MIDI &gt; Control Surface.</li>
+<li>In the hub, turn on <strong>Read song information from Ableton Live</strong>.</li>
+</ol>
+<p>The hub only reads. It never plays, stops, moves or changes anything in Live.</p>
+<h4>Session view: clips press quick buttons</h4>
+<p>Make a track in Live whose name starts with <strong>Hub</strong>, such as "Hub" or "Hub Lights". On it, add clips named after your quick buttons. When a clip on that track starts playing, the hub presses the quick button with the same name.</p>
+<ul>
+<li>Only tracks whose name starts with "Hub" count, so a clip called "Intro" on the drums track never fires a button called Intro. You can have several Hub tracks.</li>
+<li>Capitals do not matter, and spaces at the ends are ignored.</li>
+<li>Launching a scene fires the clip on each Hub track in that row.</li>
+<li>Launching a clip that is already playing fires it again. Stopping a track fires nothing.</li>
+<li>A clip that is already playing when the link comes on does not fire.</li>
+<li>After renaming a track or clip, allow a few seconds for the hub to notice.</li>
+<li>A button that needs confirming fires at once, as it does from MIDI.</li>
+</ul>
+<p>The Monitor shows each press, and says so when a clip's name matches no button.</p>
+<h4>Arrangement view: locators</h4>
+<p>The hub also reads Live's locators, position, tempo and time signature. Locators appear in the Triggers column and can trigger mappings, and Show view's <strong>Up next</strong> card shows what is coming.</p>
+<div class="note">AbletonOSC replies on one fixed port, so only one app on a Mac can read from it at a time. If another app already has it, the hub says so, keeps checking and takes over when the port comes free. If AbletonOSC is on another computer, or uses other ports, set them under <strong>Live on another computer, or other ports</strong>.</div>
+
+</div></details><details class="sec" open><summary><h2 id="osc">15. OSC reference</h2></summary><div class="body">
+<p>Send to the Mac's address on the hub's UDP port (9300 by default). Addresses are not case sensitive. <code>&lt;n&gt;</code> is the number shown on the console, starting at 1.</p>
+<table>
+<tr><th>Address</th><th>Argument</th><th>What it does</th></tr>
+<tr><td><code>/hub/scene</code></td><td>whole number, 1 to 500</td><td>Recalls that scene.</td></tr>
+<tr><td><code>/hub/&lt;strip&gt;/&lt;n&gt;/mute</code></td><td>1 or 0</td><td>1 mutes, 0 unmutes. Sending the same value twice is harmless.</td></tr>
+<tr><td><code>/hub/&lt;strip&gt;/&lt;n&gt;/fader</code></td><td>level in dB</td><td>From -54 to +10. At or below -54 is fully off, as are the words <code>-inf</code> and <code>off</code>. The fader jumps straight there.</td></tr>
+<tr><td><code>/hub/trigger/&lt;name&gt;</code></td><td>none, or 0.0 to 1.0</td><td>Fires every mapping whose trigger is this address, and presses the quick button with this address.</td></tr>
+<tr><td><code>/hub/panic</code></td><td>none</td><td>The same as the Panic button. Works whether or not the hub is armed.</td></tr>
+</table>
+<p>Examples:</p>
+<pre><code>/hub/scene 12
+/hub/input/9/mute 0
+/hub/dca/2/mute 1
+/hub/input/5/fader -10.0
+/hub/trigger/pastor-up</code></pre>
+<p><code>&lt;strip&gt;</code> is the kind of channel, such as <code>input</code>, <code>dca</code> or <code>mutegroup</code>. Mute groups have no fader.</p>
+<h3>Triggers with a value</h3>
+<p>With no argument, a trigger is a press. With a number from 0.0 to 1.0, Value mappings follow it between their Min and Max. For the other modes, 0.5 and above counts as pressed and below 0.5 as released.</p>
+<h3>Your own addresses</h3>
+<p>Any address that does not start with <code>/hub</code> can be a mapping's trigger. This suits controllers that send fixed addresses, such as a TouchOSC fader on <code>/1/fader1</code>. Send it once, then click <strong>Use</strong> beside it in the Triggers column.</p>
+<h3>Song information</h3>
+<p>An app that follows your playback can tell the hub about the song, for Up next and locator triggers:</p>
+<table>
+<tr><th>Address</th><th>Arguments</th><th>Meaning</th></tr>
+<tr><td><code>/hub/song/locators</code></td><td>name, position, name, position…</td><td>The whole list of markers. Send it again whenever it changes, or with no arguments to clear it.</td></tr>
+<tr><td><code>/hub/song/position</code></td><td>number</td><td>Where playback is now, in beats. Send it several times a second while playing.</td></tr>
+<tr><td><code>/hub/song/playing</code></td><td>0 or 1</td><td>Whether the transport is running.</td></tr>
+<tr><td><code>/hub/song/tempo</code></td><td>number</td><td>Tempo in BPM.</td></tr>
+<tr><td><code>/hub/song/signature</code></td><td>two whole numbers</td><td>Time signature, for bar numbers. 4 4 is assumed until this arrives.</td></tr>
+</table>
+<p>There is no address to arm the hub.</p>
+</div></details><details class="sec" open><summary><h2 id="monitor">16. The Monitor</h2></summary><div class="body">
+<p>The Monitor runs along the bottom of Build view and is the first place to look when something does not behave. Every line has a time, a label and what happened.</p>
+<table>
+<tr><th>Label</th><th>Meaning</th></tr>
+<tr><td><code>IN</code></td><td>A trigger arrived: a MIDI message or an OSC message, with where it came from.</td></tr>
+<tr><td><code>OUT</code></td><td>A change the hub sent to the console.</td></tr>
+<tr><td><code>ECHO</code></td><td>The console confirming a change the hub just made.</td></tr>
+<tr><td><code>BOARD</code></td><td>Something reported by the console itself: a name, a colour, or a fader or mute moved by hand.</td></tr>
+<tr><td><code>HUB</code></td><td>The hub's own state: armed, disarmed, connected, a device pairing, a clip pressing a button.</td></tr>
+<tr><td><code>BLOCK</code></td><td>Something refused or ignored, with the reason, such as "Ignored, hub is disarmed: Button Pastor Up".</td></tr>
+</table>
+<ul>
+<li><strong>Raw bytes</strong> also shows the exact bytes exchanged with the console, for diagnosing.</li>
+<li><strong>Clear</strong> empties the list.</li>
+<li>Right-click a line for <strong>Copy Line</strong> or <strong>Copy All Lines</strong>, handy when asking for help.</li>
+</ul>
+<p>A healthy cue reads as an <code>IN</code> line, one or more <code>OUT</code> lines, then matching <code>ECHO</code> lines a moment later.</p>
+
+</div></details><details class="sec" open><summary><h2 id="menubar">17. The menu bar</h2></summary><div class="body">
+<p>Avantis Hub keeps running when its window is closed, so a stray click on the close button cannot stop a service. The icon in the menu bar shows its state at a glance:</p>
+<ul>
+<li><strong>Cyan:</strong> armed and connected.</li>
+<li><strong>Red:</strong> the console has been lost, or the hub is armed with no console.</li>
+<li><strong>Plain:</strong> otherwise.</li>
+</ul>
+<figure class="phone"><img src="img/mac-menubar.png" alt="The menu bar panel." loading="lazy"><figcaption>The menu bar panel.</figcaption></figure>
+<p>Click the icon for a panel with the connection state, the current scene, <strong>Armed</strong>, <strong>Panic</strong>, your quick buttons, the profile menu and <strong>Open Avantis Hub</strong>. Everything in the panel behaves exactly as it does in the window, including the second press for a button that needs confirming.</p>
+<p>To stop the hub, choose <strong>Avantis Hub &gt; Quit</strong>. If it is armed it asks first.</p>
+<h3>Only one hub at a time</h3>
+<p>Two hubs on one Mac would fight over the MIDI port, and both could act on the same trigger. So opening the app again hands over to the copy already running. If that copy is armed, it stays, comes to the front, and the new one steps aside.</p>
+
+</div></details><details class="sec" open><summary><h2 id="devices">18. iPhone and iPad</h2></summary><div class="body">
+<p>The companion app puts your quick buttons and the hub's status on an iPhone or iPad. A device only ever talks to the hub, never to the console, and everything it asks for goes through the same Armed check as any other trigger.</p>
+<h3>Pairing</h3>
+<ol>
+<li>Join the device to the same network as the Mac and open Avantis Hub on it.</li>
 <li>On the Mac, open <strong>Settings &gt; Devices</strong> and click <strong>Pair a Device</strong>. A 6-digit code appears.</li>
 <li>On the device, pick the Mac from the list and enter the code.</li>
 </ol>
-<p>The device shows the quick buttons you allow it, the hub's status, and Panic. On the Mac, click a device in Settings &gt; Devices to choose which buttons it sees, whether it may use Panic, and whether it may control the console directly from Shortcuts.</p>
-<p>A device only ever talks to the hub. Everything it asks for goes through the same Armed check as any other trigger.</p>
+<figure class="phone"><img src="img/iphone-pair.png" alt="Choosing a hub and entering its code." loading="lazy"><figcaption>Choosing a hub and entering its code.</figcaption></figure>
+<p>A code works for one device, runs out after a few minutes and stops working after five wrong tries. The device keeps its pairing in its keychain, so it reconnects by itself from then on.</p>
+<h3>The Control screen</h3>
+<figure class="phone"><img src="img/iphone-control.png" alt="The Control screen on iPhone." loading="lazy"><figcaption>The Control screen on iPhone.</figcaption></figure>
+<ul>
+<li><strong>Armed pill:</strong> whether the hub is armed. It glows when the hub is armed and has its console. A device cannot arm the hub.</li>
+<li><strong>Status card:</strong> the current scene, and either what is up next or the last trigger.</li>
+<li><strong>Quick buttons:</strong> tap to press. A button that needs confirming says "Tap again to fire". Buttons are dimmed when the hub is disarmed or the link is down.</li>
+<li><strong>- and +:</strong> four sizes, from three small tiles across to one large tile you can hit without looking.</li>
+<li><strong>Arrange (the arrows):</strong> drag buttons into your own order. Nothing fires while arranging. The order is kept on that device, for that hub. Reset goes back to the Mac's order.</li>
+<li><strong>Panic:</strong> tap, then tap again to confirm. It disarms the hub. Shown only if the Mac allows this device to use it.</li>
+<li>Pull down to refresh.</li>
+</ul>
+<h3>The Status screen</h3>
+<figure class="phone"><img src="img/iphone-status.png" alt="The Status screen on iPhone." loading="lazy"><figcaption>The Status screen on iPhone.</figcaption></figure>
+<ul>
+<li>The hub's name, the link, whether the hub is armed, whether it has its console, and the current scene.</li>
+<li><strong>Direct control</strong>, if allowed, with the limits the Mac has set.</li>
+<li><strong>Up next</strong>, <strong>Last trigger</strong> and <strong>Recent</strong>. <strong>Clear</strong> empties Recent on that device only.</li>
+<li><strong>Hubs:</strong> every Mac the device is paired with. Tap one to switch. <strong>Pair another Mac</strong> adds one, and <strong>Forget</strong> removes the pairing.</li>
+</ul>
+<p>If the hub you are using goes away and another paired one is on the network, the app offers to switch.</p>
+<h3>On iPad</h3>
+<figure class=""><img src="img/ipad.png" alt="On iPad, buttons and status side by side." loading="lazy"><figcaption>On iPad, buttons and status side by side.</figcaption></figure>
+<p>With room to spare, the buttons and the status sit side by side with no tabs. The buttons fill the width in as many columns as fit, and Recent scrolls in its own box. In Slide Over or a narrow Split View the app goes back to two tabs.</p>
+<h3>What a device may do</h3>
+<p>On the Mac, click a device in <strong>Settings &gt; Devices</strong> to open its settings:</p>
+<figure class="small"><img src="img/mac-device-sheet.png" alt="One device's settings." loading="lazy"><figcaption>One device's settings.</figcaption></figure>
+<table>
+<tr><th>Setting</th><th>Meaning</th></tr>
+<tr><td>Name</td><td>How the device is listed.</td></tr>
+<tr><td>Can use Panic</td><td>Whether the Panic button shows on it.</td></tr>
+<tr><td>Can control the console directly</td><td>Lets Shortcuts on that device mute, unmute, set and nudge faders and recall scenes, not only press quick buttons. Off until you turn it on.</td></tr>
+<tr><td>Sees every button / Sees only chosen buttons</td><td>Which quick buttons it is shown. With "chosen", buttons added later stay hidden from it until you tick them.</td></tr>
+<tr><td>Revoke</td><td>Disconnects it at once. It has to pair again with a new code.</td></tr>
+</table>
+<p>A device is only ever sent the buttons it is allowed, so a hidden button cannot be pressed from it by any means.</p>
+<h3>Limits for devices</h3>
+<p>Also under Settings &gt; Devices, for every device with direct control:</p>
+<ul>
+<li><strong>Highest fader level a device may set:</strong> 0 dB unless you change it, anywhere from -20 to +10.</li>
+<li><strong>Largest single "turn up" or "turn down":</strong> 3 dB unless you change it, from 1 to 6.</li>
+<li><strong>A fader moved from a device:</strong> Snap, or Glide over a time. It starts as a one-second glide, which is kinder to a room than a jump.</li>
+</ul>
+<p>Anything over a limit is <strong>refused</strong>, not trimmed to fit, so a mistake never lands "as close as allowed". Quick buttons are not affected by these limits: a button does what you built it to do.</p>
 
-<h2>The menu bar</h2>
-<p>Closing the window leaves the hub running. The menu bar icon shows whether it is armed and connected, and opens a small panel with Armed, Panic and your quick buttons. To stop the hub, choose Quit.</p>
+</div></details><details class="sec" open><summary><h2 id="shortcuts">19. Shortcuts on iPhone and iPad</h2></summary><div class="body">
+<p>The companion adds actions to the Shortcuts app, so the hub can be part of an automation, a Home Screen button, the Action button or a spoken phrase.</p>
+<table>
+<tr><th>Action</th><th>What it does</th><th>Needs</th></tr>
+<tr><td>Fire Quick Button</td><td>Presses one of the device's quick buttons.</td><td>The button to be allowed on that device</td></tr>
+<tr><td>Mute or Unmute a Strip</td><td>Mutes or unmutes a channel, DCA, group, aux, main or mute group.</td><td>Direct control</td></tr>
+<tr><td>Set a Fader</td><td>Sets a fader to a level in dB.</td><td>Direct control</td></tr>
+<tr><td>Turn a Fader Up or Down</td><td>Moves a fader from where it is, by an amount in dB such as 2.5.</td><td>Direct control, and the console to have reported that fader's level</td></tr>
+<tr><td>Recall a Scene</td><td>Recalls a scene by number.</td><td>Direct control</td></tr>
+</table>
+<ul>
+<li>Every action still needs the hub to be <strong>Armed</strong>.</li>
+<li>Each action reports back what happened, including why it was refused.</li>
+<li>Actions work with the app closed, as long as the device is on the hub's network.</li>
+<li>The app also offers ready-made shortcuts that appear in Shortcuts and Spotlight, such as "Mute", "Unmute", "Turn Up", "Turn Down" and "Recall Scene".</li>
+</ul>
+<h3>Asking first</h3>
+<p>Under <strong>Voice commands</strong> on the Status screen, choose when a spoken or ready-made command should ask before acting: <strong>Never</strong>, <strong>For levels and scenes</strong>, or <strong>For everything</strong>. A misheard level is heard by the whole room, while a misheard mute is quick to see and undo, which is why levels and scenes are the middle choice. Shortcuts you build yourself have their own Ask Before Running switch.</p>
+<div class="note">Running these actions from the Shortcuts app, a widget or a button is dependable. Triggering them purely by voice through Siri is not yet reliable in this version, and is being worked on.</div>
 
-<h2>Using more than one Mac</h2>
-<p>Under <strong>Settings &gt; Sharing</strong>, choose a folder that syncs, such as one in Dropbox. Every Mac that chooses the same folder uses the same boards, profiles and quick buttons. Paired devices and backups stay with each Mac.</p>
+</div></details><details class="sec" open><summary><h2 id="names">20. When channel names change</h2></summary><div class="body">
+<p>Mappings follow a channel by its <strong>name</strong>, not just its number. If you move "Pastor" from input 9 to input 12 on the console, the hub notices the name has moved and takes the mappings and quick buttons with it. A banner under the header tells you what it followed.</p>
+<p>Sometimes it cannot decide for you:</p>
+<ul>
+<li>the name has disappeared from the console altogether, or</li>
+<li>two channels of the same kind now have the same name.</li>
+</ul>
+<p>Then the banner asks. Until you choose, mappings and quick buttons that use those channels are <strong>on hold</strong> and will not fire, which is safer than guessing and unmuting the wrong channel. You can keep the mapping on its old channel number, or decide later.</p>
+<div class="tip note">Give every channel a distinct name on the console. Two inputs both called "Vox" cannot be told apart by name. "Vox 1" and "Vox 2" can.</div>
 
-<h2>Updates</h2>
-<p>The hub checks for a new version once a day and tells you when there is one. Nothing downloads or installs until you say so, and it never checks while armed. To check yourself, choose <strong>Avantis Hub &gt; Check for Updates</strong>.</p>
+</div></details><details class="sec" open><summary><h2 id="sharing">21. Using more than one Mac</h2></summary><div class="body">
+<p>Two Macs can share one setup, for example a booth Mac and a laptop you prepare on.</p>
+<ol>
+<li>Open <strong>Settings &gt; Sharing</strong> and click <strong>Choose a Folder</strong>.</li>
+<li>Pick a folder that syncs between the Macs, such as one in Dropbox or iCloud Drive. Use an empty one, or one another Mac is already sharing.</li>
+<li>Do the same on the other Mac, choosing the same folder.</li>
+</ol>
+<p>Every Mac that chooses the folder uses the same boards, profiles, quick buttons and device limits, and picks up changes a few seconds after another Mac saves them.</p>
+<h3>What stays with each Mac</h3>
+<p>Paired devices, backups, MIDI and OSC settings, and which board and profile are in use. Each Mac keeps its own dated backups, so one can always undo what another saved.</p>
+<h3>Changes during a service</h3>
+<p>If another Mac changes the profile in use while this hub is <strong>armed</strong>, the change waits. A banner says the profile was changed on another Mac and offers to reload it. Nothing is swapped under you mid-service.</p>
+<h3>Conflicted copies</h3>
+<p>If two Macs edit while one is offline, the sync service may make a "conflicted copy". The hub brings those in as separate profiles so nothing is lost, and you can delete the one you do not want.</p>
+<h3>Stopping</h3>
+<p><strong>Stop Sharing</strong> offers to keep a copy of the shared boards and profiles on this Mac, or to go back to this Mac's own setup from before. The folder is left as it is for the other Macs. Choosing or leaving a shared folder disconnects from the console and disarms.</p>
 
+</div></details><details class="sec" open><summary><h2 id="settings">22. Settings, tab by tab</h2></summary><div class="body">
+<p>Open with <strong>Avantis Hub &gt; Settings</strong> or Command-comma.</p>
+<h3>Devices</h3>
+<figure class="small"><img src="img/mac-settings-devices.png" alt="Fader limits and paired devices in Settings > Devices." loading="lazy"><figcaption>Fader limits and paired devices in Settings > Devices.</figcaption></figure>
+<ul>
+<li>Whether devices on the network can find this Mac, and under what name.</li>
+<li><strong>Pair a Device</strong>.</li>
+<li><strong>Fader limits for devices</strong> and how a fader moved from a device travels.</li>
+<li><strong>Paired devices:</strong> one line each with what it may do and when it was last seen. Click a device for its settings.</li>
+</ul>
+<h3>Console</h3>
+<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
+<ul>
+<li><strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>.</li>
+<li>The board's <strong>Name</strong>, <strong>Console IP</strong> and <strong>Base MIDI channel</strong>, and <strong>Connect</strong> or <strong>Disconnect</strong>.</li>
+<li><strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
+<li><strong>Shape of a glide:</strong> Even or Eased.</li>
+</ul>
+<h3>Inputs</h3>
+<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs." loading="lazy"><figcaption>Settings > Inputs.</figcaption></figure>
+<ul>
+<li><strong>MIDI:</strong> the name of the hub's port, or the reason it could not be opened.</li>
+<li><strong>OSC:</strong> Listen for OSC and the UDP port.</li>
+<li><strong>Ableton Live:</strong> the switch, the state of the link, and the address and ports.</li>
+</ul>
+<h3>Sharing</h3>
+<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
+<p>The shared folder, if any, with <strong>Show in Finder</strong>, <strong>Choose Another Folder</strong> and <strong>Stop Sharing</strong>.</p>
+<h3>Updates</h3>
+<figure class="small"><img src="img/mac-settings-updates.png" alt="Settings > Updates." loading="lazy"><figcaption>Settings > Updates.</figcaption></figure>
+<p>The version you are running, <strong>Check for updates automatically</strong>, <strong>Check Now</strong> and when it last checked.</p>
+
+</div></details><details class="sec" open><summary><h2 id="updates">23. Updates</h2></summary><div class="body">
+<p>The hub checks for a new version once a day. Nothing downloads or installs until you say so. To check yourself, choose <strong>Avantis Hub &gt; Check for Updates</strong>.</p>
+<ul>
+<li><strong>Disarmed:</strong> a window tells you about the new version and offers to install it.</li>
+<li><strong>Armed:</strong> no window opens, so nothing gets in the way of a service. An <strong>Update</strong> marker appears at the top of the window, in the menu bar panel and in Settings. Click it when you are ready to look.</li>
+</ul>
+<p>Installing restarts the hub. If it is armed, it asks first. Your boards, profiles, quick buttons and paired devices are kept apart from the app and are not touched by an update.</p>
+<p>The iPhone and iPad app updates separately, the way your other apps do.</p>
+
+</div></details><details class="sec" open><summary><h2 id="keys">24. Keyboard shortcuts</h2></summary><div class="body">
+<table>
+<tr><th>Keys</th><th>Action</th></tr>
+<tr><td>Tab</td><td>Swap between Build and Show. In a field with text in it, or while a mapping is open, Tab moves between fields as usual.</td></tr>
+<tr><td>Esc</td><td>Back out of the mapping inspector or an editor without saving.</td></tr>
+<tr><td>Command-Z, Shift-Command-Z</td><td>Undo and redo mapping and quick button changes.</td></tr>
+<tr><td>Command-comma</td><td>Settings.</td></tr>
+<tr><td>Shift-Command-D</td><td>The Debug window, for diagnosing the connection.</td></tr>
+<tr><td>Your own</td><td>Each quick button can have its own shortcut, set in its editor.</td></tr>
+</table>
+
+</div></details><details class="sec" open><summary><h2 id="trouble">25. Troubleshooting</h2></summary><div class="body">
+<p>Start with the Monitor: it nearly always says what happened and why. The <a href="faq.html">FAQ</a> covers the common cases in more detail.</p>
+<table>
+<tr><th>What you see</th><th>Most likely cause</th></tr>
+<tr><td>The pill never reaches Connected</td><td>Wrong address, different network, or the Mac's Local Network permission is off.</td></tr>
+<tr><td>Connected, but channel names do not appear</td><td>The Base MIDI channel does not match the console.</td></tr>
+<tr><td>A trigger shows in the Monitor but nothing changes</td><td>The hub is disarmed, the mapping is switched off, or the mapping is on hold after a name change.</td></tr>
+<tr><td>Nothing shows in the Triggers column</td><td>The sender is not using the Avantis Hub MIDI port, or OSC is off or on another port.</td></tr>
+<tr><td>A fader shows ? or is dimmed</td><td>The console has not reported it since connecting. Move it once.</td></tr>
+<tr><td>A cue fires twice, or undoes itself</td><td>Two mappings share a trigger and a target. Look for the warning triangle.</td></tr>
+<tr><td>A device cannot find the Mac</td><td>Different network, or a network that stops devices seeing each other.</td></tr>
+<tr><td>Ableton link says another app is using the port</td><td>Another app on the Mac is already reading from AbletonOSC.</td></tr>
+</table>
+</div></details><div id="empty" class="empty hidden">Nothing on this page matches. Try a different word.</div>
+<script>
+(function () {
+  var q = document.getElementById('q'), count = document.getElementById('count');
+  var secs = [].slice.call(document.querySelectorAll('details.sec'));
+  var qas = [].slice.call(document.querySelectorAll('details.qa'));
+  var units = qas.length ? qas : secs;
+  var toc = document.querySelector('.toc'), empty = document.getElementById('empty');
+  var before = null;
+  function clearMarks() {
+    [].slice.call(document.querySelectorAll('mark')).forEach(function (m) {
+      var p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize();
+    });
+  }
+  function mark(root, term) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), nodes = [], n;
+    while ((n = walker.nextNode())) { if (n.nodeValue.toLowerCase().indexOf(term) >= 0) nodes.push(n); }
+    nodes.forEach(function (node) {
+      var text = node.nodeValue, lower = text.toLowerCase(), frag = document.createDocumentFragment(), i = 0, at;
+      while ((at = lower.indexOf(term, i)) >= 0) {
+        frag.appendChild(document.createTextNode(text.slice(i, at)));
+        var m = document.createElement('mark'); m.textContent = text.slice(at, at + term.length); frag.appendChild(m);
+        i = at + term.length;
+      }
+      frag.appendChild(document.createTextNode(text.slice(i)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function run() {
+    var term = q.value.trim().toLowerCase();
+    clearMarks();
+    if (!term) {
+      units.forEach(function (u) { u.classList.remove('hidden'); });
+      secs.forEach(function (s) { s.classList.remove('hidden'); });
+      if (before) { units.forEach(function (u, i) { u.open = before[i]; }); before = null; }
+      if (toc) toc.classList.remove('hidden');
+      empty.classList.add('hidden'); count.textContent = ''; return;
+    }
+    if (!before) before = units.map(function (u) { return u.open; });
+    var hits = 0;
+    units.forEach(function (u) {
+      var hit = u.textContent.toLowerCase().indexOf(term) >= 0;
+      u.classList.toggle('hidden', !hit); u.open = hit; if (hit) { hits++; mark(u, term); }
+    });
+    if (qas.length) secs.forEach(function (s) {
+      var any = s.querySelector('details.qa:not(.hidden)'); s.classList.toggle('hidden', !any); if (any) s.open = true;
+    });
+    if (toc) toc.classList.add('hidden');
+    empty.classList.toggle('hidden', hits > 0);
+    count.textContent = hits + (hits === 1 ? ' match' : ' matches');
+  }
+  q.addEventListener('input', run);
+  document.getElementById('open-all').onclick = function () { secs.concat(qas).forEach(function (d) { d.open = true; }); };
+  document.getElementById('close-all').onclick = function () { secs.concat(qas).forEach(function (d) { d.open = false; }); };
+  function openHash() {
+    if (!location.hash) return;
+    var el = document.getElementById(location.hash.slice(1)); if (!el) return;
+    for (var p = el; p; p = p.parentElement) { if (p.tagName === 'DETAILS') p.open = true; }
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange', openHash); openHash();
+  document.addEventListener('keydown', function (e) {
+    if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+    if (e.key === 'Escape' && document.activeElement === q) { q.value = ''; run(); }
+  });
+})();
+</script>
 <div class="footer">Avantis Hub by Black Mile Studios</div>
 </body>
 </html>
