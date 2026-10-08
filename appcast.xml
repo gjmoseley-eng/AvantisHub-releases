@@ -6,6 +6,43 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.4</title>
+            <pubDate>Wed, 07 Oct 2026 21:50:00 -0500</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>0.9.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>Firmware V2.0.</strong> The hub now reaches inputs 65 to 96, the extra groups, auxes and matrices, and the UFX sends and returns. Each board has a Firmware setting: choose "Before V2.0" for a console on older firmware.</li>
+<li><strong>Pages in Show view.</strong> Build your own tabs of channels in any order, like a custom layer on the console. Click Pages… at the top of the surface.</li>
+<li><strong>Named.</strong> A button in Board Targets and in Show view that hides every channel nobody has named on the console.</li>
+<li>The search field in Board Targets has a clear button.</li>
+<li>A Copy button in the Monitor puts every line on the clipboard.</li>
+<li>Settings &gt; Inputs links to where AbletonOSC can be downloaded.</li>
+<li><strong>Experimental:</strong> a board can read which inputs are muted as it connects, so those mutes are known from the start. It is off unless you turn it on, it only reads, and it should be tried at a quiet console first. See the manual.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>A mute the console has not reported yet now reads "MUTE ?" with a dashed edge, so it cannot be taken for a mute that is known to be off.</li>
+<li>The hub no longer sends a fader the same level twice in a row.</li>
+<li>The User Manual and FAQ have a contents list down the side, sharper screenshots that open large when clicked, and new sections on firmware, pages and mutes.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>Channel names from the console no longer carry invisible padding, which could stop a name being matched.</li>
+<li>The hub no longer warns that the two halves of the LR main share a name.</li>
+</ul>
+<p>The companion app should be updated alongside this version, so that it knows the new kinds of channel.</p>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.4/AvantisHub-0.9.4.zip"
+                sparkle:edSignature="5tiCVcJXPq42eKQyZRQu/H8STd9kGRTamL9iaaHWOMfSQpgbDEf3OOFFqMdKthttuz+7mlgc6vfWj3LZ4tf/BQ=="
+                length="5696743"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.3</title>
             <pubDate>Tue, 06 Oct 2026 19:50:00 -0500</pubDate>
             <sparkle:version>4</sparkle:version>

@@ -56,73 +56,89 @@
   @media (max-width: 640px) { .toc { columns: 1; } }
 </style>
 <style>
-  .tools { position: sticky; top: 0; z-index: 5; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
-    padding: 10px 0; margin: 0 0 18px; background: linear-gradient(#0e0d13 70%, rgba(14,13,19,0)); }
-  .tools input { flex: 1 1 220px; min-width: 0; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line);
-    background: rgba(255,255,255,0.06); color: #fff; font-size: 15px; }
-  .tools input:focus { outline: none; border-color: var(--cyan); }
-  .tools button { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,0.05);
-    color: var(--text); font-size: 13px; cursor: pointer; }
-  .tools button:hover { border-color: var(--orange); color: #fff; }
-  #count { color: var(--dim); font-size: 13px; }
-  details.sec { border-bottom: 1px solid var(--line); }
-  details.sec > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; }
-  details.sec > summary::-webkit-details-marker { display: none; }
-  details.sec > summary::before { content: "\25B8"; color: var(--dim); font-size: 14px; transition: transform .15s; }
-  details.sec[open] > summary::before { transform: rotate(90deg); }
-  details.sec > summary h2 { border: none; margin: 18px 0; padding: 0; flex: 1; }
-  details.sec > .body { padding-bottom: 18px; }
-  details.qa { border: 1px solid var(--line); border-radius: 8px; margin: 8px 0; background: var(--panel); }
-  details.qa > summary { cursor: pointer; padding: 10px 14px; color: #fff; font-weight: 600; list-style: none; }
-  details.qa > summary::-webkit-details-marker { display: none; }
-  details.qa > summary::before { content: "+"; color: var(--orange); display: inline-block; width: 18px; }
-  details.qa[open] > summary::before { content: "\2212"; }
-  details.qa > .body { padding: 0 14px 10px 32px; }
+  body { max-width: none; margin: 0; padding: 0; }
+  .layout { display: grid; grid-template-columns: 290px minmax(0, 1fr); min-height: 100vh; }
+  #side { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; padding: 26px 18px 30px 24px;
+    border-right: 1px solid var(--line); background: rgba(10,10,14,0.55); }
+  #side .brand { color: #fff; font-size: 19px; font-weight: 700; line-height: 1.2; }
+  #side .brand span { display: block; color: var(--dim); font-size: 13px; font-weight: 400; margin-top: 2px; }
+  #side input { width: 100%; margin: 16px 0 4px; padding: 8px 11px; border-radius: 8px; border: 1px solid var(--line);
+    background: rgba(255,255,255,0.06); color: #fff; font-size: 14px; }
+  #side input:focus { outline: none; border-color: var(--cyan); }
+  #count { color: var(--dim); font-size: 12px; min-height: 18px; }
+  #contents { margin-top: 6px; }
+  #contents a { display: flex; gap: 2px; text-decoration: none; color: var(--text); font-size: 14px; line-height: 1.35;
+    padding: 6px 10px; border-radius: 7px; margin: 1px 0; }
+  #contents a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+  #contents a[aria-current="true"] { background: rgba(242,149,90,0.16); color: #fff; font-weight: 600; }
+  #contents a.miss { opacity: 0.35; }
+  #contents a .n { color: var(--dim); flex: none; width: 24px; }
+  #contents a .t { flex: 1; }
+  #contents a .hits { flex: none; color: var(--orange); font-size: 12px; font-weight: 600; }
+  #side .other { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; }
+  #side .other a { display: block; padding: 3px 10px; }
+  #menu { display: none; }
+  main { padding: 36px 44px 80px; max-width: 900px; width: 100%; }
+  main h2 { margin-top: 0; font-size: 26px; color: var(--cyan); border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  .js section.topic { display: none; }
+  .js section.topic.active, .js.searching section.topic.hit { display: block; }
+  .js.searching section.topic.active:not(.hit) { display: none; }
+  .js.searching section.topic.hit { margin-bottom: 56px; }
+  .js.searching .pager { display: none; }
+  .pager { display: flex; justify-content: space-between; gap: 14px; margin-top: 54px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .pager a { flex: 1 1 0; max-width: 48%; text-decoration: none; border: 1px solid var(--line); border-radius: 10px;
+    padding: 11px 15px; background: var(--panel); color: #fff; font-weight: 600; font-size: 15px; }
+  .pager a:hover { border-color: var(--orange); }
+  .pager a small { display: block; color: var(--dim); font-weight: 400; font-size: 12px; margin-bottom: 2px; }
+  .pager a.next { text-align: right; margin-left: auto; }
   mark { background: rgba(242,149,90,0.35); color: #fff; border-radius: 3px; padding: 0 1px; }
   .hidden { display: none !important; }
   .empty { color: var(--dim); padding: 30px 0; text-align: center; }
+  figure img { cursor: zoom-in; }
+  figure img:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+  #viewer { position: fixed; inset: 0; z-index: 50; background: rgba(6,6,10,0.92); overflow: auto;
+    display: flex; align-items: flex-start; cursor: zoom-out; }
+  #viewer img { margin: auto; display: block; flex: none; border-radius: 8px; height: auto; max-width: none; cursor: zoom-out; }
+  #viewer.can-grow img { cursor: zoom-in; }
+  #viewer.actual img { cursor: zoom-out; margin: 16px auto; }
+  #viewer-close { position: fixed; top: 14px; right: 18px; z-index: 51; width: 36px; height: 36px; border-radius: 18px;
+    border: 1px solid var(--line); background: rgba(20,20,28,0.9); color: #fff; font-size: 20px; line-height: 1; cursor: pointer; }
+  #viewer-close:hover { border-color: var(--orange); }
+  #viewer-hint { position: fixed; bottom: 14px; left: 0; right: 0; z-index: 51; text-align: center; color: var(--dim);
+    font-size: 13px; pointer-events: none; }
+  @media (max-width: 880px) {
+    .layout { display: block; }
+    #side { position: sticky; height: auto; max-height: 100vh; padding: 12px 16px; border-right: none;
+      border-bottom: 1px solid var(--line); background: #0e0d13; z-index: 6; }
+    #side .brand { font-size: 16px; display: inline-block; }
+    #side .brand span { display: none; }
+    #menu { display: inline-block; float: right; padding: 5px 11px; border-radius: 8px; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05); color: var(--text); font-size: 13px; }
+    #side input { margin: 10px 0 2px; }
+    #contents, #side .other { display: none; }
+    #side.open #contents, #side.open .other { display: block; }
+    main { padding: 24px 18px 70px; }
+    main h2 { font-size: 22px; }
+  }
+  @media print {
+    #side, .pager { display: none; }
+    .layout { display: block; }
+    .js section.topic { display: block; margin-bottom: 40px; }
+  }
 </style>
 </head>
 <body>
-<h1>Avantis Hub: User Manual</h1>
-<div class="subtitle">Trigger an Allen &amp; Heath Avantis from MIDI, OSC, Ableton Live and your phone.</div>
-<nav class="top"><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></nav>
-
-<div class="tools">
-<input id="q" type="search" placeholder="Search this page" autocomplete="off" aria-label="Search this page">
-<button type="button" id="open-all">Expand all</button>
-<button type="button" id="close-all">Collapse all</button>
-<span id="count"></span>
-</div>
-<div class="toc">
-<a href="#what">1. What Avantis Hub does</a>
-<a href="#need">2. What you need</a>
-<a href="#start">3. Getting started</a>
-<a href="#window">4. The window at a glance</a>
-<a href="#safety">5. Armed, Disarmed and Panic</a>
-<a href="#console">6. Connecting to the console</a>
-<a href="#boards">7. Boards and profiles</a>
-<a href="#build">8. Build view</a>
-<a href="#mappings">9. Mappings</a>
-<a href="#targets">10. What can be controlled</a>
-<a href="#glides">11. Snap and Glide</a>
-<a href="#show">12. Show view</a>
-<a href="#buttons">13. Quick buttons</a>
-<a href="#inputs">14. Sending cues: MIDI, OSC, Ableton Live</a>
-<a href="#osc">15. OSC reference</a>
-<a href="#monitor">16. The Monitor</a>
-<a href="#menubar">17. The menu bar</a>
-<a href="#devices">18. iPhone and iPad</a>
-<a href="#shortcuts">19. Shortcuts on iPhone and iPad</a>
-<a href="#names">20. When channel names change</a>
-<a href="#sharing">21. Using more than one Mac</a>
-<a href="#settings">22. Settings, tab by tab</a>
-<a href="#updates">23. Updates</a>
-<a href="#keys">24. Keyboard shortcuts</a>
-<a href="#trouble">25. Troubleshooting</a>
-</div>
-
-<details class="sec" open><summary><h2 id="what">1. What Avantis Hub does</h2></summary><div class="body">
+<div class="layout">
+<aside id="side">
+<button type="button" id="menu" aria-label="Show or hide the contents">Contents</button>
+<div class="brand">Avantis Hub<span>User Manual</span></div>
+<input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
+<div id="count"></div>
+<nav id="contents" aria-label="Contents"><a href="#what"><span class="n">1</span><span class="t">What Avantis Hub does</span></a><a href="#need"><span class="n">2</span><span class="t">What you need</span></a><a href="#start"><span class="n">3</span><span class="t">Getting started</span></a><a href="#window"><span class="n">4</span><span class="t">The window at a glance</span></a><a href="#safety"><span class="n">5</span><span class="t">Armed, Disarmed and Panic</span></a><a href="#console"><span class="n">6</span><span class="t">Connecting to the console</span></a><a href="#boards"><span class="n">7</span><span class="t">Boards and profiles</span></a><a href="#build"><span class="n">8</span><span class="t">Build view</span></a><a href="#mappings"><span class="n">9</span><span class="t">Mappings</span></a><a href="#targets"><span class="n">10</span><span class="t">What can be controlled</span></a><a href="#glides"><span class="n">11</span><span class="t">Snap and Glide</span></a><a href="#show"><span class="n">12</span><span class="t">Show view</span></a><a href="#buttons"><span class="n">13</span><span class="t">Quick buttons</span></a><a href="#inputs"><span class="n">14</span><span class="t">Sending cues: MIDI, OSC, Ableton Live</span></a><a href="#osc"><span class="n">15</span><span class="t">OSC reference</span></a><a href="#monitor"><span class="n">16</span><span class="t">The Monitor</span></a><a href="#menubar"><span class="n">17</span><span class="t">The menu bar</span></a><a href="#devices"><span class="n">18</span><span class="t">iPhone and iPad</span></a><a href="#shortcuts"><span class="n">19</span><span class="t">Shortcuts on iPhone and iPad</span></a><a href="#names"><span class="n">20</span><span class="t">When channel names change</span></a><a href="#sharing"><span class="n">21</span><span class="t">Using more than one Mac</span></a><a href="#settings"><span class="n">22</span><span class="t">Settings, tab by tab</span></a><a href="#updates"><span class="n">23</span><span class="t">Updates</span></a><a href="#keys"><span class="n">24</span><span class="t">Keyboard shortcuts</span></a><a href="#trouble"><span class="n">25</span><span class="t">Troubleshooting</span></a></nav>
+<div class="other"><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></div>
+</aside>
+<main>
+<section class="topic" data-topic="what"><h2 id="what">1. What Avantis Hub does</h2>
 <p>Avantis Hub sits between the things that send cues and an Allen &amp; Heath Avantis console. A MIDI note, a control change, an OSC message, a clip starting in Ableton Live or a tap on a phone becomes a mute, a fader move, a scene recall or a whole group of changes on the console.</p>
 <p>It runs on a Mac on the same network as the console and talks to the console's own MIDI-over-network port, so nothing needs to be installed on the console and no MIDI cable is involved.</p>
 <p>The hub is built for live use, so it is cautious by design:</p>
@@ -133,15 +149,15 @@
 <li>It will not echo the console's own changes back to it, so two systems cannot chase each other in a loop.</li>
 </ul>
 
-</div></details><details class="sec" open><summary><h2 id="need">2. What you need</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="next" href="#need"><small>Next</small>What you need</a></nav></section><section class="topic" data-topic="need"><h2 id="need">2. What you need</h2>
 <ul>
 <li>A Mac running macOS 15 or later.</li>
-<li>An Allen &amp; Heath Avantis on the same network as the Mac, by cable or Wi-Fi.</li>
-<li>Something to send cues: any MIDI app or controller on the Mac, anything that sends OSC, or Ableton Live with AbletonOSC. None is required. You can run everything from quick buttons alone.</li>
+<li>An Allen &amp; Heath Avantis on the same network as the Mac, by cable or Wi-Fi. Firmware V2.0 or later gives the most to control. Earlier firmware works too: see <a href="#console">Connecting to the console</a>.</li>
+<li>Something to send cues: any MIDI app or controller on the Mac, anything that sends OSC, or Ableton Live with <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a>. None is required. You can run everything from quick buttons alone.</li>
 <li>Optional: an iPhone or iPad running iOS or iPadOS 18 or later, on the same network, for the companion app.</li>
 </ul>
 
-</div></details><details class="sec" open><summary><h2 id="start">3. Getting started</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#what"><small>Previous</small>What Avantis Hub does</a><a class="next" href="#start"><small>Next</small>Getting started</a></nav></section><section class="topic" data-topic="start"><h2 id="start">3. Getting started</h2>
 <p>The shortest path from a fresh install to a working cue:</p>
 <ol>
 <li>Open Avantis Hub. It starts <strong>Disarmed</strong>, in Build view.</li>
@@ -152,8 +168,8 @@
 </ol>
 <p>The first time the hub tries to reach the console, macOS may ask whether Avantis Hub may find devices on your local network. Allow it, or the hub cannot connect.</p>
 
-</div></details><details class="sec" open><summary><h2 id="window">4. The window at a glance</h2></summary><div class="body">
-<figure class=""><img src="img/mac-build.png" alt="Build view: triggers on the left, mappings in the middle, the console's channels on the right, and the Monitor underneath." loading="lazy"><figcaption>Build view: triggers on the left, mappings in the middle, the console's channels on the right, and the Monitor underneath.</figcaption></figure>
+<nav class="pager" aria-label="More topics"><a class="prev" href="#need"><small>Previous</small>What you need</a><a class="next" href="#window"><small>Next</small>The window at a glance</a></nav></section><section class="topic" data-topic="window"><h2 id="window">4. The window at a glance</h2>
+<figure class=""><img src="img/mac-build.png" alt="Build view: triggers on the left, mappings in the middle, the console's channels on the right, and the Monitor underneath." width="1728" height="1083" loading="lazy"><figcaption>Build view: triggers on the left, mappings in the middle, the console's channels on the right, and the Monitor underneath.</figcaption></figure>
 <p>Across the top, from left to right:</p>
 <table>
 <tr><th>Control</th><th>What it is for</th></tr>
@@ -168,7 +184,7 @@
 </table>
 <p>Colour is used the same way everywhere: <strong style="color:#6aa9ff">blue</strong> is something coming in (a trigger), <strong style="color:#f2955a">orange</strong> is something on the console (a target), and <strong style="color:#5dd6e8">cyan</strong> means live and armed.</p>
 
-</div></details><details class="sec" open><summary><h2 id="safety">5. Armed, Disarmed and Panic</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#start"><small>Previous</small>Getting started</a><a class="next" href="#safety"><small>Next</small>Armed, Disarmed and Panic</a></nav></section><section class="topic" data-topic="safety"><h2 id="safety">5. Armed, Disarmed and Panic</h2>
 <p>This is the most important idea in the hub.</p>
 <h3>Disarmed</h3>
 <p>The hub listens, shows every trigger that arrives and tells you in the Monitor what it would have done, but sends nothing. Build and test here. A press that arrives while disarmed is ignored outright: it is not stored up for later, and a toggle does not quietly flip its memory.</p>
@@ -189,26 +205,41 @@
 <h3>Quitting while armed</h3>
 <p>Quitting an armed hub asks first, because it stops every trigger mid-service. Opening a second copy never pushes an armed hub aside. See <a href="#menubar">The menu bar</a>.</p>
 
-</div></details><details class="sec" open><summary><h2 id="console">6. Connecting to the console</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#window"><small>Previous</small>The window at a glance</a><a class="next" href="#console"><small>Next</small>Connecting to the console</a></nav></section><section class="topic" data-topic="console"><h2 id="console">6. Connecting to the console</h2>
 <ol>
 <li>Put the Mac on the same network as the Avantis.</li>
 <li>Click the console pill, or open <strong>Settings &gt; Console</strong>.</li>
 <li>Type the console's address in <strong>Console IP</strong>. You will find it on the console under Utility / Control / Network.</li>
 <li>Set <strong>Base MIDI channel</strong> to match the console, under Utility / Control / MIDI. The console's default is 12 to 16. The hub shows the range as "12 to 16" because the console uses five MIDI channels in a row.</li>
+<li>Set <strong>Firmware</strong> to match the console. Choose <strong>V2.0 and later</strong> unless the console is still on older firmware.</li>
 <li>Click <strong>Connect</strong>.</li>
 </ol>
 <p>When it connects, the pill reads Connected and the console sends its channel names and colours, which fill in the Board Targets column.</p>
-<div class="note">The address and MIDI channel are locked while connected. Disconnect to change them.</div>
+<div class="note">The address, MIDI channel and firmware are locked while connected. Disconnect to change them.</div>
+<h3>Firmware</h3>
+<p>Firmware V2.0 added inputs 65 to 96, more groups, auxes and matrices, and the UFX sends and returns. On <strong>Before V2.0</strong> the hub leaves those out and never sends to them. A mapping that points at something the chosen firmware does not have is put on hold and says why.</p>
+<h3>One control connection at a time</h3>
+<p>The console answers one connection on its MIDI control port at a time. If another app on the network is already using that port, the hub connects but gets no names back. Close the other app, or the other hub, and reconnect.</p>
+<p>Avantis Director and Allen &amp; Heath's tablet apps use a different connection, so they can stay open alongside the hub.</p>
 <h3>If the connection drops</h3>
 <p>The hub keeps trying on its own, quickly at first and then every few seconds, and the pill shows which attempt it is on. When the console comes back it carries on. Nothing is sent while it is away.</p>
 <h3>What the hub knows about the console</h3>
-<p>The console tells the hub about a fader or a mute when it changes. It has no way to be asked where everything is right now. So:</p>
+<p>The console tells the hub about a fader or a mute when it changes. Its MIDI control has no way to be asked where everything is right now. So:</p>
 <ul>
 <li>A channel that has not moved since the hub connected shows what the hub remembers from last time, <strong>dimmed</strong>.</li>
-<li>A channel the hub has never seen move shows <strong>?</strong>.</li>
+<li>A fader the hub has never seen move shows <strong>?</strong>. A mute it has not heard about on this connection shows <strong>MUTE ?</strong> with a dashed edge.</li>
 <li>As soon as a fader or mute changes, by hand or by a cue, the hub shows the live value.</li>
 </ul>
+<p>The console only answers for the channels and mixes it is set up with, so a mix your console does not use keeps its plain number for a name.</p>
 <p>Remembered values are for your eyes only. The hub never uses a remembered value to decide anything.</p>
+<h3>Reading input mutes on connecting (experimental)</h3>
+<p>With <strong>Read input mutes on connecting</strong> switched on for a board, the hub makes one short extra visit to the console as it connects, on the connection Avantis Director uses. It reads which inputs are muted and leaves. It only reads, and it never changes anything.</p>
+<ul>
+<li>It fills in the mutes of the inputs only. Faders, DCAs and mixes still start unknown.</li>
+<li>If the visit fails for any reason, nothing changes and the hub carries on as it would without it. The Monitor says what happened.</li>
+<li>It is available on <strong>V2.0 and later</strong> only.</li>
+</ul>
+<div class="note warn">This was worked out by watching how Director talks to the console, not from Allen &amp; Heath's documents. It is off unless you turn it on. Try it at a quiet console before relying on it in a service.</div>
 <h3>Starting up automatically</h3>
 <ul>
 <li><strong>Connect when the app opens</strong> connects to the active board as soon as the hub starts.</li>
@@ -216,7 +247,7 @@
 </ul>
 <div class="note warn">With both on, a Mac that powers up near a console is ready to change it with no one at the screen. That is the point of the option, and also the reason to switch it on deliberately.</div>
 
-</div></details><details class="sec" open><summary><h2 id="boards">7. Boards and profiles</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#safety"><small>Previous</small>Armed, Disarmed and Panic</a><a class="next" href="#boards"><small>Next</small>Boards and profiles</a></nav></section><section class="topic" data-topic="boards"><h2 id="boards">7. Boards and profiles</h2>
 <h3>Boards</h3>
 <p>A <strong>board</strong> is one console: its name, its address and its MIDI channel. The hub also remembers each board's channel names, colours and last known levels, so they show even when you are not connected.</p>
 <p>If you work with more than one console (a sanctuary and a youth room, say), make a board for each with <strong>New Board</strong> and pick between them with the <strong>Board</strong> menu in the Console settings. Switching boards disconnects and disarms.</p>
@@ -237,7 +268,7 @@
 <h3>Saving and backups</h3>
 <p>There is no Save command. Every change is saved as you make it. The hub keeps the last 30 dated backups of each profile, which is what Restore from Backup shows. <strong>Edit &gt; Undo</strong> and <strong>Redo</strong> cover mapping and quick button changes.</p>
 
-</div></details><details class="sec" open><summary><h2 id="build">8. Build view</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#console"><small>Previous</small>Connecting to the console</a><a class="next" href="#build"><small>Next</small>Build view</a></nav></section><section class="topic" data-topic="build"><h2 id="build">8. Build view</h2>
 <p>Build view has three columns and the Monitor underneath.</p>
 <table>
 <tr><th>Column</th><th>What it shows</th></tr>
@@ -256,12 +287,13 @@
 <h3>The Board targets column</h3>
 <ul>
 <li>The header says <strong>Names from board</strong> when connected. When not connected it says when the names were last seen.</li>
-<li>Type in the search field to find a channel, DCA or scene by name or number.</li>
+<li>Type in the search field to find a channel, DCA or scene by name or number. The <strong>x</strong> at the end of the field clears it.</li>
+<li><strong>Named</strong> hides every channel nobody has named on the console, which on most consoles is most of them. Click it again to see everything.</li>
 <li>Channels are grouped by type. Click the arrow beside a group, then beside a channel, to see what can be controlled on it.</li>
 <li>Each channel shows its number, its colour, its name, its level and a MUTE badge when muted.</li>
 <li>A target already used by the selected mapping is highlighted.</li>
 </ul>
-</div></details><details class="sec" open><summary><h2 id="mappings">9. Mappings</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#boards"><small>Previous</small>Boards and profiles</a><a class="next" href="#mappings"><small>Next</small>Mappings</a></nav></section><section class="topic" data-topic="mappings"><h2 id="mappings">9. Mappings</h2>
 <p>A mapping says "when <em>this</em> arrives, do <em>that</em>". It has one trigger and one or more targets.</p>
 <h3>Making a mapping with Learn</h3>
 <ol>
@@ -280,7 +312,7 @@
 </ol>
 <h3>The inspector</h3>
 <p>Selecting a mapping opens its inspector under the list.</p>
-<figure class=""><img src="img/mac-inspector.png" alt="The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use." loading="lazy"><figcaption>The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use.</figcaption></figure>
+<figure class=""><img src="img/mac-inspector.png" alt="The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use." width="1388" height="898" loading="lazy"><figcaption>The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use.</figcaption></figure>
 <ul>
 <li><strong>Done</strong> keeps the mapping as it is now and closes the inspector.</li>
 <li><strong>Cancel</strong>, the close button or <strong>Esc</strong> backs out. The mapping goes back to how it was when you opened it, and a brand new mapping is removed.</li>
@@ -316,19 +348,21 @@
 <li>A warning triangle means another mapping uses the same trigger on the same target. Both fire on every trigger, so they can cancel each other. Change one trigger, or switch one off.</li>
 </ul>
 
-</div></details><details class="sec" open><summary><h2 id="targets">10. What can be controlled</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#build"><small>Previous</small>Build view</a><a class="next" href="#targets"><small>Next</small>What can be controlled</a></nav></section><section class="topic" data-topic="targets"><h2 id="targets">10. What can be controlled</h2>
 <p>The hub offers what the console's control protocol exposes, and no more.</p>
 <table>
-<tr><th>On the console</th><th>How many</th><th>Mute</th><th>Fader</th></tr>
-<tr><td>Inputs</td><td>64</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Mono Groups, Auxes, Matrices</td><td>40 each</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Stereo Groups, Auxes, Matrices</td><td>20 each</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Mono and Stereo FX Sends, FX Returns</td><td>12 each</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Mains</td><td>3</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>DCAs</td><td>16</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>Mute Groups</td><td>8</td><td>Yes</td><td>No</td></tr>
-<tr><td>Scenes</td><td>500</td><td colspan="2">Recall</td></tr>
+<tr><th>On the console</th><th>V2.0 and later</th><th>Before V2.0</th><th>Mute</th><th>Fader</th></tr>
+<tr><td>Inputs</td><td>96</td><td>64</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mono Groups, Auxes, Matrices</td><td>54 each</td><td>40 each</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Stereo Groups, Auxes, Matrices</td><td>27 each</td><td>20 each</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mono and Stereo FX Sends, FX Returns</td><td>12 each</td><td>12 each</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Stereo UFX Sends and Returns</td><td>8 each</td><td>None</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mains</td><td>3</td><td>3</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>DCAs</td><td>16</td><td>16</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Mute Groups</td><td>8</td><td>8</td><td>Yes</td><td>No</td></tr>
+<tr><td>Scenes</td><td>500</td><td>500</td><td colspan="2">Recall</td></tr>
 </table>
+<p>Which column applies is the board's <strong>Firmware</strong> setting. See <a href="#console">Connecting to the console</a>.</p>
 <p>Inputs also offer:</p>
 <ul>
 <li><strong>Main assign:</strong> whether the input feeds the main mix.</li>
@@ -342,7 +376,7 @@
 <h3>Scenes</h3>
 <p>Type a scene number in the <strong>Scenes</strong> group and click <strong>Recall scene</strong> to add it as a target. The hub can recall a scene but cannot read the list of scene names, and it only learns the current scene when one is recalled.</p>
 
-</div></details><details class="sec" open><summary><h2 id="glides">11. Snap and Glide</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#mappings"><small>Previous</small>Mappings</a><a class="next" href="#glides"><small>Next</small>Snap and Glide</a></nav></section><section class="topic" data-topic="glides"><h2 id="glides">11. Snap and Glide</h2>
 <p>Every fader change can either <strong>Snap</strong>, jumping straight to its level, or <strong>Glide</strong>, travelling there over a time you set in seconds. You choose per mapping, per quick button action, and once for all phones and iPads.</p>
 <ul>
 <li>A glide runs from wherever the fader is now. If the hub does not know the level yet, it snaps instead.</li>
@@ -357,18 +391,34 @@
 <li><strong>Eased</strong> starts and ends gently, which sounds more like a hand.</li>
 </ul>
 
-</div></details><details class="sec" open><summary><h2 id="show">12. Show view</h2></summary><div class="body">
-<figure class=""><img src="img/mac-show.png" alt="Show view: the surface, quick buttons and status." loading="lazy"><figcaption>Show view: the surface, quick buttons and status.</figcaption></figure>
+<nav class="pager" aria-label="More topics"><a class="prev" href="#targets"><small>Previous</small>What can be controlled</a><a class="next" href="#show"><small>Next</small>Show view</a></nav></section><section class="topic" data-topic="show"><h2 id="show">12. Show view</h2>
+<figure class=""><img src="img/mac-show.png" alt="Show view: the surface, quick buttons and status." width="1728" height="1083" loading="lazy"><figcaption>Show view: the surface, quick buttons and status.</figcaption></figure>
 <p>Show view is the one to leave open during a service. The surface is on the left and the status is on the right.</p>
 <h3>Layers</h3>
-<p>The tabs across the top choose which channels are shown: DCAs first, then Inputs twelve at a time, then Groups, Auxes, Matrices, FX and Mains with Mute Groups.</p>
+<p>The tabs across the top choose which channels are shown: your own pages first, then DCAs, Inputs twelve at a time, Groups, Auxes, Matrices, FX, UFX and Mains with Mute Groups.</p>
+<p><strong>Named</strong>, at the top right, hides every channel nobody has named on the console and closes up the tabs to fit. A console with 30 named inputs then shows three tabs of inputs and not eight. Click it again to see everything. Until the hub has seen any names, it shows everything.</p>
+<h3>Pages</h3>
+<p>A page is a tab you build yourself, holding whichever channels you want in whatever order, like a custom layer on the console. A page for the band might hold the bass, the drums, the click, the tracks and the keys, side by side, though they sit far apart on the console.</p>
+<ol>
+<li>Click <strong>Pages…</strong> at the top right of the surface.</li>
+<li>Click <strong>New Page</strong> and give it a name.</li>
+<li>Under <strong>Add strips</strong>, search or scroll and click a channel to put it on the page. It moves to <strong>On this page</strong>.</li>
+<li>Drag the channels under <strong>On this page</strong> into the order you want. The <strong>x</strong> beside one takes it off.</li>
+<li>Click <strong>Done</strong>. The page is the first tab.</li>
+</ol>
+<ul>
+<li>Pages belong to the board, so every profile for that console shows the same ones.</li>
+<li>A page shows every channel you put on it, named or not.</li>
+<li>If a channel is moved on the console, the page follows it by name, the same way mappings do.</li>
+<li>A channel can be on as many pages as you like.</li>
+</ul>
 <h3>A channel strip</h3>
 <ul>
 <li><strong>Label and name:</strong> the channel's number and the name from the console, with the console's colour.</li>
 <li><strong>Blue outline and badge:</strong> a channel with a blue outline is controlled by a mapping, and the badge at its top right names the trigger, such as "CC 20" or "C4". A "+1" means there are more. Click the badge to open the mapping, or to pick from a list if there are several. The <strong>Mapped</strong> key at the top right of the surface is the reminder of what the outline means.</li>
 <li><strong>Fader:</strong> lit in the channel's colour, and brighter the higher it sits. A muted channel loses its glow, so the ones passing signal stand out.</li>
 <li><strong>dB readout</strong> under the fader. It is cyan while the fader is gliding.</li>
-<li><strong>Mute</strong> button.</li>
+<li><strong>Mute</strong> button. Solid red is muted. <strong>MUTE ?</strong> with a dashed edge means the console has not said either way on this connection.</li>
 </ul>
 <p>The faders are made for a live console, so nothing jumps by accident:</p>
 <ul>
@@ -378,7 +428,7 @@
 </ul>
 <p>Faders and mutes here go through the same Armed check as everything else. While disarmed they are locked, and a note above the strips says so. What is drawn is always what the console reported, so a change that was refused does not move anything on screen.</p>
 <h3>Dimmed and unknown values</h3>
-<p>A dimmed fader or mute is remembered from an earlier connection and may have changed since. A <strong>?</strong> means the hub has never seen that control move. See <a href="#console">What the hub knows about the console</a>.</p>
+<p>A dimmed fader or mute is remembered from an earlier connection and may have changed since. A <strong>?</strong> under a fader means the hub has never seen it move. <strong>MUTE ?</strong> means the mute is not known on this connection, and pressing it mutes. See <a href="#console">What the hub knows about the console</a>.</p>
 <h3>The status column</h3>
 <ul>
 <li><strong>Current scene:</strong> the last scene recalled, by the hub or at the console. "Not known yet" until one is.</li>
@@ -387,7 +437,7 @@
 <li><strong>Last fired:</strong> a running list of what the hub and the console have changed, with times. The last 30 entries are kept.</li>
 </ul>
 
-</div></details><details class="sec" open><summary><h2 id="buttons">13. Quick buttons</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#glides"><small>Previous</small>Snap and Glide</a><a class="next" href="#buttons"><small>Next</small>Quick buttons</a></nav></section><section class="topic" data-topic="buttons"><h2 id="buttons">13. Quick buttons</h2>
 <p>A quick button does several things with one press: unmute the band and bring three faders up, recall a scene and mute the lobby feed. They live at the bottom of Show view, in the menu bar panel and on paired phones and iPads.</p>
 <h3>Making and editing</h3>
 <ul>
@@ -395,7 +445,7 @@
 <li>Click <strong>Edit</strong>, then a button, to change it. While editing, drag buttons to reorder them.</li>
 <li>The <strong>-</strong> and <strong>+</strong> beside Edit change the size of the tiles.</li>
 </ul>
-<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
+<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." width="641" height="701" loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
 <h3>In the editor</h3>
 <table>
 <tr><th>Field</th><th>What it does</th></tr>
@@ -415,7 +465,7 @@
 <h3>Pressing</h3>
 <p>Click the tile, use its shortcut, send its MIDI trigger or OSC address, tap it on a phone, or use the menu bar panel. A tile is dimmed when the hub is disarmed or not connected. Hover over a tile to see its OSC address.</p>
 
-</div></details><details class="sec" open><summary><h2 id="inputs">14. Sending cues: MIDI, OSC, Ableton Live</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#show"><small>Previous</small>Show view</a><a class="next" href="#inputs"><small>Next</small>Sending cues: MIDI, OSC, Ableton Live</a></nav></section><section class="topic" data-topic="inputs"><h2 id="inputs">14. Sending cues: MIDI, OSC, Ableton Live</h2>
 <p>Click the <strong>Inputs</strong> pill for these settings. They are also under <strong>Settings &gt; Inputs</strong>.</p>
 <h3>MIDI</h3>
 <p>The hub creates a MIDI port called <strong>Avantis Hub</strong>. Any app on the same Mac can send to it: choose it as a MIDI output in Ableton Live, MainStage, QLab, a controller editor and so on. There is nothing to switch on.</p>
@@ -429,10 +479,14 @@
 <h3>Ableton Live</h3>
 <p>The hub can read from Live directly through <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a>, a free control surface script for Live.</p>
 <ol>
-<li>Install AbletonOSC and choose it in Live under Settings &gt; Link, Tempo &amp; MIDI &gt; Control Surface.</li>
+<li>Download AbletonOSC from <a href="https://github.com/ideoforms/AbletonOSC">its page on GitHub</a>: click <strong>Code</strong>, then <strong>Download ZIP</strong>. It needs Live 11 or later.</li>
+<li>Unzip it and rename the folder from <code>AbletonOSC-master</code> to <code>AbletonOSC</code>.</li>
+<li>Move that folder into <code>Music/Ableton/User Library/Remote Scripts</code> in your home folder, then restart Live.</li>
+<li>In Live, open Settings &gt; Link, Tempo &amp; MIDI and choose <strong>AbletonOSC</strong> under Control Surface. Live shows "AbletonOSC: Listening for OSC on port 11000".</li>
 <li>In the hub, turn on <strong>Read song information from Ableton Live</strong>.</li>
 </ol>
 <p>The hub only reads. It never plays, stops, moves or changes anything in Live.</p>
+<p>AbletonOSC is a separate project with its own author. Its page has the current version and its own instructions, which are the ones to follow if they differ from these.</p>
 <h4>Session view: clips press quick buttons</h4>
 <p>Make a track in Live whose name starts with <strong>Hub</strong>, such as "Hub" or "Hub Lights". On it, add clips named after your quick buttons. When a clip on that track starts playing, the hub presses the quick button with the same name.</p>
 <ul>
@@ -449,7 +503,7 @@
 <p>The hub also reads Live's locators, position, tempo and time signature. Locators appear in the Triggers column and can trigger mappings, and Show view's <strong>Up next</strong> card shows what is coming.</p>
 <div class="note">AbletonOSC replies on one fixed port, so only one app on a Mac can read from it at a time. If another app already has it, the hub says so, keeps checking and takes over when the port comes free. If AbletonOSC is on another computer, or uses other ports, set them under <strong>Live on another computer, or other ports</strong>.</div>
 
-</div></details><details class="sec" open><summary><h2 id="osc">15. OSC reference</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#buttons"><small>Previous</small>Quick buttons</a><a class="next" href="#osc"><small>Next</small>OSC reference</a></nav></section><section class="topic" data-topic="osc"><h2 id="osc">15. OSC reference</h2>
 <p>Send to the Mac's address on the hub's UDP port (9300 by default). Addresses are not case sensitive. <code>&lt;n&gt;</code> is the number shown on the console, starting at 1.</p>
 <table>
 <tr><th>Address</th><th>Argument</th><th>What it does</th></tr>
@@ -481,13 +535,13 @@
 <tr><td><code>/hub/song/signature</code></td><td>two whole numbers</td><td>Time signature, for bar numbers. 4 4 is assumed until this arrives.</td></tr>
 </table>
 <p>There is no address to arm the hub.</p>
-</div></details><details class="sec" open><summary><h2 id="monitor">16. The Monitor</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#inputs"><small>Previous</small>Sending cues: MIDI, OSC, Ableton Live</a><a class="next" href="#monitor"><small>Next</small>The Monitor</a></nav></section><section class="topic" data-topic="monitor"><h2 id="monitor">16. The Monitor</h2>
 <p>The Monitor runs along the bottom of Build view and is the first place to look when something does not behave. Every line has a time, a label and what happened.</p>
 <table>
 <tr><th>Label</th><th>Meaning</th></tr>
 <tr><td><code>IN</code></td><td>A trigger arrived: a MIDI message or an OSC message, with where it came from.</td></tr>
 <tr><td><code>OUT</code></td><td>A change the hub sent to the console.</td></tr>
-<tr><td><code>ECHO</code></td><td>The console confirming a change the hub just made.</td></tr>
+<tr><td><code>ECHO</code></td><td>The console sending back a change the hub just made. A console on firmware V2.0 does not do this, so you may never see one.</td></tr>
 <tr><td><code>BOARD</code></td><td>Something reported by the console itself: a name, a colour, or a fader or mute moved by hand.</td></tr>
 <tr><td><code>HUB</code></td><td>The hub's own state: armed, disarmed, connected, a device pairing, a clip pressing a button.</td></tr>
 <tr><td><code>BLOCK</code></td><td>Something refused or ignored, with the reason, such as "Ignored, hub is disarmed: Button Pastor Up".</td></tr>
@@ -495,24 +549,24 @@
 <ul>
 <li><strong>Raw bytes</strong> also shows the exact bytes exchanged with the console, for diagnosing.</li>
 <li><strong>Clear</strong> empties the list.</li>
-<li>Right-click a line for <strong>Copy Line</strong> or <strong>Copy All Lines</strong>, handy when asking for help.</li>
+<li><strong>Copy</strong> puts every line on the clipboard, handy when asking for help. Right-click a line for <strong>Copy Line</strong>.</li>
 </ul>
-<p>A healthy cue reads as an <code>IN</code> line, one or more <code>OUT</code> lines, then matching <code>ECHO</code> lines a moment later.</p>
+<p>A healthy cue reads as an <code>IN</code> line followed by one or more <code>OUT</code> lines. An <code>OUT</code> line means the change was written to the console.</p>
 
-</div></details><details class="sec" open><summary><h2 id="menubar">17. The menu bar</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#osc"><small>Previous</small>OSC reference</a><a class="next" href="#menubar"><small>Next</small>The menu bar</a></nav></section><section class="topic" data-topic="menubar"><h2 id="menubar">17. The menu bar</h2>
 <p>Avantis Hub keeps running when its window is closed, so a stray click on the close button cannot stop a service. The icon in the menu bar shows its state at a glance:</p>
 <ul>
 <li><strong>Cyan:</strong> armed and connected.</li>
 <li><strong>Red:</strong> the console has been lost, or the hub is armed with no console.</li>
 <li><strong>Plain:</strong> otherwise.</li>
 </ul>
-<figure class="phone"><img src="img/mac-menubar.png" alt="The menu bar panel." loading="lazy"><figcaption>The menu bar panel.</figcaption></figure>
+<figure class="phone"><img src="img/mac-menubar.png" alt="The menu bar panel." width="330" height="604" loading="lazy"><figcaption>The menu bar panel.</figcaption></figure>
 <p>Click the icon for a panel with the connection state, the current scene, <strong>Armed</strong>, <strong>Panic</strong>, your quick buttons, the profile menu and <strong>Open Avantis Hub</strong>. Everything in the panel behaves exactly as it does in the window, including the second press for a button that needs confirming.</p>
 <p>To stop the hub, choose <strong>Avantis Hub &gt; Quit</strong>. If it is armed it asks first.</p>
 <h3>Only one hub at a time</h3>
 <p>Two hubs on one Mac would fight over the MIDI port, and both could act on the same trigger. So opening the app again hands over to the copy already running. If that copy is armed, it stays, comes to the front, and the new one steps aside.</p>
 
-</div></details><details class="sec" open><summary><h2 id="devices">18. iPhone and iPad</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#monitor"><small>Previous</small>The Monitor</a><a class="next" href="#devices"><small>Next</small>iPhone and iPad</a></nav></section><section class="topic" data-topic="devices"><h2 id="devices">18. iPhone and iPad</h2>
 <p>The companion app puts your quick buttons and the hub's status on an iPhone or iPad. A device only ever talks to the hub, never to the console, and everything it asks for goes through the same Armed check as any other trigger.</p>
 <h3>Pairing</h3>
 <ol>
@@ -520,10 +574,10 @@
 <li>On the Mac, open <strong>Settings &gt; Devices</strong> and click <strong>Pair a Device</strong>. A 6-digit code appears.</li>
 <li>On the device, pick the Mac from the list and enter the code.</li>
 </ol>
-<figure class="phone"><img src="img/iphone-pair.png" alt="Choosing a hub and entering its code." loading="lazy"><figcaption>Choosing a hub and entering its code.</figcaption></figure>
+<figure class="phone"><img src="img/iphone-pair.png" alt="Choosing a hub and entering its code." width="603" height="1311" loading="lazy"><figcaption>Choosing a hub and entering its code.</figcaption></figure>
 <p>A code works for one device, runs out after a few minutes and stops working after five wrong tries. The device keeps its pairing in its keychain, so it reconnects by itself from then on.</p>
 <h3>The Control screen</h3>
-<figure class="phone"><img src="img/iphone-control.png" alt="The Control screen on iPhone." loading="lazy"><figcaption>The Control screen on iPhone.</figcaption></figure>
+<figure class="phone"><img src="img/iphone-control.png" alt="The Control screen on iPhone." width="603" height="1311" loading="lazy"><figcaption>The Control screen on iPhone.</figcaption></figure>
 <ul>
 <li><strong>Armed pill:</strong> whether the hub is armed. It glows when the hub is armed and has its console. A device cannot arm the hub.</li>
 <li><strong>Status card:</strong> the current scene, and either what is up next or the last trigger.</li>
@@ -534,7 +588,7 @@
 <li>Pull down to refresh.</li>
 </ul>
 <h3>The Status screen</h3>
-<figure class="phone"><img src="img/iphone-status.png" alt="The Status screen on iPhone." loading="lazy"><figcaption>The Status screen on iPhone.</figcaption></figure>
+<figure class="phone"><img src="img/iphone-status.png" alt="The Status screen on iPhone." width="603" height="1311" loading="lazy"><figcaption>The Status screen on iPhone.</figcaption></figure>
 <ul>
 <li>The hub's name, the link, whether the hub is armed, whether it has its console, and the current scene.</li>
 <li><strong>Direct control</strong>, if allowed, with the limits the Mac has set.</li>
@@ -543,11 +597,11 @@
 </ul>
 <p>If the hub you are using goes away and another paired one is on the network, the app offers to switch.</p>
 <h3>On iPad</h3>
-<figure class=""><img src="img/ipad.png" alt="On iPad, buttons and status side by side." loading="lazy"><figcaption>On iPad, buttons and status side by side.</figcaption></figure>
+<figure class=""><img src="img/ipad.png" alt="On iPad, buttons and status side by side." width="834" height="1210" loading="lazy"><figcaption>On iPad, buttons and status side by side.</figcaption></figure>
 <p>With room to spare, the buttons and the status sit side by side with no tabs. The buttons fill the width in as many columns as fit, and Recent scrolls in its own box. In Slide Over or a narrow Split View the app goes back to two tabs.</p>
 <h3>What a device may do</h3>
 <p>On the Mac, click a device in <strong>Settings &gt; Devices</strong> to open its settings:</p>
-<figure class="small"><img src="img/mac-device-sheet.png" alt="One device's settings." loading="lazy"><figcaption>One device's settings.</figcaption></figure>
+<figure class="small"><img src="img/mac-device-sheet.png" alt="One device's settings." width="460" height="315" loading="lazy"><figcaption>One device's settings.</figcaption></figure>
 <table>
 <tr><th>Setting</th><th>Meaning</th></tr>
 <tr><td>Name</td><td>How the device is listed.</td></tr>
@@ -566,7 +620,7 @@
 </ul>
 <p>Anything over a limit is <strong>refused</strong>, not trimmed to fit, so a mistake never lands "as close as allowed". Quick buttons are not affected by these limits: a button does what you built it to do.</p>
 
-</div></details><details class="sec" open><summary><h2 id="shortcuts">19. Shortcuts on iPhone and iPad</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#menubar"><small>Previous</small>The menu bar</a><a class="next" href="#shortcuts"><small>Next</small>Shortcuts on iPhone and iPad</a></nav></section><section class="topic" data-topic="shortcuts"><h2 id="shortcuts">19. Shortcuts on iPhone and iPad</h2>
 <p>The companion adds actions to the Shortcuts app, so the hub can be part of an automation, a Home Screen button, the Action button or a spoken phrase.</p>
 <table>
 <tr><th>Action</th><th>What it does</th><th>Needs</th></tr>
@@ -586,7 +640,7 @@
 <p>Under <strong>Voice commands</strong> on the Status screen, choose when a spoken or ready-made command should ask before acting: <strong>Never</strong>, <strong>For levels and scenes</strong>, or <strong>For everything</strong>. A misheard level is heard by the whole room, while a misheard mute is quick to see and undo, which is why levels and scenes are the middle choice. Shortcuts you build yourself have their own Ask Before Running switch.</p>
 <div class="note">Running these actions from the Shortcuts app, a widget or a button is dependable. Triggering them purely by voice through Siri is not yet reliable in this version, and is being worked on.</div>
 
-</div></details><details class="sec" open><summary><h2 id="names">20. When channel names change</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#devices"><small>Previous</small>iPhone and iPad</a><a class="next" href="#names"><small>Next</small>When channel names change</a></nav></section><section class="topic" data-topic="names"><h2 id="names">20. When channel names change</h2>
 <p>Mappings follow a channel by its <strong>name</strong>, not just its number. If you move "Pastor" from input 9 to input 12 on the console, the hub notices the name has moved and takes the mappings and quick buttons with it. A banner under the header tells you what it followed.</p>
 <p>Sometimes it cannot decide for you:</p>
 <ul>
@@ -596,7 +650,7 @@
 <p>Then the banner asks. Until you choose, mappings and quick buttons that use those channels are <strong>on hold</strong> and will not fire, which is safer than guessing and unmuting the wrong channel. You can keep the mapping on its old channel number, or decide later.</p>
 <div class="tip note">Give every channel a distinct name on the console. Two inputs both called "Vox" cannot be told apart by name. "Vox 1" and "Vox 2" can.</div>
 
-</div></details><details class="sec" open><summary><h2 id="sharing">21. Using more than one Mac</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#shortcuts"><small>Previous</small>Shortcuts on iPhone and iPad</a><a class="next" href="#sharing"><small>Next</small>Using more than one Mac</a></nav></section><section class="topic" data-topic="sharing"><h2 id="sharing">21. Using more than one Mac</h2>
 <p>Two Macs can share one setup, for example a booth Mac and a laptop you prepare on.</p>
 <ol>
 <li>Open <strong>Settings &gt; Sharing</strong> and click <strong>Choose a Folder</strong>.</li>
@@ -613,10 +667,10 @@
 <h3>Stopping</h3>
 <p><strong>Stop Sharing</strong> offers to keep a copy of the shared boards and profiles on this Mac, or to go back to this Mac's own setup from before. The folder is left as it is for the other Macs. Choosing or leaving a shared folder disconnects from the console and disarms.</p>
 
-</div></details><details class="sec" open><summary><h2 id="settings">22. Settings, tab by tab</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#names"><small>Previous</small>When channel names change</a><a class="next" href="#settings"><small>Next</small>Settings, tab by tab</a></nav></section><section class="topic" data-topic="settings"><h2 id="settings">22. Settings, tab by tab</h2>
 <p>Open with <strong>Avantis Hub &gt; Settings</strong> or Command-comma.</p>
 <h3>Devices</h3>
-<figure class="small"><img src="img/mac-settings-devices.png" alt="Fader limits and paired devices in Settings > Devices." loading="lazy"><figcaption>Fader limits and paired devices in Settings > Devices.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-devices.png" alt="Fader limits and paired devices in Settings > Devices." width="559" height="570" loading="lazy"><figcaption>Fader limits and paired devices in Settings > Devices.</figcaption></figure>
 <ul>
 <li>Whether devices on the network can find this Mac, and under what name.</li>
 <li><strong>Pair a Device</strong>.</li>
@@ -624,28 +678,29 @@
 <li><strong>Paired devices:</strong> one line each with what it may do and when it was last seen. Click a device for its settings.</li>
 </ul>
 <h3>Console</h3>
-<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="559" height="805" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
 <ul>
 <li><strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>.</li>
-<li>The board's <strong>Name</strong>, <strong>Console IP</strong> and <strong>Base MIDI channel</strong>, and <strong>Connect</strong> or <strong>Disconnect</strong>.</li>
+<li>The board's <strong>Name</strong>, <strong>Console IP</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>, and <strong>Connect</strong> or <strong>Disconnect</strong>.</li>
+<li><strong>Read input mutes on connecting (experimental)</strong>. See <a href="#console">Connecting to the console</a>.</li>
 <li><strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
 <li><strong>Shape of a glide:</strong> Even or Eased.</li>
 </ul>
 <h3>Inputs</h3>
-<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs." loading="lazy"><figcaption>Settings > Inputs.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs." width="559" height="709" loading="lazy"><figcaption>Settings > Inputs.</figcaption></figure>
 <ul>
 <li><strong>MIDI:</strong> the name of the hub's port, or the reason it could not be opened.</li>
 <li><strong>OSC:</strong> Listen for OSC and the UDP port.</li>
 <li><strong>Ableton Live:</strong> the switch, the state of the link, and the address and ports.</li>
 </ul>
 <h3>Sharing</h3>
-<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." width="559" height="709" loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
 <p>The shared folder, if any, with <strong>Show in Finder</strong>, <strong>Choose Another Folder</strong> and <strong>Stop Sharing</strong>.</p>
 <h3>Updates</h3>
-<figure class="small"><img src="img/mac-settings-updates.png" alt="Settings > Updates." loading="lazy"><figcaption>Settings > Updates.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-updates.png" alt="Settings > Updates." width="559" height="470" loading="lazy"><figcaption>Settings > Updates.</figcaption></figure>
 <p>The version you are running, <strong>Check for updates automatically</strong>, <strong>Check Now</strong> and when it last checked.</p>
 
-</div></details><details class="sec" open><summary><h2 id="updates">23. Updates</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#sharing"><small>Previous</small>Using more than one Mac</a><a class="next" href="#updates"><small>Next</small>Updates</a></nav></section><section class="topic" data-topic="updates"><h2 id="updates">23. Updates</h2>
 <p>The hub checks for a new version once a day. Nothing downloads or installs until you say so. To check yourself, choose <strong>Avantis Hub &gt; Check for Updates</strong>.</p>
 <ul>
 <li><strong>Disarmed:</strong> a window tells you about the new version and offers to install it.</li>
@@ -654,7 +709,7 @@
 <p>Installing restarts the hub. If it is armed, it asks first. Your boards, profiles, quick buttons and paired devices are kept apart from the app and are not touched by an update.</p>
 <p>The iPhone and iPad app updates separately, the way your other apps do.</p>
 
-</div></details><details class="sec" open><summary><h2 id="keys">24. Keyboard shortcuts</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#settings"><small>Previous</small>Settings, tab by tab</a><a class="next" href="#keys"><small>Next</small>Keyboard shortcuts</a></nav></section><section class="topic" data-topic="keys"><h2 id="keys">24. Keyboard shortcuts</h2>
 <table>
 <tr><th>Keys</th><th>Action</th></tr>
 <tr><td>Tab</td><td>Swap between Build and Show. In a field with text in it, or while a mapping is open, Tab moves between fields as usual.</td></tr>
@@ -665,86 +720,173 @@
 <tr><td>Your own</td><td>Each quick button can have its own shortcut, set in its editor.</td></tr>
 </table>
 
-</div></details><details class="sec" open><summary><h2 id="trouble">25. Troubleshooting</h2></summary><div class="body">
+<nav class="pager" aria-label="More topics"><a class="prev" href="#updates"><small>Previous</small>Updates</a><a class="next" href="#trouble"><small>Next</small>Troubleshooting</a></nav></section><section class="topic" data-topic="trouble"><h2 id="trouble">25. Troubleshooting</h2>
 <p>Start with the Monitor: it nearly always says what happened and why. The <a href="faq.html">FAQ</a> covers the common cases in more detail.</p>
 <table>
 <tr><th>What you see</th><th>Most likely cause</th></tr>
 <tr><td>The pill never reaches Connected</td><td>Wrong address, different network, or the Mac's Local Network permission is off.</td></tr>
-<tr><td>Connected, but channel names do not appear</td><td>The Base MIDI channel does not match the console.</td></tr>
+<tr><td>Connected, but channel names do not appear</td><td>The Base MIDI channel does not match the console, or another app is already using the console's MIDI control port.</td></tr>
+<tr><td>Channels above 64 are missing, or a mapping says its target is not on this firmware</td><td>The board's Firmware is set to Before V2.0.</td></tr>
 <tr><td>A trigger shows in the Monitor but nothing changes</td><td>The hub is disarmed, the mapping is switched off, or the mapping is on hold after a name change.</td></tr>
 <tr><td>Nothing shows in the Triggers column</td><td>The sender is not using the Avantis Hub MIDI port, or OSC is off or on another port.</td></tr>
 <tr><td>A fader shows ? or is dimmed</td><td>The console has not reported it since connecting. Move it once.</td></tr>
+<tr><td>A mute reads MUTE ?</td><td>The console has not reported that mute on this connection. Press it, or change it at the console.</td></tr>
+<tr><td>Show view seems to be missing channels</td><td>Named is on, and those channels have no name on the console.</td></tr>
 <tr><td>A cue fires twice, or undoes itself</td><td>Two mappings share a trigger and a target. Look for the warning triangle.</td></tr>
 <tr><td>A device cannot find the Mac</td><td>Different network, or a network that stops devices seeing each other.</td></tr>
 <tr><td>Ableton link says another app is using the port</td><td>Another app on the Mac is already reading from AbletonOSC.</td></tr>
 </table>
-</div></details><div id="empty" class="empty hidden">Nothing on this page matches. Try a different word.</div>
+<nav class="pager" aria-label="More topics"><a class="prev" href="#keys"><small>Previous</small>Keyboard shortcuts</a></nav></section>
+<div id="empty" class="empty hidden">Nothing in the manual matches. Try a different word.</div>
+<div class="footer">Avantis Hub by Black Mile Studios</div>
+</main>
+</div>
+
 <script>
 (function () {
-  var q = document.getElementById('q'), count = document.getElementById('count');
-  var secs = [].slice.call(document.querySelectorAll('details.sec'));
-  var qas = [].slice.call(document.querySelectorAll('details.qa'));
-  var units = qas.length ? qas : secs;
-  var toc = document.querySelector('.toc'), empty = document.getElementById('empty');
-  var before = null;
+  var root = document.documentElement, side = document.getElementById('side');
+  var q = document.getElementById('q'), count = document.getElementById('count'), empty = document.getElementById('empty');
+  var topics = [].slice.call(document.querySelectorAll('section.topic'));
+  var links = [].slice.call(document.querySelectorAll('#contents a'));
+  var current = topics[0];
   function clearMarks() {
     [].slice.call(document.querySelectorAll('mark')).forEach(function (m) {
       var p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize();
     });
   }
-  function mark(root, term) {
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), nodes = [], n;
+  function mark(el, term) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), nodes = [], n, made = 0;
     while ((n = walker.nextNode())) { if (n.nodeValue.toLowerCase().indexOf(term) >= 0) nodes.push(n); }
     nodes.forEach(function (node) {
       var text = node.nodeValue, lower = text.toLowerCase(), frag = document.createDocumentFragment(), i = 0, at;
       while ((at = lower.indexOf(term, i)) >= 0) {
         frag.appendChild(document.createTextNode(text.slice(i, at)));
         var m = document.createElement('mark'); m.textContent = text.slice(at, at + term.length); frag.appendChild(m);
-        i = at + term.length;
+        i = at + term.length; made++;
       }
       frag.appendChild(document.createTextNode(text.slice(i)));
       node.parentNode.replaceChild(frag, node);
     });
+    return made;
   }
-  function run() {
+  // One topic on screen, and its line in the contents lit.
+  function show(topic, target) {
+    current = topic;
+    topics.forEach(function (t) { t.classList.toggle('active', t === topic); });
+    links.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('href') === '#' + topic.dataset.topic ? 'true' : 'false'); });
+    var lit = document.querySelector('#contents a[aria-current="true"]');
+    if (lit && lit.scrollIntoView && window.innerWidth > 880) lit.scrollIntoView({ block: 'nearest' });
+    side.classList.remove('open');
+    if (target && target.tagName !== 'H2') target.scrollIntoView(); else window.scrollTo(0, 0);
+  }
+  // Whatever the address names, a topic or something inside one, opens
+  // the topic that holds it. The Help menu's links rely on this.
+  function fromHash() {
+    var el = null;
+    try { el = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null; } catch (e) {}
+    var topic = el && el.closest ? el.closest('section.topic') : null;
+    if (root.classList.contains('searching')) {
+      // Leaving the results for one topic: keep the word lit there.
+      var term = q.value.trim().toLowerCase();
+      q.value = ''; search(); if (topic && term) mark(topic, term);
+    }
+    show(topic || topics[0], topic ? el : null);
+  }
+  function search() {
     var term = q.value.trim().toLowerCase();
     clearMarks();
+    links.forEach(function (a) { a.classList.remove('miss'); var h = a.querySelector('.hits'); if (h) a.removeChild(h); });
     if (!term) {
-      units.forEach(function (u) { u.classList.remove('hidden'); });
-      secs.forEach(function (s) { s.classList.remove('hidden'); });
-      if (before) { units.forEach(function (u, i) { u.open = before[i]; }); before = null; }
-      if (toc) toc.classList.remove('hidden');
+      root.classList.remove('searching'); topics.forEach(function (t) { t.classList.remove('hit'); });
       empty.classList.add('hidden'); count.textContent = ''; return;
     }
-    if (!before) before = units.map(function (u) { return u.open; });
-    var hits = 0;
-    units.forEach(function (u) {
-      var hit = u.textContent.toLowerCase().indexOf(term) >= 0;
-      u.classList.toggle('hidden', !hit); u.open = hit; if (hit) { hits++; mark(u, term); }
+    root.classList.add('searching');
+    var found = 0, total = 0;
+    topics.forEach(function (t, i) {
+      var hits = t.textContent.toLowerCase().indexOf(term) >= 0 ? mark(t, term) : 0;
+      t.classList.toggle('hit', hits > 0);
+      links[i].classList.toggle('miss', hits === 0);
+      if (hits) { found++; total += hits; var b = document.createElement('span'); b.className = 'hits'; b.textContent = hits; links[i].appendChild(b); }
     });
-    if (qas.length) secs.forEach(function (s) {
-      var any = s.querySelector('details.qa:not(.hidden)'); s.classList.toggle('hidden', !any); if (any) s.open = true;
-    });
-    if (toc) toc.classList.add('hidden');
-    empty.classList.toggle('hidden', hits > 0);
-    count.textContent = hits + (hits === 1 ? ' match' : ' matches');
+    empty.classList.toggle('hidden', found > 0);
+    count.textContent = found ? total + (total === 1 ? ' match in ' : ' matches in ') + found + (found === 1 ? ' topic' : ' topics') : 'No matches';
+    window.scrollTo(0, 0);
   }
-  q.addEventListener('input', run);
-  document.getElementById('open-all').onclick = function () { secs.concat(qas).forEach(function (d) { d.open = true; }); };
-  document.getElementById('close-all').onclick = function () { secs.concat(qas).forEach(function (d) { d.open = false; }); };
-  function openHash() {
-    if (!location.hash) return;
-    var el = document.getElementById(location.hash.slice(1)); if (!el) return;
-    for (var p = el; p; p = p.parentElement) { if (p.tagName === 'DETAILS') p.open = true; }
-    el.scrollIntoView();
-  }
-  window.addEventListener('hashchange', openHash); openHash();
+  root.classList.add('js');
+  q.addEventListener('input', search);
+  // A click on the topic already in the address still has to do something.
+  links.forEach(function (a) {
+    a.addEventListener('click', function () { if (a.getAttribute('href') === location.hash) setTimeout(fromHash, 0); });
+  });
+  document.getElementById('menu').addEventListener('click', function () { side.classList.toggle('open'); });
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
   document.addEventListener('keydown', function (e) {
-    if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); }
-    if (e.key === 'Escape' && document.activeElement === q) { q.value = ''; run(); }
+    var typing = document.activeElement === q;
+    if (e.key === '/' && !typing) { e.preventDefault(); q.focus(); }
+    if (e.key === 'Escape' && typing) { q.value = ''; search(); show(current); q.blur(); }
   });
 })();
 </script>
-<div class="footer">Avantis Hub by Black Mile Studios</div>
+
+<div id="viewer" class="hidden" role="dialog" aria-modal="true" aria-label="Screenshot">
+<button type="button" id="viewer-close" aria-label="Close">&times;</button>
+<img alt="">
+<div id="viewer-hint"></div>
+</div>
+<script>
+(function () {
+  var viewer = document.getElementById('viewer'), big = viewer.querySelector('img');
+  var hint = document.getElementById('viewer-hint'), from = null;
+  // Straight under the body, so nothing around it can shift a fixed layer.
+  document.body.appendChild(viewer);
+  // The size to show a picture at: its width attribute, which for a
+  // Retina screenshot is half its pixels.
+  function full() {
+    var w = (from && +from.getAttribute('width')) || big.naturalWidth || 1;
+    return [w, w * (big.naturalHeight || 1) / (big.naturalWidth || 1)];
+  }
+  function fitted() {
+    var f = full();
+    return f[0] * Math.min(1, (window.innerWidth - 32) / f[0], (window.innerHeight - 32) / f[1]);
+  }
+  function fits() { return fitted() >= full()[0] - 0.5; }
+  function settle() {
+    var grow = !fits();
+    if (!grow) viewer.classList.remove('actual');
+    big.style.width = (viewer.classList.contains('actual') ? full()[0] : fitted()) + 'px';
+    viewer.classList.toggle('can-grow', grow && !viewer.classList.contains('actual'));
+    hint.textContent = !grow ? 'Click or press Esc to close'
+      : (viewer.classList.contains('actual') ? 'Actual size. Click the picture to fit it to the window. Esc closes.'
+                                              : 'Click the picture for actual size. Esc closes.');
+  }
+  function open(img) {
+    from = img; big.src = img.currentSrc || img.src; big.alt = img.alt;
+    viewer.classList.remove('hidden', 'actual'); document.body.style.overflow = 'hidden';
+    settle(); document.getElementById('viewer-close').focus();
+  }
+  function close() {
+    viewer.classList.add('hidden'); document.body.style.overflow = '';
+    if (from) from.focus(); from = null;
+  }
+  big.addEventListener('load', settle);
+  window.addEventListener('resize', function () { if (!viewer.classList.contains('hidden')) settle(); });
+  [].slice.call(document.querySelectorAll('figure img')).forEach(function (img) {
+    img.tabIndex = 0; img.setAttribute('role', 'button'); img.title = 'Click to enlarge';
+    img.addEventListener('click', function () { open(img); });
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+    });
+  });
+  big.addEventListener('click', function (e) {
+    if (fits()) return;
+    e.stopPropagation(); viewer.classList.toggle('actual'); viewer.scrollTop = 0; viewer.scrollLeft = 0; settle();
+  });
+  viewer.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !viewer.classList.contains('hidden')) { e.stopPropagation(); close(); }
+  }, true);
+})();
+</script>
 </body>
 </html>
