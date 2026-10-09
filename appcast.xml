@@ -6,6 +6,39 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.5</title>
+            <pubDate>Fri, 09 Oct 2026 10:50:00 -0500</pubDate>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>0.9.5</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>Other MIDI inputs.</strong> The hub can listen to a hardware controller, a network MIDI session or any other MIDI input on the Mac, as well as its own port. Switch each one on in the Inputs settings. A dot beside each input lights when it carries MIDI, so you can see which one a controller is on.</li>
+<li><strong>Find.</strong> A button beside Console IP lists the Avantis consoles on the network. Click one to use its address.</li>
+<li><strong>A console that has moved.</strong> When a board will not connect and one console that could be yours answers at another address, a banner offers it. The hub never changes the address by itself.</li>
+<li><strong>UFX key and scale.</strong> On firmware V2.0 and later, a mapping or quick button can set the key and scale the console's UFX pitch effects follow.</li>
+<li><strong>UFX parameters.</strong> A mapping or quick button can set a parameter of a UFX unit, such as a vocal tuner's bypass, once it has a MIDI channel and controller number on the console. Each has a name, kept with the board.</li>
+<li><strong>SoftKeys and MIDI strips as triggers.</strong> A board can take MIDI the console sends from a SoftKey or MIDI strip as a trigger. It is off unless you turn it on.</li>
+<li><strong>From.</strong> A mapping, or a quick button's MIDI trigger, can be tied to one MIDI input, so the same note from another input does nothing.</li>
+<li>Clicking a target with no mapping selected starts a new mapping for it.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>The Inputs settings have a tab each for MIDI, OSC and Ableton Live.</li>
+<li>The board settings have three tabs, Connection, Options and Startup, with Connect at the bottom of each.</li>
+<li>The mapping inspector is laid out in rows that line up.</li>
+<li>The settings windows are as tall as what they hold.</li>
+</ul>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.5/AvantisHub-0.9.5.zip"
+                sparkle:edSignature="nA8c1qfZUOa9aekvAlcZZxEcCRLeiVDVVhWa0zcgnjVNRzAXi3HYNXq563f+ZUQicUAwARaf33Qv5yTe4KsdDA=="
+                length="5928692"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.4</title>
             <pubDate>Wed, 07 Oct 2026 21:50:00 -0500</pubDate>
             <sparkle:version>5</sparkle:version>

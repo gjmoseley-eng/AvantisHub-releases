@@ -209,7 +209,7 @@
 <ol>
 <li>Put the Mac on the same network as the Avantis.</li>
 <li>Click the console pill, or open <strong>Settings &gt; Console</strong>.</li>
-<li>Type the console's address in <strong>Console IP</strong>. You will find it on the console under Utility / Control / Network.</li>
+<li>Click <strong>Find</strong> beside <strong>Console IP</strong> and pick your console from the list, or type its address. You will find it on the console under Utility / Control / Network.</li>
 <li>Set <strong>Base MIDI channel</strong> to match the console, under Utility / Control / MIDI. The console's default is 12 to 16. The hub shows the range as "12 to 16" because the console uses five MIDI channels in a row.</li>
 <li>Set <strong>Firmware</strong> to match the console. Choose <strong>V2.0 and later</strong> unless the console is still on older firmware.</li>
 <li>Click <strong>Connect</strong>.</li>
@@ -218,6 +218,14 @@
 <div class="note">The address, MIDI channel and firmware are locked while connected. Disconnect to change them.</div>
 <h3>Firmware</h3>
 <p>Firmware V2.0 added inputs 65 to 96, more groups, auxes and matrices, and the UFX sends and returns. On <strong>Before V2.0</strong> the hub leaves those out and never sends to them. A mapping that points at something the chosen firmware does not have is put on hold and says why.</p>
+<h3>Finding the console</h3>
+<p><strong>Find</strong> asks the network which Avantis consoles are there and lists each one that answers, with its name, address and firmware. Click one to put its address in Console IP. That is all it does: it never connects and never changes an address by itself.</p>
+<ul>
+<li>It only reaches consoles on the same network as the Mac. A console on another network, reached through a router, does not answer and has to be typed in.</li>
+<li>Every Avantis gives the same name unless it has been renamed, so where there is more than one, check the address against the console's Utility / Control / Network screen.</li>
+<li>If the console's address changes, as it can when the network hands addresses out, click Find again and pick it.</li>
+<li>When a board will not connect, the hub looks once for a console at another address. If exactly one that could be yours answers, a banner offers it, with <strong>Use This Address</strong> and <strong>Not Now</strong>. The hub never changes the address by itself. If two consoles answer, or the board's own address answers, it offers nothing.</li>
+</ul>
 <h3>One control connection at a time</h3>
 <p>The console answers one connection on its MIDI control port at a time. If another app on the network is already using that port, the hub connects but gets no names back. Close the other app, or the other hub, and reconnect.</p>
 <p>Avantis Director and Allen &amp; Heath's tablet apps use a different connection, so they can stay open alongside the hub.</p>
@@ -310,15 +318,17 @@
 <li>Choose the mode and its values (below).</li>
 <li>Click <strong>Done</strong>.</li>
 </ol>
+<p>You can also start from the target: with no mapping selected, click a target in the right column and a new mapping opens for it, ready for its trigger. Cancel removes it again.</p>
 <h3>The inspector</h3>
 <p>Selecting a mapping opens its inspector under the list.</p>
-<figure class=""><img src="img/mac-inspector.png" alt="The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use." width="1388" height="898" loading="lazy"><figcaption>The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use.</figcaption></figure>
+<figure class=""><img src="img/mac-inspector.png" alt="The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use." width="1112" height="826" loading="lazy"><figcaption>The inspector for a Set mapping. With a mapping open, each trigger on the left offers Use.</figcaption></figure>
 <ul>
 <li><strong>Done</strong> keeps the mapping as it is now and closes the inspector.</li>
 <li><strong>Cancel</strong>, the close button or <strong>Esc</strong> backs out. The mapping goes back to how it was when you opened it, and a brand new mapping is removed.</li>
 <li><strong>Delete Mapping</strong> removes it.</li>
 <li><strong>Change Target</strong> replaces a row's target with the next one you click. The small x clears a row.</li>
 </ul>
+<p>It reads from top to bottom in three parts: what triggers the mapping (<strong>Trigger</strong> and <strong>From</strong>), how it behaves (<strong>Mode</strong>, and where they apply <strong>Range</strong>, <strong>Glide</strong> and <strong>Direction</strong>), and what it controls (<strong>Target</strong>).</p>
 <p>A new MIDI trigger starts on the channel you used last, to save retyping it.</p>
 <h3>Trigger types</h3>
 <table>
@@ -338,7 +348,7 @@
 <tr><td><strong>Value</strong></td><td>Follows the incoming value between a Min and a Max.</td><td>A physical fader or knob riding a level.</td></tr>
 </table>
 <p>For mutes, the hub says <strong>Muted</strong> and <strong>Unmuted</strong> instead of on and off, because "on" for a mute means silent, which reads backwards. Assignments say On and Off.</p>
-<p>For a fader in Value mode, Min and Max are levels in dB. A controller at its lowest gives Min and at its highest gives Max. Tick <strong>-inf</strong> to make Min fully off. <strong>Invert</strong> turns it round, so the controller at its highest gives Min.</p>
+<p>For a fader in Value mode, <strong>Range</strong> gives the Min and the Max, as levels in dB. A controller at its lowest gives Min and at its highest gives Max. Tick <strong>-inf</strong> to make Min fully off. <strong>Invert</strong> turns it round, so the controller at its highest gives Min.</p>
 <h3>The mapping list</h3>
 <ul>
 <li><strong>By trigger</strong> groups the list under each trigger, with everything it controls. <strong>By target</strong> groups it under each channel, with everything that controls it. A mapping with several targets appears under each.</li>
@@ -371,6 +381,26 @@
 <li><strong>Mute group assign:</strong> membership of each of the 8 mute groups.</li>
 </ul>
 <p>How many of each your console actually uses depends on how it is configured. A target for a mix your show does not have simply does nothing.</p>
+<h3>UFX key and scale</h3>
+<p>On firmware V2.0 and later, the hub can set the key and the scale that the console's UFX pitch effects follow, such as a vocal tuner. They are in Board Targets under <strong>UFX</strong>: twelve keys from C to B, and the scales Major, Minor and Chromatic.</p>
+<ul>
+<li>Each is sent on a press, like a scene recall. There is no value to choose and nothing to toggle.</li>
+<li>Key and scale are separate. A cue for "G minor" is one trigger with two targets: Key G and Scale Minor.</li>
+<li>They are the console's global key and scale. An effect set to follow its own key ignores them.</li>
+<li>The hub cannot read the key the console is on, so it never shows one.</li>
+<li>On a board set to firmware before V2.0 they are not offered, and a mapping that uses one is held and says why.</li>
+</ul>
+<h3>A UFX unit's own parameters</h3>
+<p>The console can give each UFX unit a MIDI channel of its own, and tie some of that unit's parameters, such as a vocal tuner's Bypass, Retune or Correction, to controller numbers you choose. That is set on the console under FX / UFX / Show Routing / MIDI Settings. The hub can then set those parameters.</p>
+<ul>
+<li>In Board Targets, open <strong>UFX</strong>. Under <strong>Parameters</strong> each one has a name, with its MIDI channel and controller number beside it. Click a name to use it as a target.</li>
+<li>A board starts with three for a vocal tuner: bypass, correction and retune, on MIDI channel 6, controllers 20 to 22. Units given the same channel and controller number on the console switch together, so one bypass covers every tuner. The console has no numbers of its own for these, so either set the same ones on the console or change these to match it.</li>
+<li>To add one, type the channel, the controller number and a name, and click <strong>Add</strong>. The fields start on the channel used last and its next free controller number. The pencil beside a name puts it in the fields to rename it. Saving an empty name removes it from the list. Mappings that already use it keep working and show its numbers instead.</li>
+<li>The names are kept with the board.</li>
+<li>The value is a plain number from 0 to 127, which the console spreads across whatever the parameter can be. In Set mode you choose the number. Toggle alternates between 127 and 0. Value mode lets a fader ride it.</li>
+<li>The unit's channel must not be one of the console's own five. A mapping that uses one of those is held and says why.</li>
+<li>Which number means what is up to the unit. Find it by trying it on the console before a service.</li>
+</ul>
 <h3>Levels</h3>
 <p>Faders run from -inf (off) through 0 dB (unity) to +10 dB. The console moves in steps of about half a dB, so a level lands on the nearest step.</p>
 <h3>Scenes</h3>
@@ -445,7 +475,7 @@
 <li>Click <strong>Edit</strong>, then a button, to change it. While editing, drag buttons to reorder them.</li>
 <li>The <strong>-</strong> and <strong>+</strong> beside Edit change the size of the tiles.</li>
 </ul>
-<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." width="641" height="701" loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
+<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." width="639" height="700" loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
 <h3>In the editor</h3>
 <table>
 <tr><th>Field</th><th>What it does</th></tr>
@@ -466,10 +496,24 @@
 <p>Click the tile, use its shortcut, send its MIDI trigger or OSC address, tap it on a phone, or use the menu bar panel. A tile is dimmed when the hub is disarmed or not connected. Hover over a tile to see its OSC address.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#show"><small>Previous</small>Show view</a><a class="next" href="#inputs"><small>Next</small>Sending cues: MIDI, OSC, Ableton Live</a></nav></section><section class="topic" data-topic="inputs"><h2 id="inputs">14. Sending cues: MIDI, OSC, Ableton Live</h2>
-<p>Click the <strong>Inputs</strong> pill for these settings. They are also under <strong>Settings &gt; Inputs</strong>.</p>
+<p>Click the <strong>Inputs</strong> pill for these settings. They are also under <strong>Settings &gt; Inputs</strong>. There is a tab for each kind: MIDI, OSC and Ableton Live.</p>
 <h3>MIDI</h3>
 <p>The hub creates a MIDI port called <strong>Avantis Hub</strong>. Any app on the same Mac can send to it: choose it as a MIDI output in Ableton Live, MainStage, QLab, a controller editor and so on. There is nothing to switch on.</p>
-<p>To use a hardware controller, route it to the Avantis Hub port with your DAW or a MIDI routing app.</p>
+<p>The hub can also listen to other MIDI inputs on the Mac: a hardware controller, a network MIDI session, or a port that brings MIDI from another computer. They are listed on the MIDI tab under the hub's own port, each with a switch, and all start off. A dot beside each one lights when MIDI arrives on it, whether it is switched on or not, so you can move a control, see which input lights, and switch that one on. Switch one on and its notes, control changes and program changes arrive as triggers, exactly as if they had been sent to the Avantis Hub port.</p>
+<ul>
+<li>Every input you switch on can fire every mapping and quick button, unless a mapping is tied to one input: in the inspector, <strong>From</strong> under the trigger chooses Any input, the Avantis Hub port, one of the inputs you have switched on, or the console. A tied mapping shows the input's name on its trigger and ignores the same note from anywhere else. A quick button's MIDI trigger has the same <strong>From</strong> choice in the button's editor.</li>
+<li>The choice belongs to this Mac. It is not part of the profile and is not shared with other Macs.</li>
+<li>An input that is unplugged stays in the list as <strong>Not connected</strong>, and the hub picks it up again when it comes back. The Monitor says when it goes and when it returns.</li>
+<li>Do not switch on an input that an app is already passing on to the Avantis Hub port. Each cue would arrive twice, and a toggle would flip and flip back.</li>
+</ul>
+<h3>SoftKeys and MIDI strips on the console</h3>
+<p>The console itself can send cues. A SoftKey, or a fader strip set up as a MIDI strip, can be given a MIDI message of your own on the console. With <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> switched on for a board, in the console settings, those messages arrive in the hub as triggers and show in the Monitor as coming from <strong>Console</strong>.</p>
+<ul>
+<li>Set the SoftKey or strip to send a note or a control change on a MIDI channel <strong>outside</strong> the console's own five. With the console on 12 to 16, use 1 to 11. A message on one of the console's own channels is read as the console reporting a change, never as a trigger.</li>
+<li>Map it like any other trigger, or use Learn and press the SoftKey.</li>
+<li>The option is per board and off to start with. The hub must still be Armed for anything to reach the console.</li>
+<li>This relies on the console passing those messages over its network connection. Check it on your console before depending on it.</li>
+</ul>
 <h3>OSC</h3>
 <ul>
 <li><strong>Listen for OSC</strong> turns the listener on.</li>
@@ -678,23 +722,23 @@
 <li><strong>Paired devices:</strong> one line each with what it may do and when it was last seen. Click a device for its settings.</li>
 </ul>
 <h3>Console</h3>
-<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="559" height="805" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="559" height="619" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
 <ul>
-<li><strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>.</li>
-<li>The board's <strong>Name</strong>, <strong>Console IP</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>, and <strong>Connect</strong> or <strong>Disconnect</strong>.</li>
-<li><strong>Read input mutes on connecting (experimental)</strong>. See <a href="#console">Connecting to the console</a>.</li>
-<li><strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
+<li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>, then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
+<li><strong>Options</strong> tab, kept with the board: <strong>Read input mutes on connecting (experimental)</strong> (see <a href="#console">Connecting to the console</a>) and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
+<li><strong>Startup</strong> tab, kept with this Mac: <strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
+<li><strong>Connect</strong> or <strong>Disconnect</strong> is at the bottom of every tab.</li>
 <li><strong>Shape of a glide:</strong> Even or Eased.</li>
 </ul>
 <h3>Inputs</h3>
-<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs." width="559" height="709" loading="lazy"><figcaption>Settings > Inputs.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs." width="559" height="408" loading="lazy"><figcaption>Settings > Inputs.</figcaption></figure>
 <ul>
-<li><strong>MIDI:</strong> the name of the hub's port, or the reason it could not be opened.</li>
+<li><strong>MIDI:</strong> the name of the hub's port, or the reason it could not be opened, and a switch for each other MIDI input on the Mac. See <a href="#inputs">Sending cues</a>.</li>
 <li><strong>OSC:</strong> Listen for OSC and the UDP port.</li>
 <li><strong>Ableton Live:</strong> the switch, the state of the link, and the address and ports.</li>
 </ul>
 <h3>Sharing</h3>
-<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." width="559" height="709" loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." width="559" height="440" loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
 <p>The shared folder, if any, with <strong>Show in Finder</strong>, <strong>Choose Another Folder</strong> and <strong>Stop Sharing</strong>.</p>
 <h3>Updates</h3>
 <figure class="small"><img src="img/mac-settings-updates.png" alt="Settings > Updates." width="559" height="470" loading="lazy"><figcaption>Settings > Updates.</figcaption></figure>
@@ -728,7 +772,7 @@
 <tr><td>Connected, but channel names do not appear</td><td>The Base MIDI channel does not match the console, or another app is already using the console's MIDI control port.</td></tr>
 <tr><td>Channels above 64 are missing, or a mapping says its target is not on this firmware</td><td>The board's Firmware is set to Before V2.0.</td></tr>
 <tr><td>A trigger shows in the Monitor but nothing changes</td><td>The hub is disarmed, the mapping is switched off, or the mapping is on hold after a name change.</td></tr>
-<tr><td>Nothing shows in the Triggers column</td><td>The sender is not using the Avantis Hub MIDI port, or OSC is off or on another port.</td></tr>
+<tr><td>Nothing shows in the Triggers column</td><td>The sender is not using the Avantis Hub MIDI port, a controller's input is not switched on in the Inputs settings, or OSC is off or on another port.</td></tr>
 <tr><td>A fader shows ? or is dimmed</td><td>The console has not reported it since connecting. Move it once.</td></tr>
 <tr><td>A mute reads MUTE ?</td><td>The console has not reported that mute on this connection. Press it, or change it at the console.</td></tr>
 <tr><td>Show view seems to be missing channels</td><td>Named is on, and those channels have no name on the console.</td></tr>

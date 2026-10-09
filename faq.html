@@ -166,7 +166,7 @@
 </div></details><details class="qa"><summary>Does anything need to be installed on the console?</summary><div class="body">
 <p>No. The hub uses the control port the Avantis already has. You only need its IP address and its MIDI channel setting.</p>
 </div></details><details class="qa"><summary>Do I need a MIDI interface or cable?</summary><div class="body">
-<p>No. The hub talks to the console over the network. MIDI from apps on the Mac reaches the hub through a software port called "Avantis Hub".</p>
+<p>No. The hub talks to the console over the network. MIDI from apps on the Mac reaches the hub through a software port called "Avantis Hub". If you do have a controller or interface, the hub can listen to it directly.</p>
 </div></details><details class="qa"><summary>Can I use it with no MIDI or OSC at all?</summary><div class="body">
 <p>Yes. Quick buttons, their keyboard shortcuts, the menu bar panel and the phone app need nothing else.</p>
 </div></details><details class="qa"><summary>Which Macs and devices does it run on?</summary><div class="body">
@@ -177,10 +177,14 @@
 </div></details></section><section class="group" id="connect"><h2>Connecting to the console</h2>
 <details class="qa"><summary>The hub will not connect.</summary><div class="body">
 <ul>
-<li>Check the Mac and console are on the same network and the IP address is right. The address is on the console under Utility / Control / Network.</li>
+<li>Check the Mac and console are on the same network and the IP address is right. Click <strong>Find</strong> beside Console IP to list the consoles that answer, or read the address on the console under Utility / Control / Network.</li>
 <li>Check macOS allows it: System Settings &gt; Privacy &amp; Security &gt; Local Network, with Avantis Hub switched on.</li>
 <li>If the venue network is managed, ask whether devices are allowed to reach each other.</li>
 </ul>
+</div></details><details class="qa"><summary>Find does not list my console.</summary><div class="body">
+<p>Find only reaches consoles on the same network as the Mac. A console on another network, reached through a router, does not answer and has to be typed in. Check the Local Network permission as well.</p>
+</div></details><details class="qa"><summary>A banner says my console answered at another address.</summary><div class="body">
+<p>The board would not connect, so the hub looked once and found one console that could be yours somewhere else. This happens when the network hands the console a new address. Check the name, then click Use This Address, or Not Now to leave things alone. The hub never changes the address by itself, and it offers nothing if two consoles answer.</p>
 </div></details><details class="qa"><summary>It connects, but no channel names appear.</summary><div class="body">
 <p>The Base MIDI channel does not match the console. Set it to the same value as Utility / Control / MIDI on the console. The console's default is 12 to 16.</p>
 <p>If the channel is right, something else may already be using the console's MIDI control port. The console answers one such connection at a time, so a second one connects and hears nothing. Close the other app or the other hub and reconnect.</p>
@@ -232,9 +236,17 @@
 </div></details></section><section class="group" id="map"><h2>Mappings and triggers</h2>
 <details class="qa"><summary>Nothing shows in the Triggers column.</summary><div class="body">
 <ul>
-<li><strong>MIDI:</strong> the sending app must use the port called "Avantis Hub" as its output.</li>
+<li><strong>MIDI:</strong> the sending app must use the port called "Avantis Hub" as its output. A hardware controller must be switched on under MIDI in the Inputs settings.</li>
 <li><strong>OSC:</strong> Listen for OSC must be on, and the sender must use the Mac's address and the hub's port (9300 unless changed).</li>
 </ul>
+</div></details><details class="qa"><summary>Can a hardware controller or another computer send cues?</summary><div class="body">
+<p>Yes. In the Inputs settings, the MIDI tab lists every MIDI input on the Mac. Move a control, see which input's dot lights, and switch that one on. A network MIDI session from another computer or an iPad shows up the same way.</p>
+</div></details><details class="qa"><summary>Every cue is arriving twice.</summary><div class="body">
+<p>An input is switched on that an app is already passing on to the Avantis Hub port, so the hub hears the same note by two routes. Switch that input off, or tie the mapping to one of the two with From in the inspector.</p>
+</div></details><details class="qa"><summary>Can the same note do different things from different controllers?</summary><div class="body">
+<p>Yes. In a mapping's inspector, or a quick button's editor, <strong>From</strong> ties the trigger to one input: the Avantis Hub port, one of the inputs you switched on, or the console. Left on Any input, it fires from all of them.</p>
+</div></details><details class="qa"><summary>Can a SoftKey on the console fire a cue?</summary><div class="body">
+<p>Yes, if the console passes its SoftKey MIDI over the network. Turn on "Use the console's SoftKeys and MIDI strips as triggers" in the board's Options, and set the SoftKey on the console to send a note on a MIDI channel outside the console's own five. See <a href="manual.html#inputs">Sending cues</a>.</p>
 </div></details><details class="qa"><summary>My note shows up as C3 but my other software calls it C4.</summary><div class="body">
 <p>The hub names notes the way Ableton Live and Logic do, where middle C (note 60) is C3. Some software calls the same note C4. The note number is what matters, and it is the same.</p>
 </div></details><details class="qa"><summary>What is the difference between Toggle and Set?</summary><div class="body">
@@ -250,11 +262,15 @@
 </div></details><details class="qa"><summary>I closed the inspector and lost my changes.</summary><div class="body">
 <p>Cancel, the close button and Esc all back out. Done keeps the changes. Reopen the mapping, make the change again and click Done. For a bigger loss, use Restore from Backup in the Profile menu.</p>
 </div></details><details class="qa"><summary>Can I map a hardware fader to a console fader?</summary><div class="body">
-<p>Yes, with a Value mapping. Set Min and Max to the range the fader should cover.</p>
+<p>Yes, with a Value mapping. Set Range to the levels the fader should cover. If the fader is on a controller, switch its input on in the Inputs settings first.</p>
 </div></details><details class="qa"><summary>Can a mapping fade a level over time?</summary><div class="body">
 <p>Yes. Set the level change to Glide and give it a time. See <a href="manual.html#glides">Snap and Glide</a>.</p>
 </div></details><details class="qa"><summary>Can I control EQ, compressors, gain or pan?</summary><div class="body">
-<p>No. The hub offers what the console's control protocol exposes: mutes, faders, sends, assignments and scene recall. For anything else, store it in a scene on the console and have the hub recall the scene.</p>
+<p>No. The hub offers what the console's control protocol exposes: mutes, faders, sends, assignments and scene recall. On firmware V2.0 and later it also offers the key and scale for the UFX pitch effects, and any UFX parameter the console has been set up to take by MIDI. For anything else, store it in a scene on the console and have the hub recall the scene.</p>
+</div></details><details class="qa"><summary>Can the hub set the key for a vocal tuner, or switch it on and off?</summary><div class="body">
+<p>On firmware V2.0 and later, yes. Board Targets has a UFX group with the twelve keys and three scales, which set the console's global key and scale. Under Parameters it has named entries, such as Tuner bypass, for parameters you have given a MIDI channel and controller number on the console. A cue at the top of a song can set the key and scale and take the tuner out of bypass together. See <a href="manual.html#targets">What can be controlled</a>.</p>
+</div></details><details class="qa"><summary>How do I start a mapping from the thing I want to control?</summary><div class="body">
+<p>With no mapping selected, click the target in Board Targets. A new mapping opens for it, ready for its trigger.</p>
 
 </div></details></section><section class="group" id="qb"><h2>Quick buttons</h2>
 <details class="qa"><summary>What is the difference between a mapping and a quick button?</summary><div class="body">
