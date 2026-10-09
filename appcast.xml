@@ -6,6 +6,37 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.6</title>
+            <pubDate>Fri, 09 Oct 2026 13:35:00 -0500</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>0.9.6</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>One switch for UFX cues.</strong> Each board has "Send UFX key, scale and parameters" in its Options. With it off, every UFX cue on that board is held and the Monitor says so, while everything else carries on. <strong>It starts off:</strong> turn it on for a board whose UFX cues you were already using.</li>
+<li>With Raw bytes ticked, the Monitor shows the exact bytes of each change the hub sends, on a line marked SENT.</li>
+<li><strong>Switch All On and Switch All Off.</strong> The "..." menu at the top of the mapping list switches every mapping in the profile on or off in one step. Undo puts them back.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>The mapping list is in order of MIDI channel and then note, with notes before CCs before program changes. OSC addresses and locators follow. Only the list is sorted: mappings on one trigger still fire in the order they were made.</li>
+<li>A note being released while the hub is disarmed no longer gets a "blocked" line of its own.</li>
+<li>A profile whose file changes while the hub is running is said to have changed "outside this hub", which is true on one Mac as well as two.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>A profile is saved the same way every time. Before, the same profile could be written out in a different order, which made a shared folder copy it to every Mac for nothing.</li>
+</ul>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.6/AvantisHub-0.9.6.zip"
+                sparkle:edSignature="LEEVta2bx4mw+h1KC39NqGrrY1aU9Ky/HI1hJ2L5yAbiqq23jE48/XNz40MR1Q7DJn+T5oR9VJ9HLSUWmAZ6DA=="
+                length="5964818"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.5</title>
             <pubDate>Fri, 09 Oct 2026 10:50:00 -0500</pubDate>
             <sparkle:version>6</sparkle:version>

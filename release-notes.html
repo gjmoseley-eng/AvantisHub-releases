@@ -142,13 +142,30 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the versions">Versions</button>
 <div class="brand">Avantis Hub<span>Release Notes</span></div>
-<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
+<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
 <div class="other"><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a></div>
 </aside>
 <main>
 <h1>Release notes</h1>
 <div class="subtitle">What changed in each version.</div>
-<section class="release" id="v0-9-5"><h2>Version 0.9.5<span class="date">October 9, 2026</span></h2>
+<section class="release" id="v0-9-6"><h2>Version 0.9.6<span class="date">October 9, 2026</span></h2>
+<h3>New</h3>
+<ul>
+<li><strong>One switch for UFX cues.</strong> Each board has "Send UFX key, scale and parameters" in its Options. With it off, every UFX cue on that board is held and the Monitor says so, while everything else carries on. <strong>It starts off:</strong> turn it on for a board whose UFX cues you were already using.</li>
+<li>With Raw bytes ticked, the Monitor shows the exact bytes of each change the hub sends, on a line marked SENT.</li>
+<li><strong>Switch All On and Switch All Off.</strong> The "..." menu at the top of the mapping list switches every mapping in the profile on or off in one step. Undo puts them back.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>The mapping list is in order of MIDI channel and then note, with notes before CCs before program changes. OSC addresses and locators follow. Only the list is sorted: mappings on one trigger still fire in the order they were made.</li>
+<li>A note being released while the hub is disarmed no longer gets a "blocked" line of its own.</li>
+<li>A profile whose file changes while the hub is running is said to have changed "outside this hub", which is true on one Mac as well as two.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>A profile is saved the same way every time. Before, the same profile could be written out in a different order, which made a shared folder copy it to every Mac for nothing.</li>
+</ul>
+</section><section class="release" id="v0-9-5"><h2>Version 0.9.5<span class="date">October 9, 2026</span></h2>
 <h3>New</h3>
 <ul>
 <li><strong>Other MIDI inputs.</strong> The hub can listen to a hardware controller, a network MIDI session or any other MIDI input on the Mac, as well as its own port. Switch each one on in the Inputs settings. A dot beside each input lights when it carries MIDI, so you can see which one a controller is on.</li>

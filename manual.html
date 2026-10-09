@@ -352,6 +352,8 @@
 <h3>The mapping list</h3>
 <ul>
 <li><strong>By trigger</strong> groups the list under each trigger, with everything it controls. <strong>By target</strong> groups it under each channel, with everything that controls it. A mapping with several targets appears under each.</li>
+<li>The list is in order of MIDI channel and then note, with notes before CCs before program changes. OSC addresses and locators follow. A new mapping moves to its place as you set its trigger.</li>
+<li>The <strong>...</strong> menu beside it has <strong>Switch All On</strong> and <strong>Switch All Off</strong>, which flip the switch on every mapping in the profile in one step. Edit, Undo puts them back. Quick buttons in the list are not affected.</li>
 <li>Target chips are drawn in the console's colour for that channel.</li>
 <li>The switch at the right turns a mapping off without deleting it.</li>
 <li>Quick buttons that have a MIDI trigger are listed too, so the list answers "what does this note do?" in full. Click one to open the button's editor.</li>
@@ -390,6 +392,8 @@
 <li>The hub cannot read the key the console is on, so it never shows one.</li>
 <li>On a board set to firmware before V2.0 they are not offered, and a mapping that uses one is held and says why.</li>
 </ul>
+<h3>One switch for UFX cues</h3>
+<p>Each board has a switch for all of this at once: <strong>Send UFX key, scale and parameters</strong>, in the board's Options. It is off to start with. While it is off, every mapping or button that would send a UFX key, scale or parameter is held, the Monitor says so, and everything else carries on. Turn it on when the console is set up for them, and off again to hold them all back without touching each mapping.</p>
 <h3>A UFX unit's own parameters</h3>
 <p>The console can give each UFX unit a MIDI channel of its own, and tie some of that unit's parameters, such as a vocal tuner's Bypass, Retune or Correction, to controller numbers you choose. That is set on the console under FX / UFX / Show Routing / MIDI Settings. The hub can then set those parameters.</p>
 <ul>
@@ -585,6 +589,7 @@
 <tr><th>Label</th><th>Meaning</th></tr>
 <tr><td><code>IN</code></td><td>A trigger arrived: a MIDI message or an OSC message, with where it came from.</td></tr>
 <tr><td><code>OUT</code></td><td>A change the hub sent to the console.</td></tr>
+<tr><td><code>SENT</code></td><td>The exact bytes of that change, shown when Raw bytes is ticked.</td></tr>
 <tr><td><code>ECHO</code></td><td>The console sending back a change the hub just made. A console on firmware V2.0 does not do this, so you may never see one.</td></tr>
 <tr><td><code>BOARD</code></td><td>Something reported by the console itself: a name, a colour, or a fader or mute moved by hand.</td></tr>
 <tr><td><code>HUB</code></td><td>The hub's own state: armed, disarmed, connected, a device pairing, a clip pressing a button.</td></tr>
@@ -725,7 +730,7 @@
 <figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="559" height="619" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
 <ul>
 <li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>, then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
-<li><strong>Options</strong> tab, kept with the board: <strong>Read input mutes on connecting (experimental)</strong> (see <a href="#console">Connecting to the console</a>) and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
+<li><strong>Options</strong> tab, kept with the board: <strong>Send UFX key, scale and parameters</strong> (see <a href="#targets">What can be controlled</a>), <strong>Read input mutes on connecting (experimental)</strong> (see <a href="#console">Connecting to the console</a>) and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
 <li><strong>Startup</strong> tab, kept with this Mac: <strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
 <li><strong>Connect</strong> or <strong>Disconnect</strong> is at the bottom of every tab.</li>
 <li><strong>Shape of a glide:</strong> Even or Eased.</li>
