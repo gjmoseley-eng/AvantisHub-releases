@@ -62,6 +62,13 @@
     border-right: 1px solid var(--line); background: rgba(10,10,14,0.55); }
   #side .brand { color: #fff; font-size: 19px; font-weight: 700; line-height: 1.2; }
   #side .brand span { display: block; color: var(--dim); font-size: 13px; font-weight: 400; margin-top: 2px; }
+  #side .forver { color: var(--dim); font-size: 12px; line-height: 1.45; margin: 8px 0 0; }
+  #side .forver a { color: var(--cyan); text-decoration: none; display: block; }
+  #side .forver a:hover { text-decoration: underline; }
+  .new { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 1px 7px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--cyan);
+    border: 1px solid rgba(92,230,242,0.45); background: rgba(92,230,242,0.08); white-space: nowrap; }
+  li .new, td .new, p .new { margin-left: 4px; }
   #side input { width: 100%; margin: 16px 0 4px; padding: 8px 11px; border-radius: 8px; border: 1px solid var(--line);
     background: rgba(255,255,255,0.06); color: #fff; font-size: 14px; }
   #side input:focus { outline: none; border-color: var(--cyan); }
@@ -112,6 +119,8 @@
       border-bottom: 1px solid var(--line); background: #0e0d13; z-index: 6; }
     #side .brand { font-size: 16px; display: inline-block; }
     #side .brand span { display: none; }
+    #side .forver { margin-top: 4px; }
+    #side .forver a { display: inline; margin-left: 4px; }
     #menu { display: inline-block; float: right; padding: 5px 11px; border-radius: 8px; border: 1px solid var(--line);
       background: rgba(255,255,255,0.05); color: var(--text); font-size: 13px; }
     #side input { margin: 10px 0 2px; }
@@ -149,12 +158,29 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the contents">Contents</button>
 <div class="brand">Avantis Hub<span>FAQ</span></div>
+<div class="forver">For Avantis Hub 0.9.7. <a href="release-notes.html">What changed in each version</a></div>
 <input id="q" type="search" placeholder="Search the questions" autocomplete="off" aria-label="Search the questions">
 <div id="count"></div>
 <nav id="contents" aria-label="Contents"><a href="#basics"><span class="t">The basics</span></a><a href="#connect"><span class="t">Connecting to the console</span></a><a href="#armed"><span class="t">Armed, Disarmed and Panic</span></a><a href="#map"><span class="t">Mappings and triggers</span></a><a href="#qb"><span class="t">Quick buttons</span></a><a href="#live"><span class="t">Ableton Live</span></a><a href="#dev"><span class="t">iPhone and iPad</span></a><a href="#multi"><span class="t">Profiles, backups and sharing</span></a><a href="#upd"><span class="t">Updates and the app itself</span></a></nav>
 <div class="other"><a href="manual.html">User Manual</a><a href="release-notes.html">Release Notes</a></div>
 </aside>
 <main>
+
+<div id="oldver" class="note tip hidden"></div>
+<script>
+(function () {
+  var latest = '0.9.7', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
+  if (!mine) return;
+  function parts(v) { return v.split('.').map(Number); }
+  var a = parts(mine), b = parts(latest), older = false;
+  for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) { older = (a[i] || 0) < (b[i] || 0); break; } }
+  if (!older) return;
+  var note = document.getElementById('oldver');
+  note.innerHTML = 'You have Avantis Hub <strong>' + mine + '</strong>. This page describes <strong>' + latest +
+    '</strong>, so a few things here may not be in your copy yet. To update, choose <strong>Avantis Hub &gt; Check for Updates</strong>.';
+  note.classList.remove('hidden');
+})();
+</script>
 <h1>Frequently asked questions</h1>
 <div class="subtitle">Common questions about setting up and running Avantis Hub.</div>
 <div class="bar"><button type="button" id="open-all">Expand all</button><button type="button" id="close-all">Collapse all</button></div>
@@ -202,7 +228,7 @@
 <p>The console reports a fader or mute when it changes, and its MIDI control cannot be asked where everything is. A dimmed value is remembered from an earlier connection and may be out of date. A "?" has never been seen. Move the control once and the hub shows the live value. On firmware V2.0 and later, the experimental option "Read input mutes and faders on connecting" fills most of them in as the hub connects. See <a href="manual.html#console">the manual</a>.</p>
 </div></details><details class="qa"><summary>What does "MUTE ?" mean?</summary><div class="body">
 <p>The console has not said whether that channel is muted since the hub connected. Pressing it mutes. Once the mute changes, by the hub or at the console, the button shows the real state.</p>
-</div></details><details class="qa"><summary>Can the hub read the mutes when it connects?</summary><div class="body">
+</div></details><details class="qa"><summary>Can the hub read the mutes when it connects? <span class="new">New in 0.9.7</span></summary><div class="body">
 <p>Yes, as an experiment. Each board has an option, "Read input mutes and faders on connecting", that is off unless you turn it on. With it on, the hub makes one short read-only visit on the connection Avantis Director uses and fills in the mutes and fader levels of the inputs, DCAs, stereo auxes, mains and stereo matrices, and the mute groups' mutes. It was worked out by watching Director, not from Allen &amp; Heath's documents, so try it at a quiet console first.</p>
 </div></details><details class="qa"><summary>Why does "turn up" from my phone say it needs the fader's level?</summary><div class="body">
 <p>Moving a fader "up by 3 dB" needs a known starting point. If the console has not reported that fader since the hub connected, the hub refuses instead of guessing. Move the fader once, or set it to a level instead.</p>
@@ -239,7 +265,7 @@
 <li><strong>MIDI:</strong> the sending app must use the port called "Avantis Hub" as its output. A hardware controller must be switched on under MIDI in the Inputs settings.</li>
 <li><strong>OSC:</strong> Listen for OSC must be on, and the sender must use the Mac's address and the hub's port (9300 unless changed).</li>
 </ul>
-</div></details><details class="qa"><summary>A note worked once and then did nothing the next time.</summary><div class="body">
+</div></details><details class="qa"><summary>A note worked once and then did nothing the next time. <span class="new">New in 0.9.7</span></summary><div class="body">
 <p>The hub counts one press per key press, and treats a note as held until its Note Off arrives. If a Note Off goes missing, for example because a clip was stopped between a note's start and end, the next Note On for that note used to be ignored. From 0.9.7 it counts again once nothing has been heard from that note for 2 seconds. A controller that sends Note On only, with no Note Off at all, should still be set to send one.</p>
 </div></details><details class="qa"><summary>Can a hardware controller or another computer send cues?</summary><div class="body">
 <p>Yes. In the Inputs settings, the MIDI tab lists every MIDI input on the Mac. Move a control, see which input's dot lights, and switch that one on. A network MIDI session from another computer or an iPad shows up the same way.</p>
@@ -361,8 +387,10 @@
 <p>A name the profile relies on has gone, or two channels now share it. The hub will not guess. Choose in the banner where the mappings should go. See <a href="manual.html#names">the manual</a>.</p>
 
 </div></details></section><section class="group" id="upd"><h2>Updates and the app itself</h2>
-<details class="qa"><summary>A banner says a new version is ready.</summary><div class="body">
+<details class="qa"><summary>A banner says a new version is ready. <span class="new">New in 0.9.7</span></summary><div class="body">
 <p>The daily check found one. The hub never opens a window over a service by itself, so it shows the banner and waits. Click Show Update to see what is new, or Later to hide it until the hub next opens. Nothing installs until you say so.</p>
+</div></details><details class="qa"><summary>The manual describes something my copy does not have.</summary><div class="body">
+<p>The manual and FAQ describe the newest version, which the top of the sidebar names. Features added in a recent version are tagged, for example "New in 0.9.7". From 0.9.8, opening a page from the Help menu of an older copy also shows a note saying which version you have. To get the newest, choose Avantis Hub &gt; Check for Updates. The release notes list what changed in each version.</p>
 </div></details><details class="qa"><summary>Can an update restart the hub in the middle of a service?</summary><div class="body">
 <p>No. Nothing installs without a click, and an armed hub asks before it quits.</p>
 </div></details><details class="qa"><summary>Will an update change my mappings?</summary><div class="body">

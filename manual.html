@@ -62,6 +62,13 @@
     border-right: 1px solid var(--line); background: rgba(10,10,14,0.55); }
   #side .brand { color: #fff; font-size: 19px; font-weight: 700; line-height: 1.2; }
   #side .brand span { display: block; color: var(--dim); font-size: 13px; font-weight: 400; margin-top: 2px; }
+  #side .forver { color: var(--dim); font-size: 12px; line-height: 1.45; margin: 8px 0 0; }
+  #side .forver a { color: var(--cyan); text-decoration: none; display: block; }
+  #side .forver a:hover { text-decoration: underline; }
+  .new { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 1px 7px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--cyan);
+    border: 1px solid rgba(92,230,242,0.45); background: rgba(92,230,242,0.08); white-space: nowrap; }
+  li .new, td .new, p .new { margin-left: 4px; }
   #side input { width: 100%; margin: 16px 0 4px; padding: 8px 11px; border-radius: 8px; border: 1px solid var(--line);
     background: rgba(255,255,255,0.06); color: #fff; font-size: 14px; }
   #side input:focus { outline: none; border-color: var(--cyan); }
@@ -112,6 +119,8 @@
       border-bottom: 1px solid var(--line); background: #0e0d13; z-index: 6; }
     #side .brand { font-size: 16px; display: inline-block; }
     #side .brand span { display: none; }
+    #side .forver { margin-top: 4px; }
+    #side .forver a { display: inline; margin-left: 4px; }
     #menu { display: inline-block; float: right; padding: 5px 11px; border-radius: 8px; border: 1px solid var(--line);
       background: rgba(255,255,255,0.05); color: var(--text); font-size: 13px; }
     #side input { margin: 10px 0 2px; }
@@ -132,12 +141,29 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the contents">Contents</button>
 <div class="brand">Avantis Hub<span>User Manual</span></div>
+<div class="forver">For Avantis Hub 0.9.7. <a href="release-notes.html">What changed in each version</a></div>
 <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
 <div id="count"></div>
 <nav id="contents" aria-label="Contents"><a href="#what"><span class="n">1</span><span class="t">What Avantis Hub does</span></a><a href="#need"><span class="n">2</span><span class="t">What you need</span></a><a href="#start"><span class="n">3</span><span class="t">Getting started</span></a><a href="#window"><span class="n">4</span><span class="t">The window at a glance</span></a><a href="#safety"><span class="n">5</span><span class="t">Armed, Disarmed and Panic</span></a><a href="#console"><span class="n">6</span><span class="t">Connecting to the console</span></a><a href="#boards"><span class="n">7</span><span class="t">Boards and profiles</span></a><a href="#build"><span class="n">8</span><span class="t">Build view</span></a><a href="#mappings"><span class="n">9</span><span class="t">Mappings</span></a><a href="#targets"><span class="n">10</span><span class="t">What can be controlled</span></a><a href="#glides"><span class="n">11</span><span class="t">Snap and Glide</span></a><a href="#show"><span class="n">12</span><span class="t">Show view</span></a><a href="#buttons"><span class="n">13</span><span class="t">Quick buttons</span></a><a href="#inputs"><span class="n">14</span><span class="t">Sending cues: MIDI, OSC, Ableton Live</span></a><a href="#osc"><span class="n">15</span><span class="t">OSC reference</span></a><a href="#monitor"><span class="n">16</span><span class="t">The Monitor</span></a><a href="#menubar"><span class="n">17</span><span class="t">The menu bar</span></a><a href="#devices"><span class="n">18</span><span class="t">iPhone and iPad</span></a><a href="#shortcuts"><span class="n">19</span><span class="t">Shortcuts on iPhone and iPad</span></a><a href="#names"><span class="n">20</span><span class="t">When channel names change</span></a><a href="#sharing"><span class="n">21</span><span class="t">Using more than one Mac</span></a><a href="#settings"><span class="n">22</span><span class="t">Settings, tab by tab</span></a><a href="#updates"><span class="n">23</span><span class="t">Updates</span></a><a href="#keys"><span class="n">24</span><span class="t">Keyboard shortcuts</span></a><a href="#trouble"><span class="n">25</span><span class="t">Troubleshooting</span></a></nav>
 <div class="other"><a href="faq.html">FAQ</a><a href="release-notes.html">Release Notes</a></div>
 </aside>
 <main>
+
+<div id="oldver" class="note tip hidden"></div>
+<script>
+(function () {
+  var latest = '0.9.7', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
+  if (!mine) return;
+  function parts(v) { return v.split('.').map(Number); }
+  var a = parts(mine), b = parts(latest), older = false;
+  for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) { older = (a[i] || 0) < (b[i] || 0); break; } }
+  if (!older) return;
+  var note = document.getElementById('oldver');
+  note.innerHTML = 'You have Avantis Hub <strong>' + mine + '</strong>. This page describes <strong>' + latest +
+    '</strong>, so a few things here may not be in your copy yet. To update, choose <strong>Avantis Hub &gt; Check for Updates</strong>.';
+  note.classList.remove('hidden');
+})();
+</script>
 <section class="topic" data-topic="what"><h2 id="what">1. What Avantis Hub does</h2>
 <p>Avantis Hub sits between the things that send cues and an Allen &amp; Heath Avantis console. A MIDI note, a control change, an OSC message, a clip starting in Ableton Live or a tap on a phone becomes a mute, a fader move, a scene recall or a whole group of changes on the console.</p>
 <p>It runs on a Mac on the same network as the console and talks to the console's own MIDI-over-network port, so nothing needs to be installed on the console and no MIDI cable is involved.</p>
@@ -241,7 +267,7 @@
 </ul>
 <p>The console only answers for the channels and mixes it is set up with, so a mix your console does not use keeps its plain number for a name.</p>
 <p>Remembered values are for your eyes only. The hub never uses a remembered value to decide anything.</p>
-<h3>Reading mutes and faders on connecting (experimental)</h3>
+<h3>Reading mutes and faders on connecting (experimental) <span class="new">New in 0.9.7</span></h3>
 <p>With <strong>Read input mutes and faders on connecting</strong> switched on for a board, the hub makes one short extra visit to the console as it connects, on the connection Avantis Director uses. It reads where things are and leaves. It only reads, and it never changes anything.</p>
 <ul>
 <li>It fills in the inputs' mutes and fader levels, the DCAs' mutes and levels, the mute groups' mutes, and the mutes and levels of the stereo auxes, the mains and the stereo matrices.</li>
@@ -335,7 +361,7 @@
 <h3>Trigger types</h3>
 <table>
 <tr><th>Type</th><th>Fires when</th></tr>
-<tr><td>Note</td><td>A MIDI note on that number and channel is played. Note names follow Ableton Live and Logic, where middle C (note 60) is C3. One key press is one press: a second Note On before the Note Off is ignored. If a Note Off never comes, for example because a clip was stopped between the two, the next Note On still counts once nothing has been heard from that note for 2 seconds.</td></tr>
+<tr><td>Note</td><td>A MIDI note on that number and channel is played. Note names follow Ableton Live and Logic, where middle C (note 60) is C3. One key press is one press: a second Note On before the Note Off is ignored. <span class="new">New in 0.9.7</span> If a Note Off never comes, for example because a clip was stopped between the two, the next Note On still counts once nothing has been heard from that note for 2 seconds.</td></tr>
 <tr><td>Control change (CC)</td><td>A controller on that number and channel sends a value.</td></tr>
 <tr><td>Program change</td><td>That program number is sent on that channel.</td></tr>
 <tr><td>OSC</td><td>A message arrives on that exact address. Addresses are not case sensitive.</td></tr>
@@ -385,8 +411,8 @@
 <li><strong>Mute group assign:</strong> membership of each of the 8 mute groups.</li>
 </ul>
 <p>How many of each your console actually uses depends on how it is configured. A target for a mix your show does not have simply does nothing.</p>
-<p>On a console where LR is one stereo main, Main 1 and Main 2 carry the same name, and the hub shows it once, as Main 1.</p>
-<p>The console does not tell the hub what its mute groups are called, so you can name them in the hub: click the pencil beside a mute group in Board Targets, or double-click its name in Show view. Names are kept with the board and are only for showing.</p>
+<p><span class="new">New in 0.9.7</span> On a console where LR is one stereo main, Main 1 and Main 2 carry the same name, and the hub shows it once, as Main 1.</p>
+<p><span class="new">New in 0.9.7</span> The console does not tell the hub what its mute groups are called, so you can name them in the hub: click the pencil beside a mute group in Board Targets, or double-click its name in Show view. Names are kept with the board and are only for showing.</p>
 <h3>UFX key and scale</h3>
 <p>On firmware V2.0 and later, the hub can set the key and the scale that the console's UFX pitch effects follow, such as a vocal tuner. They are in Board Targets under <strong>UFX</strong>: twelve keys from C to B, and the scales Major, Minor and Chromatic.</p>
 <ul>
@@ -394,7 +420,7 @@
 <li>Key and scale are separate. A cue for "G minor" is one trigger with two targets: Key G and Scale Minor.</li>
 <li>They are the console's global key and scale. An effect set to follow its own key ignores them.</li>
 <li>The hub cannot read the key the console is on, so it never shows one.</li>
-<li>The hub sends UFX keys, scales and parameters at least 50 ms apart, in the order they were asked for, because the console was seen to miss a key sent right behind another UFX change. Mutes and faders are not held back by this. Still put a key, scale and tuner cue on separate positions in a clip, key first, so their order is fixed.</li>
+<li><span class="new">New in 0.9.7</span> The hub sends UFX keys, scales and parameters at least 50 ms apart, in the order they were asked for, because the console was seen to miss a key sent right behind another UFX change. Mutes and faders are not held back by this. Still put a key, scale and tuner cue on separate positions in a clip, key first, so their order is fixed.</li>
 <li>On a board set to firmware before V2.0 they are not offered, and a mapping that uses one is held and says why.</li>
 </ul>
 <h3>One switch for UFX cues</h3>
@@ -453,7 +479,7 @@
 </ul>
 <h3>A channel strip</h3>
 <ul>
-<li><strong>Label and name:</strong> the channel's number and the name from the console, with the console's colour. A mute group has no name from the console: double-click where its name goes, or right-click and choose <strong>Name...</strong>, type a name and press Return. Escape leaves it as it was.</li>
+<li><strong>Label and name:</strong> the channel's number and the name from the console, with the console's colour. <span class="new">New in 0.9.7</span> A mute group has no name from the console: double-click where its name goes, or right-click and choose <strong>Name...</strong>, type a name and press Return. Escape leaves it as it was.</li>
 <li><strong>Blue outline and badge:</strong> a channel with a blue outline is controlled by a mapping, and the badge at its top right names the trigger, such as "CC 20" or "C4". A "+1" means there are more. Click the badge to open the mapping, or to pick from a list if there are several. The <strong>Mapped</strong> key at the top right of the surface is the reminder of what the outline means.</li>
 <li><strong>Fader:</strong> lit in the channel's colour, and brighter the higher it sits. A muted channel loses its glow, so the ones passing signal stand out.</li>
 <li><strong>dB readout</strong> under the fader. It is cyan while the fader is gliding.</li>
@@ -488,7 +514,7 @@
 <h3>In the editor</h3>
 <table>
 <tr><th>Field</th><th>What it does</th></tr>
-<tr><td>Name and Color</td><td>How the button looks everywhere, including on phones. There are twelve colours.</td></tr>
+<tr><td>Name and Color</td><td>How the button looks everywhere, including on phones. There are twelve colours. <span class="new">New in 0.9.7</span></td></tr>
 <tr><td>Keyboard shortcut</td><td>Click, then press the keys. It needs Command, Option or Control. Esc cancels and Delete clears.</td></tr>
 <tr><td>MIDI trigger</td><td>Click, then play the note or send the CC or program change that should press the button. Nothing is sent to the console while it waits.</td></tr>
 <tr><td>OSC address</td><td>Made from the name when the button is first saved, such as <code>/hub/trigger/pastor-up</code>. It stays the same if you rename the button later, so cues built on it keep working.</td></tr>
@@ -503,7 +529,7 @@
 <p>When a button fires, the buttons it ran light up with it, on the Mac and on phones.</p>
 <h3>Pressing</h3>
 <p>Click the tile, use its shortcut, send its MIDI trigger or OSC address, tap it on a phone, or use the menu bar panel. A tile is dimmed when the hub is disarmed or not connected. Hover over a tile to see its OSC address.</p>
-<h3>Which one is in effect</h3>
+<h3>Which one is in effect <span class="new">New in 0.9.7</span></h3>
 <p>A button that only sets UFX parameters, such as Tuner On or Tuner Off, shows <strong>NOW</strong> and a brighter outline in Show view while those parameters are at its values. That goes by what the hub last sent: a change made on the console's own screen is not seen, and it is forgotten when the connection drops.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#show"><small>Previous</small>Show view</a><a class="next" href="#inputs"><small>Next</small>Sending cues: MIDI, OSC, Ableton Live</a></nav></section><section class="topic" data-topic="inputs"><h2 id="inputs">14. Sending cues: MIDI, OSC, Ableton Live</h2>
@@ -604,8 +630,8 @@
 </table>
 <ul>
 <li><strong>Raw bytes</strong> also shows the exact bytes exchanged with the console, for diagnosing.</li>
-<li><strong>Only what the hub uses</strong> hides incoming MIDI that no mapping or quick button is set to, here and in the Triggers list, so an expression pedal or a busy controller does not bury the cues. Everything shows while learning.</li>
-<li>A run of values from one control on one input folds into a single line with a count, such as <code>×24</code>, showing the latest value.</li>
+<li><span class="new">New in 0.9.7</span> <strong>Only what the hub uses</strong> hides incoming MIDI that no mapping or quick button is set to, here and in the Triggers list, so an expression pedal or a busy controller does not bury the cues. Everything shows while learning.</li>
+<li><span class="new">New in 0.9.7</span> A run of values from one control on one input folds into a single line with a count, such as <code>×24</code>, showing the latest value.</li>
 <li><strong>Clear</strong> empties the list.</li>
 <li><strong>Copy</strong> puts every line on the clipboard, handy when asking for help. Right-click a line for <strong>Copy Line</strong>.</li>
 </ul>
@@ -760,7 +786,7 @@
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#sharing"><small>Previous</small>Using more than one Mac</a><a class="next" href="#updates"><small>Next</small>Updates</a></nav></section><section class="topic" data-topic="updates"><h2 id="updates">23. Updates</h2>
 <p>The hub checks for a new version once a day. Nothing downloads or installs until you say so. To check yourself, choose <strong>Avantis Hub &gt; Check for Updates</strong>.</p>
-<p>When the daily check finds a new version, no window opens by itself, armed or not, so nothing gets in the way of a service. A banner appears across the top of the window, in Build and Show view:</p>
+<p><span class="new">New in 0.9.7</span> When the daily check finds a new version, no window opens by itself, armed or not, so nothing gets in the way of a service. A banner appears across the top of the window, in Build and Show view:</p>
 <figure class=""><img src="img/mac-update-banner.png" alt="A new version found by the daily check, shown as a banner." width="1728" height="128" loading="lazy"><figcaption>A new version found by the daily check, shown as a banner.</figcaption></figure>
 <ul>
 <li><strong>Show Update</strong> opens the update window, with what is new and <strong>Install Update</strong>.</li>
