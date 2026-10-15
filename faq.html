@@ -199,11 +199,11 @@
 </div></details><details class="qa"><summary>Why can't I change the IP address?</summary><div class="body">
 <p>It is locked while connected. Click Disconnect first.</p>
 </div></details><details class="qa"><summary>Some faders show "?" or look dimmed.</summary><div class="body">
-<p>The console reports a fader or mute when it changes, and its MIDI control cannot be asked where everything is. A dimmed value is remembered from an earlier connection and may be out of date. A "?" has never been seen. Move the control once and the hub shows the live value. See <a href="manual.html#console">the manual</a>.</p>
+<p>The console reports a fader or mute when it changes, and its MIDI control cannot be asked where everything is. A dimmed value is remembered from an earlier connection and may be out of date. A "?" has never been seen. Move the control once and the hub shows the live value. On firmware V2.0 and later, the experimental option "Read input mutes and faders on connecting" fills most of them in as the hub connects. See <a href="manual.html#console">the manual</a>.</p>
 </div></details><details class="qa"><summary>What does "MUTE ?" mean?</summary><div class="body">
 <p>The console has not said whether that channel is muted since the hub connected. Pressing it mutes. Once the mute changes, by the hub or at the console, the button shows the real state.</p>
 </div></details><details class="qa"><summary>Can the hub read the mutes when it connects?</summary><div class="body">
-<p>For inputs, as an experiment. Each board has an option, "Read input mutes on connecting", that is off unless you turn it on. With it on, the hub makes one short read-only visit on the connection Avantis Director uses and fills in which inputs are muted. It was worked out by watching Director, not from Allen &amp; Heath's documents, so try it at a quiet console first. Faders, DCAs and mixes are not read.</p>
+<p>Yes, as an experiment. Each board has an option, "Read input mutes and faders on connecting", that is off unless you turn it on. With it on, the hub makes one short read-only visit on the connection Avantis Director uses and fills in the mutes and fader levels of the inputs, DCAs, stereo auxes, mains and stereo matrices, and the mute groups' mutes. It was worked out by watching Director, not from Allen &amp; Heath's documents, so try it at a quiet console first.</p>
 </div></details><details class="qa"><summary>Why does "turn up" from my phone say it needs the fader's level?</summary><div class="body">
 <p>Moving a fader "up by 3 dB" needs a known starting point. If the console has not reported that fader since the hub connected, the hub refuses instead of guessing. Move the fader once, or set it to a level instead.</p>
 </div></details><details class="qa"><summary>Why doesn't the hub know the current scene?</summary><div class="body">
@@ -231,7 +231,7 @@
 </div></details><details class="qa"><summary>Can the hub get into a feedback loop with the console?</summary><div class="body">
 <p>It is built not to. The hub remembers each change it has just made. If the console reports that same change back, the hub recognises it as its own and does not act on it again.</p>
 </div></details><details class="qa"><summary>Could a burst of cues flood the console?</summary><div class="body">
-<p>The hub spaces out what it sends, so a burst is delivered in order at a pace the console handles.</p>
+<p>The hub spaces out what it sends, so a burst is delivered in order at a pace the console handles. UFX keys, scales and parameters go out at least 50 ms apart, because the console was seen to miss one sent right behind another.</p>
 
 </div></details></section><section class="group" id="map"><h2>Mappings and triggers</h2>
 <details class="qa"><summary>Nothing shows in the Triggers column.</summary><div class="body">
@@ -239,6 +239,8 @@
 <li><strong>MIDI:</strong> the sending app must use the port called "Avantis Hub" as its output. A hardware controller must be switched on under MIDI in the Inputs settings.</li>
 <li><strong>OSC:</strong> Listen for OSC must be on, and the sender must use the Mac's address and the hub's port (9300 unless changed).</li>
 </ul>
+</div></details><details class="qa"><summary>A note worked once and then did nothing the next time.</summary><div class="body">
+<p>The hub counts one press per key press, and treats a note as held until its Note Off arrives. If a Note Off goes missing, for example because a clip was stopped between a note's start and end, the next Note On for that note used to be ignored. From 0.9.7 it counts again once nothing has been heard from that note for 2 seconds. A controller that sends Note On only, with no Note Off at all, should still be set to send one.</p>
 </div></details><details class="qa"><summary>Can a hardware controller or another computer send cues?</summary><div class="body">
 <p>Yes. In the Inputs settings, the MIDI tab lists every MIDI input on the Mac. Move a control, see which input's dot lights, and switch that one on. A network MIDI session from another computer or an iPad shows up the same way.</p>
 </div></details><details class="qa"><summary>Every cue is arriving twice.</summary><div class="body">
@@ -270,7 +272,7 @@
 </div></details><details class="qa"><summary>Can I control EQ, compressors, gain or pan?</summary><div class="body">
 <p>No. The hub offers what the console's control protocol exposes: mutes, faders, sends, assignments and scene recall. On firmware V2.0 and later it also offers the key and scale for the UFX pitch effects, and any UFX parameter the console has been set up to take by MIDI. For anything else, store it in a scene on the console and have the hub recall the scene.</p>
 </div></details><details class="qa"><summary>Can the hub set the key for a vocal tuner, or switch it on and off?</summary><div class="body">
-<p>On firmware V2.0 and later, yes. Board Targets has a UFX group with the twelve keys and three scales, which set the console's global key and scale. Under Parameters it has named entries, such as Tuner bypass, for parameters you have given a MIDI channel and controller number on the console. A cue at the top of a song can set the key and scale and take the tuner out of bypass together. See <a href="manual.html#targets">What can be controlled</a>.</p>
+<p>On firmware V2.0 and later, yes. Board Targets has a UFX group with the twelve keys and three scales, which set the console's global key and scale. Under Parameters it has named entries, such as Tuner bypass, for parameters you have given a MIDI channel and controller number on the console. A cue at the top of a song can set the key and scale and take the tuner out of bypass together. A quick button that only switches the tuner shows NOW in Show view while it is the one in effect, going by what the hub last sent. See <a href="manual.html#targets">What can be controlled</a>.</p>
 </div></details><details class="qa"><summary>My UFX cue says "UFX cues are switched off for this board".</summary><div class="body">
 <p>Each board has one switch for every UFX key, scale and parameter cue, and it starts off. Open the board's settings, choose Options, and turn on "Send UFX key, scale and parameters". Turn it off again to hold them all back at once.</p>
 </div></details><details class="qa"><summary>How do I start a mapping from the thing I want to control?</summary><div class="body">
@@ -359,8 +361,8 @@
 <p>A name the profile relies on has gone, or two channels now share it. The hub will not guess. Choose in the banner where the mappings should go. See <a href="manual.html#names">the manual</a>.</p>
 
 </div></details></section><section class="group" id="upd"><h2>Updates and the app itself</h2>
-<details class="qa"><summary>There is an "Update" marker at the top of the window.</summary><div class="body">
-<p>A new version was found while the hub was armed. The hub does not open a window over a service, so it shows the marker and waits. Click it to see what is new.</p>
+<details class="qa"><summary>A banner says a new version is ready.</summary><div class="body">
+<p>The daily check found one. The hub never opens a window over a service by itself, so it shows the banner and waits. Click Show Update to see what is new, or Later to hide it until the hub next opens. Nothing installs until you say so.</p>
 </div></details><details class="qa"><summary>Can an update restart the hub in the middle of a service?</summary><div class="body">
 <p>No. Nothing installs without a click, and an armed hub asks before it quits.</p>
 </div></details><details class="qa"><summary>Will an update change my mappings?</summary><div class="body">
