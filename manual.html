@@ -152,16 +152,37 @@
 <div id="oldver" class="note tip hidden"></div>
 <script>
 (function () {
-  var latest = '0.9.7', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
-  if (!mine) return;
+  var latest = '0.9.7', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
   function parts(v) { return v.split('.').map(Number); }
-  var a = parts(mine), b = parts(latest), older = false;
-  for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) { older = (a[i] || 0) < (b[i] || 0); break; } }
-  if (!older) return;
-  var note = document.getElementById('oldver');
-  note.innerHTML = 'You have Avantis Hub <strong>' + mine + '</strong>. This page describes <strong>' + latest +
-    '</strong>, so a few things here may not be in your copy yet. To update, choose <strong>Avantis Hub &gt; Check for Updates</strong>.';
-  note.classList.remove('hidden');
+  function older(x, y) {
+    var a = parts(x), b = parts(y);
+    for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) < (b[i] || 0); }
+    return false;
+  }
+  var update = ', so a few things here may not be in your copy yet. To update, choose <strong>Avantis Hub &gt; Check for Updates</strong>.';
+  var text = mine
+    ? (older(mine, latest) ? 'You have Avantis Hub <strong>' + mine + '</strong>. This page describes <strong>' + latest + '</strong>' + update : '')
+    : (older(first, latest) || first === latest
+        ? 'Opened this from a version of Avantis Hub before ' + first + '? This page describes <strong>' + latest + '</strong>' + update
+        : '');
+  if (text) {
+    var note = document.getElementById('oldver');
+    note.innerHTML = text;
+    note.classList.remove('hidden');
+  }
+})();
+</script>
+
+<script>
+(function () {
+  var mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
+  if (!mine) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    [].slice.call(document.querySelectorAll('a[href]')).forEach(function (a) {
+      var m = a.getAttribute('href').match(/^(manual|faq|release-notes)\.html(#.*)?$/);
+      if (m) a.setAttribute('href', m[1] + '.html?v=' + mine + (m[2] || ''));
+    });
+  });
 })();
 </script>
 <section class="topic" data-topic="what"><h2 id="what">1. What Avantis Hub does</h2>
