@@ -158,7 +158,7 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the contents">Contents</button>
 <div class="brand">Avantis Hub<span>FAQ</span></div>
-<div class="forver">For Avantis Hub 0.9.7. <a href="release-notes.html">What changed in each version</a></div>
+<div class="forver">For Avantis Hub 0.9.8. <a href="release-notes.html">What changed in each version</a></div>
 <input id="q" type="search" placeholder="Search the questions" autocomplete="off" aria-label="Search the questions">
 <div id="count"></div>
 <nav id="contents" aria-label="Contents"><a href="#basics"><span class="t">The basics</span></a><a href="#connect"><span class="t">Connecting to the console</span></a><a href="#armed"><span class="t">Armed, Disarmed and Panic</span></a><a href="#map"><span class="t">Mappings and triggers</span></a><a href="#qb"><span class="t">Quick buttons</span></a><a href="#live"><span class="t">Ableton Live</span></a><a href="#dev"><span class="t">iPhone and iPad</span></a><a href="#multi"><span class="t">Profiles, backups and sharing</span></a><a href="#upd"><span class="t">Updates and the app itself</span></a></nav>
@@ -169,7 +169,7 @@
 <div id="oldver" class="note tip hidden"></div>
 <script>
 (function () {
-  var latest = '0.9.7', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
+  var latest = '0.9.8', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
   function parts(v) { return v.split('.').map(Number); }
   function older(x, y) {
     var a = parts(x), b = parts(y);
@@ -348,6 +348,7 @@
 <p>From <a href="https://github.com/ideoforms/AbletonOSC">its page on GitHub</a>. Click Code, then Download ZIP. Unzip it, rename the folder to AbletonOSC, move it into Music/Ableton/User Library/Remote Scripts in your home folder, and restart Live. There are other projects with similar names, and the hub only works with this one. <a href="manual.html#inputs">The manual</a> has the steps in full.</p>
 </div></details><details class="qa"><summary>My clip does not press its button.</summary><div class="body">
 <ul>
+<li>"Press quick buttons from clip names" must be on, under Ableton Live in the hub. It is off at first.</li>
 <li>The track's name must start with "Hub".</li>
 <li>The clip's name must match the button's name. Capitals do not matter.</li>
 <li>The hub must be armed and connected.</li>
