@@ -224,11 +224,11 @@
 <tr><td><strong>Profile</strong></td><td>The set of mappings and quick buttons in use, and the menu for managing them. See <a href="#boards">Boards and profiles</a>.</td></tr>
 <tr><td><strong>Console pill</strong></td><td>The board's name, address and connection state. Click it for the board's settings.</td></tr>
 <tr><td><strong>Inputs pill</strong></td><td>Which inputs are on (MIDI, Live, OSC and its port) and a running count of messages received. Click it for the MIDI, OSC and Ableton settings.</td></tr>
-<tr><td><strong>Update banner</strong></td><td>Appears across the top when a new version is ready. See <a href="#updates">Updates</a>.</td></tr>
 <tr><td><strong>Learn</strong></td><td>Build view only. Makes a mapping by example.</td></tr>
 <tr><td><strong>Armed / Disarmed</strong></td><td>Whether the hub may send to the console. Click to change. It glows only when armed <em>and</em> connected.</td></tr>
 <tr><td><strong>Panic</strong></td><td>Disarms at once and stops everything in progress.</td></tr>
 </table>
+<p>In Show view, once the hub has song information, the Inputs pill shows the transport instead, such as "▶ 72 BPM · bar 33". Banners, such as a new version being ready, appear under the header. The <strong>Help</strong> menu opens this manual, the FAQ and the release notes.</p>
 <p>Colour is used the same way everywhere: <strong style="color:#6aa9ff">blue</strong> is something coming in (a trigger), <strong style="color:#f2955a">orange</strong> is something on the console (a target), and <strong style="color:#5dd6e8">cyan</strong> means live and armed.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#start"><small>Previous</small>Getting started</a><a class="next" href="#safety"><small>Next</small>Armed, Disarmed and Panic</a></nav></section><section class="topic" data-topic="safety"><h2 id="safety">5. Armed, Disarmed and Panic</h2>
@@ -256,7 +256,7 @@
 <ol>
 <li>Put the Mac on the same network as the Avantis.</li>
 <li>Click the console pill, or open <strong>Settings &gt; Console</strong>.</li>
-<li>Click <strong>Find</strong> beside <strong>Console IP</strong> and click <strong>Use</strong> beside your console, or type its address. You will find it on the console under Utility / Control / Network.</li>
+<li>Click <strong>Find</strong> beside <strong>Console IP</strong> and click <strong>Use</strong> beside your console, or type its address and press Return. You will find it on the console under Utility / Control / Network.</li>
 <li>Set <strong>Base MIDI channel</strong> to match the console, under Utility / Control / MIDI. The console's default is 12 to 16. The hub shows the range as "12 to 16" because the console uses five MIDI channels in a row.</li>
 <li>Set <strong>Firmware</strong> to match the console. Choose <strong>V2.0 and later</strong> unless the console is still on older firmware.</li>
 <li>Click <strong>Connect</strong>.</li>
@@ -271,7 +271,7 @@
 <li>It only reaches consoles on the same network as the Mac. A console on another network, reached through a router, does not answer and has to be typed in.</li>
 <li>Every Avantis gives the same name unless it has been renamed, so where there is more than one, check the address against the console's Utility / Control / Network screen.</li>
 <li>If the console's address changes, as it can when the network hands addresses out, click Find again and click Use beside it.</li>
-<li>When a board will not connect, the hub looks once for a console at another address. If exactly one that could be yours answers, a banner offers it, with <strong>Use This Address</strong> and <strong>Not Now</strong>. The hub never changes the address by itself. If two consoles answer, or the board's own address answers, it offers nothing.</li>
+<li>When a board will not connect, the hub looks for a console at another address, and again now and then while it keeps failing. If exactly one that could be yours answers, a banner offers it, with <strong>Use This Address</strong> and <strong>Not Now</strong>. The hub never changes the address by itself. If two consoles answer, or the board's own address answers, it offers nothing.</li>
 </ul>
 <h3>One control connection at a time</h3>
 <p>The console answers one connection on its MIDI control port at a time. If another app on the network is already using that port, the hub connects but gets no names back. Close the other app, or the other hub, and reconnect.</p>
@@ -294,7 +294,7 @@
 <li>It fills in the inputs' mutes and fader levels, the DCAs' mutes and levels, the mute groups' mutes, the mutes and levels of the stereo auxes, the mains and the stereo matrices, and <span class="new">New in 0.9.8</span> each input's send levels to the UFX units.</li>
 <li>It only fills in what the hub does not already know. Anything that changed on this connection keeps its live value.</li>
 <li>If the visit fails for any reason, nothing changes and the hub carries on as it would without it. The Monitor says what happened.</li>
-<li>It is available on <strong>V2.0 and later</strong> only.</li>
+<li>It is available on <strong>V2.0 and later</strong> only, and can only be switched while disconnected.</li>
 <li><span class="new">New in 0.9.8</span> It works with Avantis Director connected to the console at the same time.</li>
 </ul>
 <div class="note warn">This was worked out by watching how Director talks to the console, not from Allen &amp; Heath's documents, and tried on firmware 2.0.1. It is off unless you turn it on. Try it at a quiet console before relying on it in a service.</div>
@@ -308,8 +308,8 @@
 <nav class="pager" aria-label="More topics"><a class="prev" href="#safety"><small>Previous</small>Armed, Disarmed and Panic</a><a class="next" href="#boards"><small>Next</small>Boards and profiles</a></nav></section><section class="topic" data-topic="boards"><h2 id="boards">7. Boards and profiles</h2>
 <h3>Boards</h3>
 <p>A <strong>board</strong> is one console: its name, its address and its MIDI channel. The hub also remembers each board's channel names, colours and last known levels, so they show even when you are not connected.</p>
-<p>If you work with more than one console (a sanctuary and a youth room, say), make a board for each with <strong>New Board</strong> and pick between them with the <strong>Board</strong> menu in the Console settings. Switching boards disconnects and disarms.</p>
-<p><strong>Delete Board</strong> removes the board, its profiles and what the hub remembers of that console. It cannot be undone, and the last board cannot be deleted.</p>
+<p>If you work with more than one console (a sanctuary and a youth room, say), make a board for each with <strong>New Board</strong>, which starts with the current board's MIDI channel and settings, and pick between them with the <strong>Board</strong> menu in the Console settings. Switching boards disconnects and disarms.</p>
+<p><strong>Delete Board</strong> removes the board, its profiles and what the hub remembers of that console. The board and what the hub remembered cannot be brought back, but its profiles can, from Restore Deleted Profile. The last board cannot be deleted.</p>
 <h3>Profiles</h3>
 <p>A <strong>profile</strong> is a complete set of mappings and quick buttons, such as "Sunday morning" or "Youth night". Each profile belongs to one board. The Profile menu in the header switches between them and holds these commands:</p>
 <table>
@@ -317,7 +317,7 @@
 <tr><td>New Profile</td><td>An empty profile on this board.</td></tr>
 <tr><td>Duplicate</td><td>A full copy, including quick buttons, their triggers and the buttons they run.</td></tr>
 <tr><td>Rename</td><td>Changes the name only.</td></tr>
-<tr><td>Delete</td><td>Removes the profile. It can be brought back with Restore Deleted Profile.</td></tr>
+<tr><td>Delete</td><td>Removes the profile. It can be brought back with Restore Deleted Profile. The last profile on a board cannot be deleted.</td></tr>
 <tr><td>Copy to Board</td><td>Copies the profile to another board. Targets are matched to that board's channels by name where the names agree.</td></tr>
 <tr><td>Export to File / Import from File</td><td>Saves a profile as a file, or loads one, for moving between Macs or keeping a copy.</td></tr>
 <tr><td>Restore from Backup</td><td>Goes back to an earlier saved version of this profile.</td></tr>
@@ -386,7 +386,7 @@
 <tr><td>Note</td><td>A MIDI note on that number and channel is played. Note names follow Ableton Live and Logic, where middle C (note 60) is C3. One key press is one press: a second Note On before the Note Off is ignored. <span class="new">New in 0.9.7</span> If a Note Off never comes, for example because a clip was stopped between the two, the next Note On still counts once nothing has been heard from that note for 2 seconds.</td></tr>
 <tr><td>Control change (CC)</td><td>A controller on that number and channel sends a value.</td></tr>
 <tr><td>Program change</td><td>That program number is sent on that channel.</td></tr>
-<tr><td>OSC</td><td>A message arrives on that exact address. Addresses are not case sensitive.</td></tr>
+<tr><td>OSC</td><td>A message arrives on that exact address, capitals included.</td></tr>
 <tr><td>Song locator</td><td>Playback in Ableton Live reaches a marker with that name. Needs song information: see <a href="#inputs">Sending cues</a>.</td></tr>
 </table>
 <h3>Modes</h3>
@@ -398,7 +398,7 @@
 <tr><td><strong>Value</strong></td><td>Follows the incoming value between a Min and a Max.</td><td>A physical fader or knob riding a level.</td></tr>
 </table>
 <p>For mutes, the hub says <strong>Muted</strong> and <strong>Unmuted</strong> instead of on and off, because "on" for a mute means silent, which reads backwards. Assignments say On and Off.</p>
-<p>For a fader in Value mode, <strong>Range</strong> gives the Min and the Max, as levels in dB. A controller at its lowest gives Min and at its highest gives Max. Choose <strong>-inf</strong> instead of <strong>dB</strong> to make Min fully off. <strong>Invert</strong> turns it round, so the controller at its highest gives Min.</p>
+<p>For a fader in Toggle, Momentary or Value mode, <strong>Range</strong> gives the Min and the Max, as levels in dB. Toggle and Momentary move between the two. In Value mode a controller at its lowest gives Min and at its highest gives Max. Choose <strong>-inf</strong> instead of <strong>dB</strong> to make Min fully off. <strong>Invert</strong>, in Value and Momentary mode, turns it round.</p>
 <h3>The mapping list</h3>
 <ul>
 <li><strong>By trigger</strong> groups the list under each trigger, with everything it controls. <strong>By target</strong> groups it under each channel, with everything that controls it. A mapping with several targets appears under each.</li>
@@ -454,7 +454,7 @@
 <li>A board starts with three for a vocal tuner: bypass, correction and retune, on MIDI channel 6, controllers 20 to 22. Units given the same channel and controller number on the console switch together, so one bypass covers every tuner. The console has no numbers of its own for these, so either set the same ones on the console or change these to match it.</li>
 <li>To add one, type the channel, the controller number and a name, and click <strong>Add</strong>. The fields start on the channel used last and its next free controller number. The pencil beside a name puts it in the fields to rename it. Saving an empty name removes it from the list. Mappings that already use it keep working and show its numbers instead.</li>
 <li>The names are kept with the board.</li>
-<li>The value is a plain number from 0 to 127, which the console spreads across whatever the parameter can be. In Set mode you choose the number. Toggle alternates between 127 and 0. Value mode lets a fader ride it.</li>
+<li>The value is a plain number from 0 to 127, which the console spreads across whatever the parameter can be. In Set mode you choose the number, or click <strong>Lowest</strong> or <strong>Highest</strong>. Toggle alternates between 127 and 0. Value mode lets a fader ride it.</li>
 <li>The unit's channel must not be one of the console's own five. A mapping that uses one of those is held and says why.</li>
 <li>Which number means what is up to the unit. Find it by trying it on the console before a service.</li>
 </ul>
@@ -483,7 +483,7 @@
 <p>Show view is the one to leave open during a service. The surface is on the left and the status is on the right.</p>
 <h3>Layers</h3>
 <p>The tabs across the top choose which channels are shown: your own pages first, then DCAs, Inputs twelve at a time, Groups, Auxes, Matrices, FX, UFX and Mains with Mute Groups.</p>
-<p><strong>Named</strong>, at the top right, hides every channel nobody has named on the console and closes up the tabs to fit. A console with 30 named inputs then shows three tabs of inputs and not eight. Click it again to see everything. Until the hub has seen any names, it shows everything.</p>
+<p><strong>Named</strong>, at the top right, hides every channel nobody has named on the console and closes up the tabs to fit. A console with 30 named inputs then shows three tabs of inputs and not eight. Mute groups always show, so one can be named here. Click Named again to see everything.</p>
 <h3>Pages</h3>
 <p>A page is a tab you build yourself, holding whichever channels you want in whatever order, like a custom layer on the console. A page for the band might hold the bass, the drums, the click, the tracks and the keys, side by side, though they sit far apart on the console.</p>
 <ol>
@@ -529,7 +529,7 @@
 <h3>Making and editing</h3>
 <ul>
 <li>Click <strong>+</strong> in the Quick buttons panel to make one.</li>
-<li>Click <strong>Edit</strong>, then a button, to change it. While editing, drag buttons to reorder them.</li>
+<li>Click <strong>Edit</strong>, then a button, to change it, or right-click a button and choose <strong>Edit…</strong>. While editing, drag buttons to reorder them.</li>
 <li>The <strong>-</strong> and <strong>+</strong> beside Edit change the size of the tiles.</li>
 </ul>
 <figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." width="639" height="699" loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
@@ -629,7 +629,7 @@
 </ul>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#buttons"><small>Previous</small>Quick buttons</a><a class="next" href="#osc"><small>Next</small>OSC reference</a></nav></section><section class="topic" data-topic="osc"><h2 id="osc">15. OSC reference</h2>
-<p>Send to the Mac's address on the hub's UDP port (9300 by default). Addresses are not case sensitive. <code>&lt;n&gt;</code> is the number shown on the console, starting at 1.</p>
+<p>Send to the Mac's address on the hub's UDP port (9300 by default). The <code>/hub</code> addresses below and quick button addresses are not case sensitive. A mapping's own OSC address must match exactly, capitals included. <code>&lt;n&gt;</code> is the number shown on the console, starting at 1.</p>
 <table>
 <tr><th>Address</th><th>Argument</th><th>What it does</th></tr>
 <tr><td><code>/hub/scene</code></td><td>whole number, 1 to 500</td><td>Recalls that scene.</td></tr>
@@ -667,6 +667,7 @@
 <tr><td><code>IN</code></td><td>A trigger arrived: a MIDI message or an OSC message, with where it came from.</td></tr>
 <tr><td><code>OUT</code></td><td>A change the hub sent to the console.</td></tr>
 <tr><td><code>SENT</code></td><td>The exact bytes of that change, shown when Raw bytes is ticked.</td></tr>
+<tr><td><code>BYTES</code></td><td>The exact bytes received from the console, shown when Raw bytes is ticked.</td></tr>
 <tr><td><code>ECHO</code></td><td>The console sending back a change the hub just made. A console on firmware V2.0 does not do this, so you may never see one.</td></tr>
 <tr><td><code>BOARD</code></td><td>Something reported by the console itself: a name, a colour, or a fader or mute moved by hand.</td></tr>
 <tr><td><code>HUB</code></td><td>The hub's own state: armed, disarmed, connected, a device pairing, a clip pressing a button.</td></tr>
@@ -677,7 +678,7 @@
 <li><span class="new">New in 0.9.7</span> <strong>Only what the hub uses</strong> hides incoming MIDI that no mapping or quick button is set to, here and in the Triggers list, so an expression pedal or a busy controller does not bury the cues. Hidden messages are still counted in the Inputs pill. Everything shows while learning.</li>
 <li><span class="new">New in 0.9.7</span> A run of values from one control on one input folds into a single line with a count, such as <code>×24</code>, showing the latest value.</li>
 <li><strong>Clear</strong> empties the list.</li>
-<li><strong>Copy</strong> puts every line on the clipboard, handy when asking for help. Right-click a line for <strong>Copy Line</strong>.</li>
+<li><strong>Copy</strong> puts every line shown on the clipboard, handy when asking for help. Right-click a line for <strong>Copy Line</strong>.</li>
 </ul>
 <p>A healthy cue reads as an <code>IN</code> line followed by one or more <code>OUT</code> lines. An <code>OUT</code> line means the change was written to the console.</p>
 
@@ -689,10 +690,10 @@
 <li><strong>Plain:</strong> otherwise.</li>
 </ul>
 <figure class="phone"><img src="img/mac-menubar.png" alt="The menu bar panel." width="330" height="604" loading="lazy"><figcaption>The menu bar panel.</figcaption></figure>
-<p>Click the icon for a panel with the connection state, the current scene, <strong>Armed</strong>, <strong>Panic</strong>, your quick buttons, the profile menu and <strong>Open Avantis Hub</strong>. Everything in the panel behaves exactly as it does in the window, including the second press for a button that needs confirming.</p>
-<p>To stop the hub, choose <strong>Avantis Hub &gt; Quit</strong>. If it is armed it asks first.</p>
+<p>Click the icon for a panel with the connection state, the current scene, the last trigger, <strong>Armed</strong>, <strong>Panic</strong>, your quick buttons, the profile menu, <strong>Open Avantis Hub</strong>, <strong>Settings…</strong> and <strong>Quit</strong>. Everything in the panel behaves exactly as it does in the window, including the second press for a button that needs confirming.</p>
+<p>The first time the window is closed, a note says the hub is still running. To stop it, choose <strong>Avantis Hub &gt; Quit</strong>, or Quit in the panel. If it is armed it asks first.</p>
 <h3>Only one hub at a time</h3>
-<p>Two hubs on one Mac would fight over the MIDI port, and both could act on the same trigger. So opening the app again hands over to the copy already running. If that copy is armed, it stays, comes to the front, and the new one steps aside.</p>
+<p>Two hubs on one Mac would fight over the MIDI port, and both could act on the same trigger. So opening the app again replaces the copy already running. If that copy is armed, it stays, comes to the front, and the new one steps aside.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#monitor"><small>Previous</small>The Monitor</a><a class="next" href="#devices"><small>Next</small>iPhone and iPad</a></nav></section><section class="topic" data-topic="devices"><h2 id="devices">18. iPhone and iPad</h2>
 <p>The companion app puts your quick buttons and the hub's status on an iPhone or iPad. A device only ever talks to the hub, never to the console, and everything it asks for goes through the same Armed check as any other trigger.</p>
@@ -709,10 +710,10 @@
 <ul>
 <li><strong>Armed pill:</strong> whether the hub is armed. It glows when the hub is armed and has its console. A device cannot arm the hub.</li>
 <li><strong>Status card:</strong> the current scene, and either what is up next or the last trigger.</li>
-<li><strong>Quick buttons:</strong> tap to press. A button that needs confirming says "Tap again to fire". Buttons are dimmed when the hub is disarmed or the link is down.</li>
+<li><strong>Quick buttons:</strong> tap to press. A button that needs confirming is marked "Press twice", and after the first tap says "Tap again to fire". Buttons are dimmed when the hub is disarmed or the link is down. With the hub armed but no console they stay lit, but nothing reaches the console.</li>
 <li><strong>- and +:</strong> four sizes, from three small tiles across to one large tile you can hit without looking.</li>
-<li><strong>Arrange (the arrows):</strong> drag buttons into your own order. Nothing fires while arranging. The order is kept on that device, for that hub. Reset goes back to the Mac's order.</li>
-<li><strong>Panic:</strong> tap, then tap again to confirm. It disarms the hub. Shown only if the Mac allows this device to use it.</li>
+<li><strong>Arrange (the arrows):</strong> shown once there are two buttons or more. Hold a button and drag it onto another to move it, and tap <strong>Done</strong> to finish. Nothing fires while arranging. The order is kept on that device, for that hub. Once the device has its own order, <strong>Reset</strong> here, or <strong>Use the Mac's button order</strong> on the Status screen, goes back to the Mac's.</li>
+<li><strong>Panic:</strong> tap, then tap again to confirm. It disarms the hub. Shown only if the Mac allows this device to use it, which a newly paired device is.</li>
 <li>Pull down to refresh.</li>
 </ul>
 <h3>The Status screen</h3>
@@ -746,26 +747,27 @@
 <li><strong>Largest single "turn up" or "turn down":</strong> 3 dB unless you change it, from 1 to 6.</li>
 <li><strong>A fader moved from a device:</strong> Snap, or Glide over a time. It starts as a one-second glide, which is kinder to a room than a jump.</li>
 </ul>
-<p>Anything over a limit is <strong>refused</strong>, not trimmed to fit, so a mistake never lands "as close as allowed". Quick buttons are not affected by these limits: a button does what you built it to do.</p>
+<p>A level set above the highest allowed, or a move bigger than the largest allowed, is <strong>refused</strong>, not trimmed to fit, so a mistake never lands "as close as allowed". A "turn up" that would pass the highest level stops at it. Quick buttons are not affected by these limits: a button does what you built it to do.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#menubar"><small>Previous</small>The menu bar</a><a class="next" href="#shortcuts"><small>Next</small>Shortcuts on iPhone and iPad</a></nav></section><section class="topic" data-topic="shortcuts"><h2 id="shortcuts">19. Shortcuts on iPhone and iPad</h2>
 <p>The companion adds actions to the Shortcuts app, so the hub can be part of an automation, a Home Screen button, the Action button or a spoken phrase.</p>
 <table>
 <tr><th>Action</th><th>What it does</th><th>Needs</th></tr>
-<tr><td>Fire Quick Button</td><td>Presses one of the device's quick buttons.</td><td>The button to be allowed on that device</td></tr>
-<tr><td>Mute or Unmute a Strip</td><td>Mutes or unmutes a channel, DCA, group, aux, main or mute group.</td><td>Direct control</td></tr>
-<tr><td>Set a Fader</td><td>Sets a fader to a level in dB.</td><td>Direct control</td></tr>
-<tr><td>Turn a Fader Up or Down</td><td>Moves a fader from where it is, by an amount in dB such as 2.5.</td><td>Direct control, and the console to have reported that fader's level</td></tr>
+<tr><td>Fire Quick Button</td><td>Presses one of the device's quick buttons. A button that needs confirming fires at once from a shortcut.</td><td>The button to be allowed on that device</td></tr>
+<tr><td>Mute or Unmute a Strip</td><td>Mutes or unmutes any named strip: a channel, group, aux, matrix, FX send or return, main, DCA or mute group.</td><td>Direct control</td></tr>
+<tr><td>Set a Fader</td><td>Sets a fader to a level in dB, from -54 to +10. Mute groups have no fader.</td><td>Direct control</td></tr>
+<tr><td>Turn a Fader Up or Down</td><td>Moves a fader from where it is, by an amount in dB from 0.5 to 6, such as 2.5. Left empty, it moves by the largest step allowed.</td><td>Direct control, and the console to have reported that fader's level</td></tr>
 <tr><td>Recall a Scene</td><td>Recalls a scene by number.</td><td>Direct control</td></tr>
 </table>
 <ul>
-<li>Every action still needs the hub to be <strong>Armed</strong>.</li>
+<li>Every action still needs the hub to be <strong>Armed</strong> and connected to the console.</li>
 <li>Each action reports back what happened, including why it was refused.</li>
 <li>Actions work with the app closed, as long as the device is on the hub's network.</li>
-<li>The app also offers ready-made shortcuts that appear in Shortcuts and Spotlight, such as "Mute", "Unmute", "Turn Up", "Turn Down" and "Recall Scene".</li>
+<li>The app also offers ready-made shortcuts that appear in Shortcuts and Spotlight, such as "Mute", "Unmute", "Turn Up", "Turn Down", "Set to a Level", "Set Fader" and "Recall Scene". The Status screen shows example phrases.</li>
+<li>Siri learns the names of the strips the profile in use controls. Any other named strip can still be picked in the Shortcuts app.</li>
 </ul>
 <h3>Asking first</h3>
-<p>Under <strong>Voice commands</strong> on the Status screen, choose when a spoken or ready-made command should ask before acting: <strong>Never</strong>, <strong>For levels and scenes</strong>, or <strong>For everything</strong>. A misheard level is heard by the whole room, while a misheard mute is quick to see and undo, which is why levels and scenes are the middle choice. Shortcuts you build yourself have their own Ask Before Running switch.</p>
+<p>Under <strong>Voice commands</strong> on the Status screen (shown when the device has direct control; on iPad, <strong>Voice commands ask first</strong> in the Hubs box), choose when a spoken or ready-made command should ask before acting: <strong>Never</strong>, <strong>For levels and scenes</strong>, or <strong>For everything</strong>. A misheard level is heard by the whole room, while a misheard mute is quick to see and undo, which is why levels and scenes are the middle choice. Shortcuts you build yourself have their own Ask Before Running switch.</p>
 <div class="note">Running these actions from the Shortcuts app, a widget or a button is dependable. Triggering them purely by voice through Siri is not yet reliable in this version, and is being worked on.</div>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#devices"><small>Previous</small>iPhone and iPad</a><a class="next" href="#names"><small>Next</small>When channel names change</a></nav></section><section class="topic" data-topic="names"><h2 id="names">20. When channel names change</h2>
@@ -775,7 +777,7 @@
 <li>the name has disappeared from the console altogether, or</li>
 <li>two channels of the same kind now have the same name.</li>
 </ul>
-<p>Then the banner asks. Until you choose, mappings and quick buttons that use those channels are <strong>on hold</strong> and will not fire, which is safer than guessing and unmuting the wrong channel. You can keep the mapping on its old channel number, or decide later.</p>
+<p>Then the banner asks. Until you choose, mappings and quick buttons that use those channels are <strong>on hold</strong> and will not fire, which is safer than guessing and unmuting the wrong channel. You can <strong>Keep</strong> the mappings on the old channel number, <strong>Move</strong> them to another channel, or choose <strong>Later</strong>. After the hub follows a name by itself, the banner offers <strong>Undo</strong>.</p>
 <div class="tip note">Give every channel a distinct name on the console. Two inputs both called "Vox" cannot be told apart by name. "Vox 1" and "Vox 2" can.</div>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#shortcuts"><small>Previous</small>Shortcuts on iPhone and iPad</a><a class="next" href="#sharing"><small>Next</small>Using more than one Mac</a></nav></section><section class="topic" data-topic="sharing"><h2 id="sharing">21. Using more than one Mac</h2>
@@ -785,9 +787,9 @@
 <li>Pick a folder that syncs between the Macs, such as one in Dropbox or iCloud Drive. Use an empty one, or one another Mac is already sharing.</li>
 <li>Do the same on the other Mac, choosing the same folder.</li>
 </ol>
-<p>Every Mac that chooses the folder uses the same boards, profiles, quick buttons and device limits, and picks up changes a few seconds after another Mac saves them.</p>
+<p>Every Mac that chooses the folder uses the same boards, profiles, quick buttons, device limits and glide settings, and picks up changes a few seconds after another Mac saves them.</p>
 <h3>What goes with each board <span class="new">New in 0.9.9</span></h3>
-<p>A board carries more than its console's address. Its <strong>Startup</strong> settings (connect when the app opens, arm when the console connects), the <strong>OSC</strong> port, and the <strong>Ableton Live</strong> link (on or off, the address and ports, and Press quick buttons from clip names) go with it, as do its Options. So every Mac that opens a board is set up the same way, and you can prepare one Mac and simply open the board on another.</p>
+<p>A board carries more than its console's address. Its <strong>Startup</strong> settings (connect when the app opens, arm when the console connects), the <strong>OSC</strong> listener and port, and the <strong>Ableton Live</strong> link (on or off, the address and ports, and Press quick buttons from clip names) go with it, as do its Options. So every Mac that opens a board is set up the same way, and you can prepare one Mac and simply open the board on another.</p>
 <p>The first time 0.9.9 or later opens, every board takes that Mac's settings, so nothing changes until you change it. The Monitor says how many boards took them.</p>
 <p>Try things on a board of their own, such as a replica of your console, so the real board stays as it is. When you are happy, open the real board and use <strong>Copy Settings From</strong>, under New Board, to give it the other board's settings and options. It never copies the address, MIDI channel or firmware.</p>
 <h3>What stays with each Mac</h3>
@@ -812,7 +814,7 @@
 <h3>Console</h3>
 <figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="560" height="655" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
 <ul>
-<li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong>, <strong>Copy Settings From</strong> (see <a href="#sharing">Using more than one Mac</a>) and <strong>Delete Board</strong>, then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
+<li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>, <strong>Copy Settings From</strong> (see <a href="#sharing">Using more than one Mac</a>), then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
 <li><strong>Options</strong> tab, kept with the board: <strong>Send UFX key, scale and parameters</strong> (see <a href="#targets">What can be controlled</a>), <strong>Read input mutes and faders on connecting</strong> (see <a href="#console">Connecting to the console</a>), <strong>Set the console's tap tempo from Live's tempo</strong> (see <a href="#inputs">The console's tap tempo</a>), and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
 <li><strong>Startup</strong> tab, kept with the board: <strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
 <li><strong>Connect</strong> or <strong>Disconnect</strong> is at the bottom of every tab.</li>
