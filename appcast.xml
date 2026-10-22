@@ -6,6 +6,32 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.10</title>
+            <pubDate>Thu, 22 Oct 2026 15:06:10 -0500</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>0.9.10</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>MIDI feedback.</strong> The hub can send MIDI to a controller or app when something changes, so a pedal's LED can show a singer's tuner, a quick button that is in effect, or a Live track such as Repeat. Set it up in its own window, from Inputs, MIDI or Window, MIDI Feedback: name each device, choose its port on this Mac, and add feedback. A SoftStep key lights green for on and red for off; any other controller or app can be given its own MIDI messages. Nothing is sent to the console.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>In Settings, Console, New Board and Delete Board were cut short beside Copy Settings From, which now has its own line.</li>
+<li>The Ableton Live address and port labels were in the same monospaced type as their values.</li>
+<li>The Delete Board dialog said nothing could be undone; its profiles can be brought back with Restore Deleted Profile.</li>
+<li>The Inputs pill's and the glide picker's tips, and the UFX parameter tip, which now gives the console's path: FX, Rack UltraFX, Show Routing, MIDI Setup.</li>
+</ul>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.10/AvantisHub-0.9.10.zip"
+                sparkle:edSignature="LBGHbhG6hRooM1HqEsM47/TRClZxcIuBc/S+RrzmbqMz2jgOAMmUPXh0u+8u8kuUXe+cFd/41uKhd/U6UjrKDw=="
+                length="6407642"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.9</title>
             <pubDate>Thu, 22 Oct 2026 12:34:39 -0500</pubDate>
             <sparkle:version>10</sparkle:version>

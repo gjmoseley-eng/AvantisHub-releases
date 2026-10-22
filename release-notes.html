@@ -151,7 +151,7 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the versions">Versions</button>
 <div class="brand">Avantis Hub<span>Release Notes</span></div>
-<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-9"><span class="t">Version 0.9.9</span><span class="when">Oct 22</span></a><a href="#v0-9-8"><span class="t">Version 0.9.8</span><span class="when">Oct 22</span></a><a href="#v0-9-7"><span class="t">Version 0.9.7</span><span class="when">Oct 15</span></a><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
+<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-10"><span class="t">Version 0.9.10</span><span class="when">Oct 22</span></a><a href="#v0-9-9"><span class="t">Version 0.9.9</span><span class="when">Oct 22</span></a><a href="#v0-9-8"><span class="t">Version 0.9.8</span><span class="when">Oct 22</span></a><a href="#v0-9-7"><span class="t">Version 0.9.7</span><span class="when">Oct 15</span></a><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
 <div class="other"><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a></div>
 </aside>
 <main>
@@ -170,7 +170,19 @@
 </script>
 <h1>Release notes</h1>
 <div class="subtitle">What changed in each version.</div>
-<section class="release" id="v0-9-9"><h2>Version 0.9.9<span class="date">October 22, 2026</span></h2>
+<section class="release" id="v0-9-10"><h2>Version 0.9.10<span class="date">October 22, 2026</span></h2>
+<h3>New</h3>
+<ul>
+<li><strong>MIDI feedback.</strong> The hub can send MIDI to a controller or app when something changes, so a pedal's LED can show a singer's tuner, a quick button that is in effect, or a Live track such as Repeat. Set it up in its own window, from Inputs, MIDI or Window, MIDI Feedback: name each device, choose its port on this Mac, and add feedback. A SoftStep key lights green for on and red for off; any other controller or app can be given its own MIDI messages. Nothing is sent to the console.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>In Settings, Console, New Board and Delete Board were cut short beside Copy Settings From, which now has its own line.</li>
+<li>The Ableton Live address and port labels were in the same monospaced type as their values.</li>
+<li>The Delete Board dialog said nothing could be undone; its profiles can be brought back with Restore Deleted Profile.</li>
+<li>The Inputs pill's and the glide picker's tips, and the UFX parameter tip, which now gives the console's path: FX, Rack UltraFX, Show Routing, MIDI Setup.</li>
+</ul>
+</section><section class="release" id="v0-9-9"><h2>Version 0.9.9<span class="date">October 22, 2026</span></h2>
 <h3>New</h3>
 <ul>
 <li><strong>Settings that go with the board.</strong> A board's Startup settings, OSC port and Ableton Live link (on or off, address, ports, and Press quick buttons from clip names) are now kept with the board instead of on each Mac. With a shared folder, every Mac that opens the board is set up the same way: prepare one Mac, and the other is ready when it opens that board. On the first launch, every board takes this Mac's current settings, so nothing changes until you change it.</li>

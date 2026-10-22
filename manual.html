@@ -141,7 +141,7 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the contents">Contents</button>
 <div class="brand">Avantis Hub<span>User Manual</span></div>
-<div class="forver">For Avantis Hub 0.9.9. <a href="release-notes.html">What changed in each version</a></div>
+<div class="forver">For Avantis Hub 0.9.10. <a href="release-notes.html">What changed in each version</a></div>
 <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
 <div id="count"></div>
 <nav id="contents" aria-label="Contents"><a href="#what"><span class="n">1</span><span class="t">What Avantis Hub does</span></a><a href="#need"><span class="n">2</span><span class="t">What you need</span></a><a href="#start"><span class="n">3</span><span class="t">Getting started</span></a><a href="#window"><span class="n">4</span><span class="t">The window at a glance</span></a><a href="#safety"><span class="n">5</span><span class="t">Armed, Disarmed and Panic</span></a><a href="#console"><span class="n">6</span><span class="t">Connecting to the console</span></a><a href="#boards"><span class="n">7</span><span class="t">Boards and profiles</span></a><a href="#build"><span class="n">8</span><span class="t">Build view</span></a><a href="#mappings"><span class="n">9</span><span class="t">Mappings</span></a><a href="#targets"><span class="n">10</span><span class="t">What can be controlled</span></a><a href="#glides"><span class="n">11</span><span class="t">Snap and Glide</span></a><a href="#show"><span class="n">12</span><span class="t">Show view</span></a><a href="#buttons"><span class="n">13</span><span class="t">Quick buttons</span></a><a href="#inputs"><span class="n">14</span><span class="t">Sending cues: MIDI, OSC, Ableton Live</span></a><a href="#osc"><span class="n">15</span><span class="t">OSC reference</span></a><a href="#monitor"><span class="n">16</span><span class="t">The Monitor</span></a><a href="#menubar"><span class="n">17</span><span class="t">The menu bar</span></a><a href="#devices"><span class="n">18</span><span class="t">iPhone and iPad</span></a><a href="#shortcuts"><span class="n">19</span><span class="t">Shortcuts on iPhone and iPad</span></a><a href="#names"><span class="n">20</span><span class="t">When channel names change</span></a><a href="#sharing"><span class="n">21</span><span class="t">Using more than one Mac</span></a><a href="#settings"><span class="n">22</span><span class="t">Settings, tab by tab</span></a><a href="#updates"><span class="n">23</span><span class="t">Updates</span></a><a href="#keys"><span class="n">24</span><span class="t">Keyboard shortcuts</span></a><a href="#trouble"><span class="n">25</span><span class="t">Troubleshooting</span></a></nav>
@@ -152,7 +152,7 @@
 <div id="oldver" class="note tip hidden"></div>
 <script>
 (function () {
-  var latest = '0.9.9', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
+  var latest = '0.9.10', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
   function parts(v) { return v.split('.').map(Number); }
   function older(x, y) {
     var a = parts(x), b = parts(y);
@@ -574,6 +574,26 @@
 <li>The choice belongs to this Mac. It is not part of the profile or the board and is not shared with other Macs, because the same device can have a different name on each Mac (for example through Bome Network). The OSC and Ableton Live tabs, on the other hand, go with the board.</li>
 <li>An input that is unplugged stays in the list as <strong>Not connected</strong>, and the hub picks it up again when it comes back. The Monitor says when it goes and when it returns.</li>
 <li>Do not switch on an input that an app is already passing on to the Avantis Hub port. Each cue would arrive twice, and a toggle would flip and flip back.</li>
+</ul>
+<h3>MIDI feedback <span class="new">New in 0.9.10</span></h3>
+<p>The hub can send MIDI to a controller or an app whenever something changes, so a pedal's LED, a pad's light or another program can show what is in effect: a singer's tuner, a quick button such as Vox Tuner On, or a track in Live such as Repeat. Most people never need it. It has a window of its own: click <strong>Set Up…</strong> or <strong>Open…</strong> beside MIDI feedback at the bottom of the MIDI tab, or choose <strong>Window &gt; MIDI Feedback</strong>.</p>
+<ol>
+<li>Type a name under <strong>Devices</strong>, such as "Left pedal" or the player's name, and click <strong>+</strong>. Then choose its <strong>Port on this Mac</strong>. A Keith McMillen SoftStep 2 is <strong>SSCOM Port 1</strong>, a SoftStep 3 <strong>SoftStep Control Surface</strong>. A device on another computer is reached through that computer's Bome Network port, with a route there to the device.</li>
+<li>Click <strong>Add Feedback</strong>. Choose what to send, a SoftStep key or your own messages, and what it follows:
+<ul>
+<li><strong>A UFX parameter</strong>, such as one tuner's bypass: on while the hub last sent it 0 (tuner in), or while it last sent 127.</li>
+<li><strong>A quick button</strong> that can be in effect (one that only sets UFX parameters): on while it shows NOW.</li>
+<li><strong>A Live track</strong>, by name: on while it plays, or while it is muted. Needs the Ableton Live link.</li>
+</ul></li>
+<li>Click <strong>Test</strong>: each one is sent on for a second, then off for a second, then as things are. With a SoftStep, if the wrong key lights, change the key.</li>
+</ol>
+<p>Right-click a device in the list to rename or remove it. Renaming keeps its feedback and its port. A device can also be removed with the bin beside its name. Feedback goes out as soon as what it follows changes.</p>
+<ul>
+<li><strong>SoftStep key</strong> lights that key green while on and red while off, and leaves it dark while the hub does not know yet, such as before anything has been sent.</li>
+<li><strong>Custom</strong> sends the notes or controller changes you give, one set for on and one for off. Most controllers that light their pads or buttons from MIDI can be set up this way, and so can an app that takes MIDI.</li>
+<li>The devices and their feedback go with the board. Which output each device is on is kept on each Mac, so one device can be on USB on one Mac and reached through Bome Network on another.</li>
+<li>Feedback shows what the hub last sent or heard, not what the console reports: a change made on the console's own screen is not shown.</li>
+<li>Nothing here goes to the console. MIDI feedback is only ever sent to the devices' outputs.</li>
 </ul>
 <h3>SoftKeys and MIDI strips on the console</h3>
 <p>The console itself can send cues. A SoftKey, or a fader strip set up as a MIDI strip, can be given a MIDI message of your own on the console. With <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> switched on for a board, in the console settings, those messages arrive in the hub as triggers and show in the Monitor as coming from <strong>Console</strong>.</p>
