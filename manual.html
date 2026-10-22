@@ -224,7 +224,7 @@
 <tr><td><strong>Profile</strong></td><td>The set of mappings and quick buttons in use, and the menu for managing them. See <a href="#boards">Boards and profiles</a>.</td></tr>
 <tr><td><strong>Console pill</strong></td><td>The board's name, address and connection state. Click it for the board's settings.</td></tr>
 <tr><td><strong>Inputs pill</strong></td><td>Which inputs are on (MIDI, Live, OSC and its port) and a running count of messages received. Click it for the MIDI, OSC and Ableton settings.</td></tr>
-<tr><td><strong>Update</strong></td><td>Only appears when a new version was found while the hub was armed. See <a href="#updates">Updates</a>.</td></tr>
+<tr><td><strong>Update banner</strong></td><td>Appears across the top when a new version is ready. See <a href="#updates">Updates</a>.</td></tr>
 <tr><td><strong>Learn</strong></td><td>Build view only. Makes a mapping by example.</td></tr>
 <tr><td><strong>Armed / Disarmed</strong></td><td>Whether the hub may send to the console. Click to change. It glows only when armed <em>and</em> connected.</td></tr>
 <tr><td><strong>Panic</strong></td><td>Disarms at once and stops everything in progress.</td></tr>
@@ -256,7 +256,7 @@
 <ol>
 <li>Put the Mac on the same network as the Avantis.</li>
 <li>Click the console pill, or open <strong>Settings &gt; Console</strong>.</li>
-<li>Click <strong>Find</strong> beside <strong>Console IP</strong> and pick your console from the list, or type its address. You will find it on the console under Utility / Control / Network.</li>
+<li>Click <strong>Find</strong> beside <strong>Console IP</strong> and click <strong>Use</strong> beside your console, or type its address. You will find it on the console under Utility / Control / Network.</li>
 <li>Set <strong>Base MIDI channel</strong> to match the console, under Utility / Control / MIDI. The console's default is 12 to 16. The hub shows the range as "12 to 16" because the console uses five MIDI channels in a row.</li>
 <li>Set <strong>Firmware</strong> to match the console. Choose <strong>V2.0 and later</strong> unless the console is still on older firmware.</li>
 <li>Click <strong>Connect</strong>.</li>
@@ -266,11 +266,11 @@
 <h3>Firmware</h3>
 <p>Firmware V2.0 added inputs 65 to 96, more groups, auxes and matrices, and the UFX sends and returns. On <strong>Before V2.0</strong> the hub leaves those out and never sends to them. A mapping that points at something the chosen firmware does not have is put on hold and says why.</p>
 <h3>Finding the console</h3>
-<p><strong>Find</strong> asks the network which Avantis consoles are there and lists each one that answers, with its name, address and firmware. Click one to put its address in Console IP. That is all it does: it never connects and never changes an address by itself.</p>
+<p><strong>Find</strong> asks the network which Avantis consoles are there and lists each one that answers, with its name, address and firmware. <span class="new">New in 0.9.8</span> Click <strong>Use</strong> beside one to put its address in Console IP. The one already in the board says <strong>In use</strong>. That is all it does: it never connects and never changes an address by itself.</p>
 <ul>
 <li>It only reaches consoles on the same network as the Mac. A console on another network, reached through a router, does not answer and has to be typed in.</li>
 <li>Every Avantis gives the same name unless it has been renamed, so where there is more than one, check the address against the console's Utility / Control / Network screen.</li>
-<li>If the console's address changes, as it can when the network hands addresses out, click Find again and pick it.</li>
+<li>If the console's address changes, as it can when the network hands addresses out, click Find again and click Use beside it.</li>
 <li>When a board will not connect, the hub looks once for a console at another address. If exactly one that could be yours answers, a banner offers it, with <strong>Use This Address</strong> and <strong>Not Now</strong>. The hub never changes the address by itself. If two consoles answer, or the board's own address answers, it offers nothing.</li>
 </ul>
 <h3>One control connection at a time</h3>
@@ -284,19 +284,20 @@
 <li>A channel that has not moved since the hub connected shows what the hub remembers from last time, <strong>dimmed</strong>.</li>
 <li>A fader the hub has never seen move shows <strong>?</strong>. A mute it has not heard about on this connection shows <strong>MUTE ?</strong> with a dashed edge.</li>
 <li>As soon as a fader or mute changes, by hand or by a cue, the hub shows the live value.</li>
-<li>On firmware V2.0 and later, the experimental option below can fill most of them in as the hub connects.</li>
+<li>On firmware V2.0 and later, the option below can fill most of them in as the hub connects.</li>
 </ul>
 <p>The console only answers for the channels and mixes it is set up with, so a mix your console does not use keeps its plain number for a name.</p>
 <p>Remembered values are for your eyes only. The hub never uses a remembered value to decide anything.</p>
 <h3>Reading mutes and faders on connecting <span class="new">New in 0.9.7</span></h3>
 <p>With <strong>Read input mutes and faders on connecting</strong> switched on for a board, the hub makes one short extra visit to the console as it connects, on the connection Avantis Director uses. It reads where things are and leaves. It only reads, and it never changes anything.</p>
 <ul>
-<li>It fills in the inputs' mutes and fader levels, the DCAs' mutes and levels, the mute groups' mutes, and the mutes and levels of the stereo auxes, the mains and the stereo matrices.</li>
+<li>It fills in the inputs' mutes and fader levels, the DCAs' mutes and levels, the mute groups' mutes, the mutes and levels of the stereo auxes, the mains and the stereo matrices, and <span class="new">New in 0.9.8</span> each input's send levels to the UFX units.</li>
 <li>It only fills in what the hub does not already know. Anything that changed on this connection keeps its live value.</li>
 <li>If the visit fails for any reason, nothing changes and the hub carries on as it would without it. The Monitor says what happened.</li>
 <li>It is available on <strong>V2.0 and later</strong> only.</li>
+<li><span class="new">New in 0.9.8</span> It works with Avantis Director connected to the console at the same time.</li>
 </ul>
-<div class="note warn">This was worked out by watching how Director talks to the console, not from Allen &amp; Heath's documents. It is off unless you turn it on. Try it at a quiet console before relying on it in a service.</div>
+<div class="note warn">This was worked out by watching how Director talks to the console, not from Allen &amp; Heath's documents, and tried on firmware 2.0.1. It is off unless you turn it on. Try it at a quiet console before relying on it in a service.</div>
 <h3>Starting up automatically</h3>
 <ul>
 <li><strong>Connect when the app opens</strong> connects to the active board as soon as the hub starts.</li>
@@ -358,7 +359,7 @@
 <li><strong>Choose the target:</strong> move the fader or press the mute on the console, or click a target in the right-hand column.</li>
 <li><strong>Send the trigger:</strong> play the note, move the controller or send the OSC message.</li>
 </ol>
-<p>The hub joins the two into a mapping and opens it. While Learn is running, triggers are recorded, not run, so nothing happens on the console. If the trigger you send is already used by another mapping, the bar warns you: learning it adds a second mapping and both will fire. Click Learn again, or Cancel, to stop.</p>
+<p>The hub joins the two into a mapping and opens it. While Learn is running, triggers are recorded, not run, so nothing happens on the console. If the trigger you send is already used by another mapping, the bar warns you: learning it adds a second mapping and both will fire. Send a different trigger instead to use that one. Click Learn again, or Cancel, to stop.</p>
 <h3>Making a mapping by hand</h3>
 <ol>
 <li>Click <strong>+ New mapping</strong>.</li>
@@ -397,7 +398,7 @@
 <tr><td><strong>Value</strong></td><td>Follows the incoming value between a Min and a Max.</td><td>A physical fader or knob riding a level.</td></tr>
 </table>
 <p>For mutes, the hub says <strong>Muted</strong> and <strong>Unmuted</strong> instead of on and off, because "on" for a mute means silent, which reads backwards. Assignments say On and Off.</p>
-<p>For a fader in Value mode, <strong>Range</strong> gives the Min and the Max, as levels in dB. A controller at its lowest gives Min and at its highest gives Max. Tick <strong>-inf</strong> to make Min fully off. <strong>Invert</strong> turns it round, so the controller at its highest gives Min.</p>
+<p>For a fader in Value mode, <strong>Range</strong> gives the Min and the Max, as levels in dB. A controller at its lowest gives Min and at its highest gives Max. Choose <strong>-inf</strong> instead of <strong>dB</strong> to make Min fully off. <strong>Invert</strong> turns it round, so the controller at its highest gives Min.</p>
 <h3>The mapping list</h3>
 <ul>
 <li><strong>By trigger</strong> groups the list under each trigger, with everything it controls. <strong>By target</strong> groups it under each channel, with everything that controls it. A mapping with several targets appears under each.</li>
@@ -427,7 +428,7 @@
 <p>Inputs also offer:</p>
 <ul>
 <li><strong>Main assign:</strong> whether the input feeds the main mix. Turning it off takes the input out of the house without touching its aux sends, so in-ear mixes still hear it: a talkback switch for the band. A mute would cut the in-ears too.</li>
-<li><strong>Aux sends</strong> and <strong>FX sends</strong> from that input.</li>
+<li><strong>Aux sends</strong> and <strong>FX sends</strong> from that input, and <span class="new">New in 0.9.8</span> on V2.0 and later its sends to the eight <strong>UFX</strong> units, such as the send that feeds a delay.</li>
 <li><strong>DCA assign:</strong> membership of each of the 16 DCAs.</li>
 <li><strong>Mute group assign:</strong> membership of each of the 8 mute groups.</li>
 </ul>
@@ -531,7 +532,7 @@
 <li>Click <strong>Edit</strong>, then a button, to change it. While editing, drag buttons to reorder them.</li>
 <li>The <strong>-</strong> and <strong>+</strong> beside Edit change the size of the tiles.</li>
 </ul>
-<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." width="639" height="700" loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
+<figure class="small"><img src="img/mac-button-editor.png" alt="The quick button editor." width="639" height="699" loading="lazy"><figcaption>The quick button editor.</figcaption></figure>
 <h3>In the editor</h3>
 <table>
 <tr><th>Field</th><th>What it does</th></tr>
@@ -539,15 +540,25 @@
 <tr><td>Keyboard shortcut</td><td>Click, then press the keys. It needs Command, Option or Control. Esc cancels and Delete clears.</td></tr>
 <tr><td>MIDI trigger</td><td>Click, then play the note or send the CC or program change that should press the button. Nothing is sent to the console while it waits.</td></tr>
 <tr><td>OSC address</td><td>Made from the name when the button is first saved, such as <code>/hub/trigger/pastor-up</code>. It stays the same if you rename the button later, so cues built on it keep working.</td></tr>
-<tr><td>Require confirm</td><td>The button needs two presses from a person: a click, a shortcut or a tap on a phone. The second press must follow within two seconds. MIDI and OSC always fire on the first, because whatever sends them cannot press twice.</td></tr>
+<tr><td>Require confirm (press twice)</td><td>The button needs two presses from a person: a click, a shortcut or a tap on a phone. The second press must follow within two seconds. MIDI and OSC always fire on the first, because whatever sends them cannot press twice.</td></tr>
 <tr><td>Runs these buttons first</td><td>Other buttons this one runs before its own actions.</td></tr>
-<tr><td>Actions</td><td>The changes it makes, in order. Click <strong>+ Add action</strong>, then pick a target. A mute action is set to Muted or Unmuted, and a fader action to a level, each with its own Snap or Glide. The x removes an action.</td></tr>
+<tr><td>Actions</td><td>The changes it makes, in order. Click <strong>+ Add action</strong>, then pick a target. A mute action is set to Muted or Unmuted. A fader or send action is set to a level in dB or to -inf, with <strong>Set to</strong>, <strong>Remember, then set to</strong> or <strong>Put back</strong> (below), and its own Snap or Glide. The x removes an action.</td></tr>
 <tr><td>Test</td><td>Sends the actions to the console once. Needs the hub armed and connected.</td></tr>
 <tr><td>Save, Delete</td><td>Save keeps the button. The x at the top closes without saving. Delete removes the button, and takes it out of any button that ran it.</td></tr>
 </table>
 <h3>Buttons that run other buttons</h3>
 <p>"Start of service" can run "Band on" and "Pastor up" and then add its own changes. A button runs whatever those buttons do <em>at the moment it is pressed</em>, so changing one changes every button that runs it. Where two set the same thing, the later one wins. The editor shows how many changes a press sends in all. A button cannot be made to run itself, directly or in a circle.</p>
 <p>When a button fires, the buttons it ran light up with it, on the Mac and on phones.</p>
+<h3>Remember and Put back <span class="new">New in 0.9.8</span></h3>
+<p>A button can turn a level down and another can put it back where it was, whatever that was. Talk back is the usual case: one button takes a singer's send to the vocal effects down, and Sing puts it back.</p>
+<ul>
+<li>In the action, choose <strong>Remember, then set to</strong> and a level. A press keeps the level as it is now, then sets the new one.</li>
+<li>In the other button, add an action on the same fader or send and choose <strong>Put back</strong>. A press sets it to the kept level.</li>
+<li>A second Remember before a Put back keeps the first level, so pressing talk back twice does not lose where the send was.</li>
+<li>Kept levels are kept with the board and survive quitting the hub.</li>
+<li>The hub must know the level to keep it. If it does not, the button shows a <strong>warning triangle</strong> in Show view, and a press leaves that level alone instead of guessing. The Monitor says "left as it is: the hub does not know its level yet". Moving it once at the desk with the hub connected, or <a href="#console">reading the levels on connecting</a>, fixes that.</li>
+<li>A Put back with nothing kept does nothing, and the Monitor says "nothing to put back".</li>
+</ul>
 <h3>Pressing</h3>
 <p>Click the tile, use its shortcut, send its MIDI trigger or OSC address, tap it on a phone, or use the menu bar panel. A tile is dimmed when the hub is disarmed or not connected. Hover over a tile to see its OSC address.</p>
 <h3>Which one is in effect <span class="new">New in 0.9.7</span></h3>
@@ -581,14 +592,15 @@
 <h3>Ableton Live</h3>
 <p>The hub reads from Live directly through <a href="https://github.com/gjmoseley-eng/AvantisHubOSC">AvantisHubOSC</a>, a free control surface script for Live. <span class="new">New in 0.9.9</span> It is a copy of <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a> made for the hub, with its own ports (11006 and 11007), so it runs beside AbletonOSC and apps that use it, such as StageView.</p>
 <ol>
-<li>Download <code>AvantisHubOSC.zip</code> from <a href="https://github.com/gjmoseley-eng/AvantisHubOSC/releases/latest">its latest release on GitHub</a>. It needs Live 11 or later.</li>
+<li>Download <code>AvantisHubOSC.zip</code> from <a href="https://github.com/gjmoseley-eng/AvantisHubOSC/releases/latest">its latest release on GitHub</a>, or click <strong>Get AvantisHubOSC…</strong> in the hub's Ableton Live settings. It needs Live 11 or later.</li>
 <li>Unzip it. You get a folder named <code>AvantisHubOSC</code>.</li>
 <li>Move that folder into <code>Music/Ableton/User Library/Remote Scripts</code> in your home folder, then restart Live.</li>
 <li>In Live, open Settings &gt; Link, Tempo &amp; MIDI and choose <strong>AvantisHubOSC</strong> in an empty Control Surface slot. Live shows "AvantisHubOSC: Listening for OSC on port 11006".</li>
-<li>In the hub, turn on <strong>Read song information from Ableton Live</strong>. The ports are already 11006 and 11007.</li>
+<li>In the hub, turn on <strong>Read song information from Ableton Live</strong>. A new board already uses 11006 and 11007. A board made before 0.9.9 keeps its ports: set <strong>Send to port</strong> to 11006 and <strong>Replies arrive on port</strong> to 11007.</li>
 </ol>
+<figure class="small"><img src="img/mac-settings-ableton.png" alt="Settings > Inputs, Ableton Live. Also under the Inputs pill." width="560" height="614" loading="lazy"><figcaption>Settings > Inputs, Ableton Live. Also under the Inputs pill.</figcaption></figure>
 <p>The hub only reads. It never plays, stops, moves or changes anything in Live.</p>
-<p>Plain AbletonOSC works too: set the board's ports to 11000 and 11001 under <strong>Live on another computer, or other ports</strong>. But AbletonOSC replies on one fixed port, so only one app on a Mac can then read from Live.</p>
+<p>Plain AbletonOSC works too: set <strong>Send to port</strong> to 11000 and <strong>Replies arrive on port</strong> to 11001. But AbletonOSC replies on one fixed port, so only one app on a Mac can then read from Live.</p>
 <h4>Session view: clips press quick buttons</h4>
 <p>Make a track in Live whose name starts with <strong>Hub</strong>, such as "Hub" or "Hub Lights". On it, add clips named after your quick buttons. When a clip on that track starts playing, the hub presses the quick button with the same name.</p>
 <p>This is off unless you switch it on: in the hub, under Ableton Live, turn on <strong>Press quick buttons from clip names</strong>. Leave it off if those clips also send the buttons' MIDI notes, or each button is pressed twice.</p>
@@ -604,7 +616,17 @@
 <p>The Monitor shows each press, and says so when a clip's name matches no button.</p>
 <h4>Arrangement view: locators</h4>
 <p>The hub also reads Live's locators, position, tempo and time signature. Locators appear in the Triggers column and can trigger mappings, and Show view's <strong>Up next</strong> card shows what is coming.</p>
-<div class="note">AvantisHubOSC, like AbletonOSC, replies on one fixed port, and only one app on a Mac can listen there. If another app already has it, the hub says so and keeps checking. If Live is on another computer, set its address under <strong>Live on another computer, or other ports</strong>. The ports are kept with the board.</div>
+<div class="note">AvantisHubOSC, like AbletonOSC, replies on one fixed port, and only one app on a Mac can listen there. If another app already has it, the hub says so and keeps checking. If Live is on another computer, put its address in <strong>Address</strong>. The address and ports are kept with the board, and are saved when the settings close.</div>
+<h4>The console's tap tempo <span class="new">New in 0.9.8</span></h4>
+<p>The console's UFX delays can follow the song. With <strong>Set the console's tap tempo from Live's tempo</strong> on, in the board's Options, the hub sets the console's Global Tap Tempo to Live's tempo.</p>
+<ul>
+<li>Only while the hub is armed and Live is playing.</li>
+<li>A new tempo goes out once it has held for one beat, so short steps at the ends of songs are left out.</li>
+<li>The console holds the beat in whole milliseconds, so the tempo goes to the nearest millisecond. The Monitor shows, for example, "Tap tempo → 114 BPM (526 ms)".</li>
+<li>The tempo can come from Ableton Live or from another app, over OSC with <code>/hub/song/tempo</code>.</li>
+<li>It is sent on the connection Avantis Director uses, worked out by watching Director, and tried on firmware 2.0.1. Try it before a service. If the console does not take it, the Monitor says "Could not set the console's tap tempo" and the hub tries again at the next tempo change, 10 seconds later at the soonest.</li>
+<li>Only delays set to follow the global tap tempo on the console change.</li>
+</ul>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#buttons"><small>Previous</small>Quick buttons</a><a class="next" href="#osc"><small>Next</small>OSC reference</a></nav></section><section class="topic" data-topic="osc"><h2 id="osc">15. OSC reference</h2>
 <p>Send to the Mac's address on the hub's UDP port (9300 by default). Addresses are not case sensitive. <code>&lt;n&gt;</code> is the number shown on the console, starting at 1.</p>
@@ -634,7 +656,7 @@
 <tr><td><code>/hub/song/locators</code></td><td>name, position, name, position…</td><td>The whole list of markers. Send it again whenever it changes, or with no arguments to clear it.</td></tr>
 <tr><td><code>/hub/song/position</code></td><td>number</td><td>Where playback is now, in beats. Send it several times a second while playing.</td></tr>
 <tr><td><code>/hub/song/playing</code></td><td>0 or 1</td><td>Whether the transport is running.</td></tr>
-<tr><td><code>/hub/song/tempo</code></td><td>number</td><td>Tempo in BPM.</td></tr>
+<tr><td><code>/hub/song/tempo</code></td><td>number</td><td>Tempo in BPM. Also what the console's tap tempo follows, if that option is on.</td></tr>
 <tr><td><code>/hub/song/signature</code></td><td>two whole numbers</td><td>Time signature, for bar numbers. 4 4 is assumed until this arrives.</td></tr>
 </table>
 <p>There is no address to arm the hub.</p>
@@ -652,7 +674,7 @@
 </table>
 <ul>
 <li><strong>Raw bytes</strong> also shows the exact bytes exchanged with the console, for diagnosing.</li>
-<li><span class="new">New in 0.9.7</span> <strong>Only what the hub uses</strong> hides incoming MIDI that no mapping or quick button is set to, here and in the Triggers list, so an expression pedal or a busy controller does not bury the cues. Everything shows while learning.</li>
+<li><span class="new">New in 0.9.7</span> <strong>Only what the hub uses</strong> hides incoming MIDI that no mapping or quick button is set to, here and in the Triggers list, so an expression pedal or a busy controller does not bury the cues. Hidden messages are still counted in the Inputs pill. Everything shows while learning.</li>
 <li><span class="new">New in 0.9.7</span> A run of values from one control on one input folds into a single line with a count, such as <code>×24</code>, showing the latest value.</li>
 <li><strong>Clear</strong> empties the list.</li>
 <li><strong>Copy</strong> puts every line on the clipboard, handy when asking for help. Right-click a line for <strong>Copy Line</strong>.</li>
@@ -707,7 +729,7 @@
 <p>With room to spare, the buttons and the status sit side by side with no tabs. The buttons fill the width in as many columns as fit, and Recent scrolls in its own box. In Slide Over or a narrow Split View the app goes back to two tabs.</p>
 <h3>What a device may do</h3>
 <p>On the Mac, click a device in <strong>Settings &gt; Devices</strong> to open its settings:</p>
-<figure class="small"><img src="img/mac-device-sheet.png" alt="One device's settings." width="460" height="315" loading="lazy"><figcaption>One device's settings.</figcaption></figure>
+<figure class="small"><img src="img/mac-device-sheet.png" alt="One device's settings." width="460" height="304" loading="lazy"><figcaption>One device's settings.</figcaption></figure>
 <table>
 <tr><th>Setting</th><th>Meaning</th></tr>
 <tr><td>Name</td><td>How the device is listed.</td></tr>
@@ -766,20 +788,21 @@
 <p>Every Mac that chooses the folder uses the same boards, profiles, quick buttons and device limits, and picks up changes a few seconds after another Mac saves them.</p>
 <h3>What goes with each board <span class="new">New in 0.9.9</span></h3>
 <p>A board carries more than its console's address. Its <strong>Startup</strong> settings (connect when the app opens, arm when the console connects), the <strong>OSC</strong> port, and the <strong>Ableton Live</strong> link (on or off, the address and ports, and Press quick buttons from clip names) go with it, as do its Options. So every Mac that opens a board is set up the same way, and you can prepare one Mac and simply open the board on another.</p>
-<p>Try things on a board of their own, such as a replica of your console, so the real board stays as it is. When you are happy, open the real board and use <strong>Copy Settings From</strong> beside New Board to give it the other board's settings and options. It never copies the address, MIDI channel or firmware.</p>
+<p>The first time 0.9.9 or later opens, every board takes that Mac's settings, so nothing changes until you change it. The Monitor says how many boards took them.</p>
+<p>Try things on a board of their own, such as a replica of your console, so the real board stays as it is. When you are happy, open the real board and use <strong>Copy Settings From</strong>, under New Board, to give it the other board's settings and options. It never copies the address, MIDI channel or firmware.</p>
 <h3>What stays with each Mac</h3>
 <p>Paired devices, backups, which other MIDI inputs the hub listens to, and which board and profile are in use. MIDI inputs stay with each Mac because the same device can have a different name on each Mac, for example through Bome Network. Each Mac keeps its own dated backups, so one can always undo what another saved.</p>
 <h3>Changes during a service</h3>
-<p>If another Mac changes the profile in use, or the settings of the board in use, while this hub is <strong>armed</strong>, the change waits. A banner says so and offers to reload it. Nothing is swapped under you mid-service. When the hub is disarmed, a change to the board's settings is taken at once.</p>
+<p>If another Mac changes the profile in use, or the settings of the board in use, while this hub is <strong>armed</strong>, the change waits. A banner says so and offers to reload it. Nothing is swapped under you mid-service. When the hub is disarmed, a change to the board's settings is taken at once. Saving a change to that profile on this Mac before reloading keeps this Mac's version of it instead.</p>
 <h3>Conflicted copies</h3>
 <p>If two Macs edit while one is offline, the sync service may make a "conflicted copy". The hub brings those in as separate profiles so nothing is lost, and you can delete the one you do not want.</p>
 <h3>Stopping</h3>
-<p><strong>Stop Sharing</strong> offers to keep a copy of the shared boards and profiles on this Mac, or to go back to this Mac's own setup from before. The folder is left as it is for the other Macs. Choosing or leaving a shared folder disconnects from the console and disarms.</p>
+<p><strong>Stop Sharing</strong> offers to keep a copy of the shared boards and profiles on this Mac, or to go back to this Mac's own setup from before. Keeping a copy adds the shared boards and profiles to the ones this Mac had before sharing. The folder is left as it is for the other Macs. Choosing or leaving a shared folder disconnects from the console and disarms.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#names"><small>Previous</small>When channel names change</a><a class="next" href="#settings"><small>Next</small>Settings, tab by tab</a></nav></section><section class="topic" data-topic="settings"><h2 id="settings">22. Settings, tab by tab</h2>
 <p>Open with <strong>Avantis Hub &gt; Settings</strong> or Command-comma.</p>
 <h3>Devices</h3>
-<figure class="small"><img src="img/mac-settings-devices.png" alt="Fader limits and paired devices in Settings > Devices." width="559" height="570" loading="lazy"><figcaption>Fader limits and paired devices in Settings > Devices.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-devices.png" alt="Fader limits and paired devices in Settings > Devices." width="560" height="556" loading="lazy"><figcaption>Fader limits and paired devices in Settings > Devices.</figcaption></figure>
 <ul>
 <li>Whether devices on the network can find this Mac, and under what name.</li>
 <li><strong>Pair a Device</strong>.</li>
@@ -787,27 +810,27 @@
 <li><strong>Paired devices:</strong> one line each with what it may do and when it was last seen. Click a device for its settings.</li>
 </ul>
 <h3>Console</h3>
-<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="559" height="619" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-console.png" alt="Settings > Console." width="560" height="655" loading="lazy"><figcaption>Settings > Console.</figcaption></figure>
 <ul>
-<li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>, then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
-<li><strong>Options</strong> tab, kept with the board: <strong>Send UFX key, scale and parameters</strong> (see <a href="#targets">What can be controlled</a>), <strong>Read input mutes and faders on connecting</strong> (see <a href="#console">Connecting to the console</a>), <strong>Set the console's tap tempo from Live's tempo</strong>, which while armed and while Live is playing sets the console's Global Tap Tempo to Live's tempo once a new tempo has held for one beat (sent on the port Avantis Director uses, so try it before a service), and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
+<li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong>, <strong>Copy Settings From</strong> (see <a href="#sharing">Using more than one Mac</a>) and <strong>Delete Board</strong>, then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
+<li><strong>Options</strong> tab, kept with the board: <strong>Send UFX key, scale and parameters</strong> (see <a href="#targets">What can be controlled</a>), <strong>Read input mutes and faders on connecting</strong> (see <a href="#console">Connecting to the console</a>), <strong>Set the console's tap tempo from Live's tempo</strong> (see <a href="#inputs">The console's tap tempo</a>), and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
 <li><strong>Startup</strong> tab, kept with the board: <strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
 <li><strong>Connect</strong> or <strong>Disconnect</strong> is at the bottom of every tab.</li>
 <li><strong>Shape of a glide:</strong> Even or Eased.</li>
 </ul>
 <h3>Inputs</h3>
-<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs." width="559" height="408" loading="lazy"><figcaption>Settings > Inputs.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-inputs.png" alt="Settings > Inputs, MIDI." width="560" height="391" loading="lazy"><figcaption>Settings > Inputs, MIDI.</figcaption></figure>
 <ul>
-<li><strong>MIDI:</strong> the name of the hub's port, or the reason it could not be opened, and a switch for each other MIDI input on the Mac. See <a href="#inputs">Sending cues</a>.</li>
+<li><strong>MIDI:</strong> the name of the hub's port, or the reason it could not be opened, and a switch for each other MIDI input on the Mac. These are kept on this Mac. See <a href="#inputs">Sending cues</a>.</li>
 <li><strong>OSC:</strong> Listen for OSC and the UDP port.</li>
-<li><strong>Ableton Live:</strong> the switch, the state of the link, and the address and ports.</li>
+<li><strong>Ableton Live:</strong> the switch, the state of the link, <strong>Get AvantisHubOSC…</strong>, <strong>Press quick buttons from clip names</strong>, and the address and ports. All but the link's state are kept with the board.</li>
 </ul>
 <h3>Sharing</h3>
-<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." width="559" height="440" loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
+<figure class="small"><img src="img/mac-settings-sharing.png" alt="Settings > Sharing." width="560" height="379" loading="lazy"><figcaption>Settings > Sharing.</figcaption></figure>
 <p>The shared folder, if any, with <strong>Show in Finder</strong>, <strong>Choose Another Folder</strong> and <strong>Stop Sharing</strong>.</p>
 <h3>Updates</h3>
-<figure class="small"><img src="img/mac-settings-updates.png" alt="Settings > Updates." width="558" height="266" loading="lazy"><figcaption>Settings > Updates.</figcaption></figure>
-<p>The version you are running, <strong>Check for updates automatically</strong>, <strong>Check Now</strong> and when it last checked.</p>
+<figure class="small"><img src="img/mac-settings-updates.png" alt="Settings > Updates." width="560" height="239" loading="lazy"><figcaption>Settings > Updates.</figcaption></figure>
+<p>The version you are running, <strong>Check for updates automatically</strong>, <strong>Check Now</strong> and when it last checked. When an update is waiting, <strong>Show the Update</strong> opens it.</p>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#sharing"><small>Previous</small>Using more than one Mac</a><a class="next" href="#updates"><small>Next</small>Updates</a></nav></section><section class="topic" data-topic="updates"><h2 id="updates">23. Updates</h2>
 <p>The hub checks for a new version once a day. Nothing downloads or installs until you say so. To check yourself, choose <strong>Avantis Hub &gt; Check for Updates</strong>.</p>
@@ -847,6 +870,8 @@
 <tr><td>Show view seems to be missing channels</td><td>Named is on, and those channels have no name on the console.</td></tr>
 <tr><td>A cue fires twice, or undoes itself</td><td>Two mappings share a trigger and a target. Look for the warning triangle.</td></tr>
 <tr><td>A device cannot find the Mac</td><td>Different network, or a network that stops devices seeing each other.</td></tr>
+<tr><td>The Monitor says the Avantis Hub MIDI port could not be opened</td><td>Something held MIDI on the Mac as the hub started. <span class="new">New in 0.9.8</span> The hub tries again every 2 seconds. If it says it gave up after 10 tries, quit and reopen the hub.</td></tr>
+<tr><td>The Monitor says it could not set the console's tap tempo</td><td>The console did not take it. The hub tries again at the next tempo change. See <a href="#inputs">The console's tap tempo</a>.</td></tr>
 <tr><td>Ableton link says another app is using the port</td><td>Another app on the Mac is already listening on that reply port. Use AvantisHubOSC on 11006 and 11007.</td></tr>
 </table>
 <nav class="pager" aria-label="More topics"><a class="prev" href="#keys"><small>Previous</small>Keyboard shortcuts</a></nav></section>
