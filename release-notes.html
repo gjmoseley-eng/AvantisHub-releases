@@ -151,7 +151,7 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the versions">Versions</button>
 <div class="brand">Avantis Hub<span>Release Notes</span></div>
-<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-8"><span class="t">Version 0.9.8</span><span class="when">Oct 22</span></a><a href="#v0-9-7"><span class="t">Version 0.9.7</span><span class="when">Oct 15</span></a><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
+<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-9"><span class="t">Version 0.9.9</span><span class="when">Oct 22</span></a><a href="#v0-9-8"><span class="t">Version 0.9.8</span><span class="when">Oct 22</span></a><a href="#v0-9-7"><span class="t">Version 0.9.7</span><span class="when">Oct 15</span></a><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
 <div class="other"><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a></div>
 </aside>
 <main>
@@ -170,7 +170,20 @@
 </script>
 <h1>Release notes</h1>
 <div class="subtitle">What changed in each version.</div>
-<section class="release" id="v0-9-8"><h2>Version 0.9.8<span class="date">October 22, 2026</span></h2>
+<section class="release" id="v0-9-9"><h2>Version 0.9.9<span class="date">October 22, 2026</span></h2>
+<h3>New</h3>
+<ul>
+<li><strong>Settings that go with the board.</strong> A board's Startup settings, OSC port and Ableton Live link (on or off, address, ports, and Press quick buttons from clip names) are now kept with the board instead of on each Mac. With a shared folder, every Mac that opens the board is set up the same way: prepare one Mac, and the other is ready when it opens that board. On the first launch, every board takes this Mac's current settings, so nothing changes until you change it.</li>
+<li><strong>Copy Settings From.</strong> Beside New Board: gives the board in use another board's settings and options, for example after trying them on a replica. It never copies the address, MIDI channel or firmware.</li>
+<li>If another Mac changes the settings of the board in use while this hub is armed, the change waits behind the same Reload banner as a changed profile. When disarmed, it is taken at once.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li><strong>AvantisHubOSC.</strong> The hub now reads Ableton Live through AvantisHubOSC, a free copy of AbletonOSC made for it (link in the Ableton Live settings and the manual). It has its own ports, 11006 and 11007, so it runs beside AbletonOSC and apps that use it, such as StageView, and it logs far less. New boards use those ports; existing boards keep theirs. Plain AbletonOSC still works on 11000 and 11001.</li>
+<li>Shorter text across the app: the explanations are in this manual and the FAQ (Help menu). The Ableton Live address and ports are always shown, and are kept when the settings close, without pressing Return.</li>
+<li>Which other MIDI inputs the hub listens to stays with each Mac, because the same device can have a different name on each Mac, for example through Bome Network.</li>
+</ul>
+</section><section class="release" id="v0-9-8"><h2>Version 0.9.8<span class="date">October 22, 2026</span></h2>
 <h3>New</h3>
 <ul>
 <li><strong>Remember and Put back.</strong> A quick button's action on a fader or send level can be "Remember, then set to": it keeps the level as it is, then sets the new one. Another button's "Put back" sets it back to what was kept. A second press keeps the first level, and a kept level survives quitting the hub. If the hub does not know a level yet, the button shows a warning triangle and leaves that level alone. Tried on an Avantis with firmware 2.0.1.</li>

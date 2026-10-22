@@ -6,6 +6,33 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.9</title>
+            <pubDate>Thu, 22 Oct 2026 12:34:39 -0500</pubDate>
+            <sparkle:version>10</sparkle:version>
+            <sparkle:shortVersionString>0.9.9</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>Settings that go with the board.</strong> A board's Startup settings, OSC port and Ableton Live link (on or off, address, ports, and Press quick buttons from clip names) are now kept with the board instead of on each Mac. With a shared folder, every Mac that opens the board is set up the same way: prepare one Mac, and the other is ready when it opens that board. On the first launch, every board takes this Mac's current settings, so nothing changes until you change it.</li>
+<li><strong>Copy Settings From.</strong> Beside New Board: gives the board in use another board's settings and options, for example after trying them on a replica. It never copies the address, MIDI channel or firmware.</li>
+<li>If another Mac changes the settings of the board in use while this hub is armed, the change waits behind the same Reload banner as a changed profile. When disarmed, it is taken at once.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li><strong>AvantisHubOSC.</strong> The hub now reads Ableton Live through AvantisHubOSC, a free copy of AbletonOSC made for it (link in the Ableton Live settings and the manual). It has its own ports, 11006 and 11007, so it runs beside AbletonOSC and apps that use it, such as StageView, and it logs far less. New boards use those ports; existing boards keep theirs. Plain AbletonOSC still works on 11000 and 11001.</li>
+<li>Shorter text across the app: the explanations are in this manual and the FAQ (Help menu). The Ableton Live address and ports are always shown, and are kept when the settings close, without pressing Return.</li>
+<li>Which other MIDI inputs the hub listens to stays with each Mac, because the same device can have a different name on each Mac, for example through Bome Network.</li>
+</ul>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.9/AvantisHub-0.9.9.zip"
+                sparkle:edSignature="hnZ7aTDiCZkL/fK4ZVxv64xL1dIf/y5tLq/G/sh2yVUMXNxeymgf9gLAYeFJfE2Ni8Su9nCJqprgp/0MK4opBA=="
+                length="6194049"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.8</title>
             <pubDate>Thu, 22 Oct 2026 11:15:00 -0500</pubDate>
             <sparkle:version>9</sparkle:version>

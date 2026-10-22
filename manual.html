@@ -141,7 +141,7 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the contents">Contents</button>
 <div class="brand">Avantis Hub<span>User Manual</span></div>
-<div class="forver">For Avantis Hub 0.9.8. <a href="release-notes.html">What changed in each version</a></div>
+<div class="forver">For Avantis Hub 0.9.9. <a href="release-notes.html">What changed in each version</a></div>
 <input id="q" type="search" placeholder="Search the manual" autocomplete="off" aria-label="Search the manual">
 <div id="count"></div>
 <nav id="contents" aria-label="Contents"><a href="#what"><span class="n">1</span><span class="t">What Avantis Hub does</span></a><a href="#need"><span class="n">2</span><span class="t">What you need</span></a><a href="#start"><span class="n">3</span><span class="t">Getting started</span></a><a href="#window"><span class="n">4</span><span class="t">The window at a glance</span></a><a href="#safety"><span class="n">5</span><span class="t">Armed, Disarmed and Panic</span></a><a href="#console"><span class="n">6</span><span class="t">Connecting to the console</span></a><a href="#boards"><span class="n">7</span><span class="t">Boards and profiles</span></a><a href="#build"><span class="n">8</span><span class="t">Build view</span></a><a href="#mappings"><span class="n">9</span><span class="t">Mappings</span></a><a href="#targets"><span class="n">10</span><span class="t">What can be controlled</span></a><a href="#glides"><span class="n">11</span><span class="t">Snap and Glide</span></a><a href="#show"><span class="n">12</span><span class="t">Show view</span></a><a href="#buttons"><span class="n">13</span><span class="t">Quick buttons</span></a><a href="#inputs"><span class="n">14</span><span class="t">Sending cues: MIDI, OSC, Ableton Live</span></a><a href="#osc"><span class="n">15</span><span class="t">OSC reference</span></a><a href="#monitor"><span class="n">16</span><span class="t">The Monitor</span></a><a href="#menubar"><span class="n">17</span><span class="t">The menu bar</span></a><a href="#devices"><span class="n">18</span><span class="t">iPhone and iPad</span></a><a href="#shortcuts"><span class="n">19</span><span class="t">Shortcuts on iPhone and iPad</span></a><a href="#names"><span class="n">20</span><span class="t">When channel names change</span></a><a href="#sharing"><span class="n">21</span><span class="t">Using more than one Mac</span></a><a href="#settings"><span class="n">22</span><span class="t">Settings, tab by tab</span></a><a href="#updates"><span class="n">23</span><span class="t">Updates</span></a><a href="#keys"><span class="n">24</span><span class="t">Keyboard shortcuts</span></a><a href="#trouble"><span class="n">25</span><span class="t">Troubleshooting</span></a></nav>
@@ -152,7 +152,7 @@
 <div id="oldver" class="note tip hidden"></div>
 <script>
 (function () {
-  var latest = '0.9.8', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
+  var latest = '0.9.9', first = '0.9.8', mine = (location.search.match(/[?&]v=([0-9.]+)/) || [])[1];
   function parts(v) { return v.split('.').map(Number); }
   function older(x, y) {
     var a = parts(x), b = parts(y);
@@ -200,7 +200,7 @@
 <ul>
 <li>A Mac running macOS 15 or later.</li>
 <li>An Allen &amp; Heath Avantis on the same network as the Mac, by cable or Wi-Fi. Firmware V2.0 or later gives the most to control. Earlier firmware works too: see <a href="#console">Connecting to the console</a>.</li>
-<li>Something to send cues: any MIDI app or controller on the Mac, anything that sends OSC, or Ableton Live with <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a>. None is required. You can run everything from quick buttons alone.</li>
+<li>Something to send cues: any MIDI app or controller on the Mac, anything that sends OSC, or Ableton Live with <a href="https://github.com/gjmoseley-eng/AvantisHubOSC">AvantisHubOSC</a>. None is required. You can run everything from quick buttons alone.</li>
 <li>Optional: an iPhone or iPad running iOS or iPadOS 18 or later, on the same network, for the companion app.</li>
 </ul>
 
@@ -560,7 +560,7 @@
 <p>The hub can also listen to other MIDI inputs on the Mac: a hardware controller, a network MIDI session, or a port that brings MIDI from another computer. They are listed on the MIDI tab under the hub's own port, each with a switch, and all start off. A dot beside each one lights when MIDI arrives on it, whether it is switched on or not, so you can move a control, see which input lights, and switch that one on. Switch one on and its notes, control changes and program changes arrive as triggers, exactly as if they had been sent to the Avantis Hub port.</p>
 <ul>
 <li>Every input you switch on can fire every mapping and quick button, unless a mapping is tied to one input: in the inspector, <strong>From</strong> under the trigger chooses Any input, the Avantis Hub port, one of the inputs you have switched on, or the console. A tied mapping shows the input's name on its trigger and ignores the same note from anywhere else. A quick button's MIDI trigger has the same <strong>From</strong> choice in the button's editor.</li>
-<li>The choice belongs to this Mac. It is not part of the profile and is not shared with other Macs.</li>
+<li>The choice belongs to this Mac. It is not part of the profile or the board and is not shared with other Macs, because the same device can have a different name on each Mac (for example through Bome Network). The OSC and Ableton Live tabs, on the other hand, go with the board.</li>
 <li>An input that is unplugged stays in the list as <strong>Not connected</strong>, and the hub picks it up again when it comes back. The Monitor says when it goes and when it returns.</li>
 <li>Do not switch on an input that an app is already passing on to the Avantis Hub port. Each cue would arrive twice, and a toggle would flip and flip back.</li>
 </ul>
@@ -579,16 +579,16 @@
 </ul>
 <p>Anything on the network can send to this port, which is one more reason nothing reaches the console unless the hub is Armed. See the <a href="#osc">OSC reference</a>.</p>
 <h3>Ableton Live</h3>
-<p>The hub can read from Live directly through <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a>, a free control surface script for Live.</p>
+<p>The hub reads from Live directly through <a href="https://github.com/gjmoseley-eng/AvantisHubOSC">AvantisHubOSC</a>, a free control surface script for Live. <span class="new">New in 0.9.9</span> It is a copy of <a href="https://github.com/ideoforms/AbletonOSC">AbletonOSC</a> made for the hub, with its own ports (11006 and 11007), so it runs beside AbletonOSC and apps that use it, such as StageView.</p>
 <ol>
-<li>Download AbletonOSC from <a href="https://github.com/ideoforms/AbletonOSC">its page on GitHub</a>: click <strong>Code</strong>, then <strong>Download ZIP</strong>. It needs Live 11 or later.</li>
-<li>Unzip it and rename the folder from <code>AbletonOSC-master</code> to <code>AbletonOSC</code>.</li>
+<li>Download <code>AvantisHubOSC.zip</code> from <a href="https://github.com/gjmoseley-eng/AvantisHubOSC/releases/latest">its latest release on GitHub</a>. It needs Live 11 or later.</li>
+<li>Unzip it. You get a folder named <code>AvantisHubOSC</code>.</li>
 <li>Move that folder into <code>Music/Ableton/User Library/Remote Scripts</code> in your home folder, then restart Live.</li>
-<li>In Live, open Settings &gt; Link, Tempo &amp; MIDI and choose <strong>AbletonOSC</strong> under Control Surface. Live shows "AbletonOSC: Listening for OSC on port 11000".</li>
-<li>In the hub, turn on <strong>Read song information from Ableton Live</strong>.</li>
+<li>In Live, open Settings &gt; Link, Tempo &amp; MIDI and choose <strong>AvantisHubOSC</strong> in an empty Control Surface slot. Live shows "AvantisHubOSC: Listening for OSC on port 11006".</li>
+<li>In the hub, turn on <strong>Read song information from Ableton Live</strong>. The ports are already 11006 and 11007.</li>
 </ol>
 <p>The hub only reads. It never plays, stops, moves or changes anything in Live.</p>
-<p>AbletonOSC is a separate project with its own author. Its page has the current version and its own instructions, which are the ones to follow if they differ from these.</p>
+<p>Plain AbletonOSC works too: set the board's ports to 11000 and 11001 under <strong>Live on another computer, or other ports</strong>. But AbletonOSC replies on one fixed port, so only one app on a Mac can then read from Live.</p>
 <h4>Session view: clips press quick buttons</h4>
 <p>Make a track in Live whose name starts with <strong>Hub</strong>, such as "Hub" or "Hub Lights". On it, add clips named after your quick buttons. When a clip on that track starts playing, the hub presses the quick button with the same name.</p>
 <p>This is off unless you switch it on: in the hub, under Ableton Live, turn on <strong>Press quick buttons from clip names</strong>. Leave it off if those clips also send the buttons' MIDI notes, or each button is pressed twice.</p>
@@ -604,7 +604,7 @@
 <p>The Monitor shows each press, and says so when a clip's name matches no button.</p>
 <h4>Arrangement view: locators</h4>
 <p>The hub also reads Live's locators, position, tempo and time signature. Locators appear in the Triggers column and can trigger mappings, and Show view's <strong>Up next</strong> card shows what is coming.</p>
-<div class="note">AbletonOSC replies on one fixed port, so only one app on a Mac can read from it at a time. If another app already has it, the hub says so, keeps checking and takes over when the port comes free. If AbletonOSC is on another computer, or uses other ports, set them under <strong>Live on another computer, or other ports</strong>.</div>
+<div class="note">AvantisHubOSC, like AbletonOSC, replies on one fixed port, and only one app on a Mac can listen there. If another app already has it, the hub says so and keeps checking. If Live is on another computer, set its address under <strong>Live on another computer, or other ports</strong>. The ports are kept with the board.</div>
 
 <nav class="pager" aria-label="More topics"><a class="prev" href="#buttons"><small>Previous</small>Quick buttons</a><a class="next" href="#osc"><small>Next</small>OSC reference</a></nav></section><section class="topic" data-topic="osc"><h2 id="osc">15. OSC reference</h2>
 <p>Send to the Mac's address on the hub's UDP port (9300 by default). Addresses are not case sensitive. <code>&lt;n&gt;</code> is the number shown on the console, starting at 1.</p>
@@ -764,10 +764,13 @@
 <li>Do the same on the other Mac, choosing the same folder.</li>
 </ol>
 <p>Every Mac that chooses the folder uses the same boards, profiles, quick buttons and device limits, and picks up changes a few seconds after another Mac saves them.</p>
+<h3>What goes with each board <span class="new">New in 0.9.9</span></h3>
+<p>A board carries more than its console's address. Its <strong>Startup</strong> settings (connect when the app opens, arm when the console connects), the <strong>OSC</strong> port, and the <strong>Ableton Live</strong> link (on or off, the address and ports, and Press quick buttons from clip names) go with it, as do its Options. So every Mac that opens a board is set up the same way, and you can prepare one Mac and simply open the board on another.</p>
+<p>Try things on a board of their own, such as a replica of your console, so the real board stays as it is. When you are happy, open the real board and use <strong>Copy Settings From</strong> beside New Board to give it the other board's settings and options. It never copies the address, MIDI channel or firmware.</p>
 <h3>What stays with each Mac</h3>
-<p>Paired devices, backups, MIDI and OSC settings, and which board and profile are in use. Each Mac keeps its own dated backups, so one can always undo what another saved.</p>
+<p>Paired devices, backups, which other MIDI inputs the hub listens to, and which board and profile are in use. MIDI inputs stay with each Mac because the same device can have a different name on each Mac, for example through Bome Network. Each Mac keeps its own dated backups, so one can always undo what another saved.</p>
 <h3>Changes during a service</h3>
-<p>If another Mac changes the profile in use while this hub is <strong>armed</strong>, the change waits. A banner says the profile was changed on another Mac and offers to reload it. Nothing is swapped under you mid-service.</p>
+<p>If another Mac changes the profile in use, or the settings of the board in use, while this hub is <strong>armed</strong>, the change waits. A banner says so and offers to reload it. Nothing is swapped under you mid-service. When the hub is disarmed, a change to the board's settings is taken at once.</p>
 <h3>Conflicted copies</h3>
 <p>If two Macs edit while one is offline, the sync service may make a "conflicted copy". The hub brings those in as separate profiles so nothing is lost, and you can delete the one you do not want.</p>
 <h3>Stopping</h3>
@@ -788,7 +791,7 @@
 <ul>
 <li><strong>Connection</strong> tab: <strong>Board</strong>, <strong>New Board</strong> and <strong>Delete Board</strong>, then the board's <strong>Name</strong>, <strong>Console IP</strong> with <strong>Find</strong>, <strong>Base MIDI channel</strong> and <strong>Firmware</strong>.</li>
 <li><strong>Options</strong> tab, kept with the board: <strong>Send UFX key, scale and parameters</strong> (see <a href="#targets">What can be controlled</a>), <strong>Read input mutes and faders on connecting</strong> (see <a href="#console">Connecting to the console</a>), <strong>Set the console's tap tempo from Live's tempo</strong>, which while armed and while Live is playing sets the console's Global Tap Tempo to Live's tempo once a new tempo has held for one beat (sent on the port Avantis Director uses, so try it before a service), and <strong>Use the console's SoftKeys and MIDI strips as triggers</strong> (see <a href="#inputs">Sending cues</a>).</li>
-<li><strong>Startup</strong> tab, kept with this Mac: <strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
+<li><strong>Startup</strong> tab, kept with the board: <strong>Connect when the app opens</strong> and <strong>Arm when the console connects</strong>.</li>
 <li><strong>Connect</strong> or <strong>Disconnect</strong> is at the bottom of every tab.</li>
 <li><strong>Shape of a glide:</strong> Even or Eased.</li>
 </ul>
@@ -844,7 +847,7 @@
 <tr><td>Show view seems to be missing channels</td><td>Named is on, and those channels have no name on the console.</td></tr>
 <tr><td>A cue fires twice, or undoes itself</td><td>Two mappings share a trigger and a target. Look for the warning triangle.</td></tr>
 <tr><td>A device cannot find the Mac</td><td>Different network, or a network that stops devices seeing each other.</td></tr>
-<tr><td>Ableton link says another app is using the port</td><td>Another app on the Mac is already reading from AbletonOSC.</td></tr>
+<tr><td>Ableton link says another app is using the port</td><td>Another app on the Mac is already listening on that reply port. Use AvantisHubOSC on 11006 and 11007.</td></tr>
 </table>
 <nav class="pager" aria-label="More topics"><a class="prev" href="#keys"><small>Previous</small>Keyboard shortcuts</a></nav></section>
 <div id="empty" class="empty hidden">Nothing in the manual matches. Try a different word.</div>
