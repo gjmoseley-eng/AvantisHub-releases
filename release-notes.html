@@ -151,7 +151,7 @@
 <aside id="side">
 <button type="button" id="menu" aria-label="Show or hide the versions">Versions</button>
 <div class="brand">Avantis Hub<span>Release Notes</span></div>
-<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-11"><span class="t">Version 0.9.11</span><span class="when">Oct 23</span></a><a href="#v0-9-10"><span class="t">Version 0.9.10</span><span class="when">Oct 22</span></a><a href="#v0-9-9"><span class="t">Version 0.9.9</span><span class="when">Oct 22</span></a><a href="#v0-9-8"><span class="t">Version 0.9.8</span><span class="when">Oct 22</span></a><a href="#v0-9-7"><span class="t">Version 0.9.7</span><span class="when">Oct 15</span></a><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
+<nav id="contents" aria-label="Versions" style="margin-top:18px"><a href="#v0-9-12"><span class="t">Version 0.9.12</span><span class="when">Oct 23</span></a><a href="#v0-9-11"><span class="t">Version 0.9.11</span><span class="when">Oct 23</span></a><a href="#v0-9-10"><span class="t">Version 0.9.10</span><span class="when">Oct 22</span></a><a href="#v0-9-9"><span class="t">Version 0.9.9</span><span class="when">Oct 22</span></a><a href="#v0-9-8"><span class="t">Version 0.9.8</span><span class="when">Oct 22</span></a><a href="#v0-9-7"><span class="t">Version 0.9.7</span><span class="when">Oct 15</span></a><a href="#v0-9-6"><span class="t">Version 0.9.6</span><span class="when">Oct 9</span></a><a href="#v0-9-5"><span class="t">Version 0.9.5</span><span class="when">Oct 9</span></a><a href="#v0-9-4"><span class="t">Version 0.9.4</span><span class="when">Oct 7</span></a><a href="#v0-9-3"><span class="t">Version 0.9.3</span><span class="when">Oct 6</span></a><a href="#v0-9-2"><span class="t">Version 0.9.2</span><span class="when">Oct 6</span></a><a href="#v0-9-1"><span class="t">Version 0.9.1</span><span class="when">Oct 6</span></a><a href="#v0-9"><span class="t">Version 0.9</span><span class="when">Oct 6</span></a></nav>
 <div class="other"><a href="manual.html">User Manual</a><a href="faq.html">FAQ</a></div>
 </aside>
 <main>
@@ -170,7 +170,13 @@
 </script>
 <h1>Release notes</h1>
 <div class="subtitle">What changed in each version.</div>
-<section class="release" id="v0-9-11"><h2>Version 0.9.11<span class="date">October 23, 2026</span></h2>
+<section class="release" id="v0-9-12"><h2>Version 0.9.12<span class="date">October 23, 2026</span></h2>
+<h3>New</h3>
+<ul>
+<li><strong>Macs on different versions can share a setup folder.</strong> When the hub saves the boards, the settings or a profile, it now keeps anything a newer version added that it does not understand, such as a new kind of MIDI feedback or a new quick button option, instead of dropping it. Each save also records which version wrote it. If the setup was saved in a newer format than this hub knows, it still opens and runs from it, but saves nothing to it, and a banner at the top of the window asks you to update. The same happens if the boards file cannot be read at all, so the hub never puts a new board over boards it could not see.</li>
+<li>This protects only from this version on: update every Mac that shares the folder to 0.9.12. Until then, an older hub can still drop what it does not know when it saves.</li>
+</ul>
+</section><section class="release" id="v0-9-11"><h2>Version 0.9.11<span class="date">October 23, 2026</span></h2>
 <h3>New</h3>
 <ul>
 <li><strong>Second press undoes it.</strong> A quick button option for buttons such as a talk back. While the button is in effect (its mutes and assigns are as it sets them), pressing it again sets them back, puts back the levels it remembered and puts each UFX value it changed back to what it was before. Levels it set to a fixed value stay where they are. Turn it on in the button's editor.</li>

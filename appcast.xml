@@ -6,6 +6,26 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.12</title>
+            <pubDate>Fri, 23 Oct 2026 14:52:09 -0500</pubDate>
+            <sparkle:version>13</sparkle:version>
+            <sparkle:shortVersionString>0.9.12</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>Macs on different versions can share a setup folder.</strong> When the hub saves the boards, the settings or a profile, it now keeps anything a newer version added that it does not understand, such as a new kind of MIDI feedback or a new quick button option, instead of dropping it. Each save also records which version wrote it. If the setup was saved in a newer format than this hub knows, it still opens and runs from it, but saves nothing to it, and a banner at the top of the window asks you to update. The same happens if the boards file cannot be read at all, so the hub never puts a new board over boards it could not see.</li>
+<li>This protects only from this version on: update every Mac that shares the folder to 0.9.12. Until then, an older hub can still drop what it does not know when it saves.</li>
+</ul>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.12/AvantisHub-0.9.12.zip"
+                sparkle:edSignature="hIsan390mYibmzBYDSzs8AGoVmnKnLsSyBlE5acepZbz/sw34X8lW9l6XsUCGzD6c3sJKQxPOsW7+n5W0FIAAQ=="
+                length="6469197"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.11</title>
             <pubDate>Fri, 23 Oct 2026 14:15:53 -0500</pubDate>
             <sparkle:version>12</sparkle:version>
