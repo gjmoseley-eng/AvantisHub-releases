@@ -6,6 +6,32 @@
         <description>Most recent updates for Avantis Hub</description>
         <language>en</language>
         <item>
+            <title>Version 0.9.11</title>
+            <pubDate>Fri, 23 Oct 2026 14:15:53 -0500</pubDate>
+            <sparkle:version>12</sparkle:version>
+            <sparkle:shortVersionString>0.9.11</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
+            <sparkle:fullReleaseNotesLink>https://gjmoseley-eng.github.io/AvantisHub-releases/release-notes.html</sparkle:fullReleaseNotesLink>
+            <description><![CDATA[
+<h3>New</h3>
+<ul>
+<li><strong>Second press undoes it.</strong> A quick button option for buttons such as a talk back. While the button is in effect (its mutes and assigns are as it sets them), pressing it again sets them back, puts back the levels it remembered and puts each UFX value it changed back to what it was before. Levels it set to a fixed value stay where they are. Turn it on in the button's editor.</li>
+<li><strong>MIDI feedback can follow an input's main assign.</strong> In Window, MIDI Feedback, choose "An input's main assign": on while the input is on the main mix. A SoftStep key can show whether a singer is singing (green) or in talk back (red).</li>
+<li>When it connects, the hub now reads each input's main assign (LR) from the console, along with the mutes and send levels, so it knows them without anyone pressing anything.</li>
+<li>If macOS runs a protected copy of the hub, which happens when it is opened before Finder has moved it to Applications, the hub cannot update itself. It now says so in a banner and in Settings, Updates, with how to fix it.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>A board with MIDI feedback from a later version could not be opened. Feedback the hub does not know is now left out instead.</li>
+</ul>
+]]></description>
+            <enclosure
+                url="https://github.com/gjmoseley-eng/AvantisHub-releases/releases/download/v0.9.11/AvantisHub-0.9.11.zip"
+                sparkle:edSignature="jXXlxCL/lDN7U1O7AQiYuTNNtbTDt19diL1rSVY1a5Yh0C2HwLeTZQG3WmwCKmNSCA9ZLvwLxgWXDelTD7d9AQ=="
+                length="6436105"
+                type="application/octet-stream" />
+        </item>
+        <item>
             <title>Version 0.9.10</title>
             <pubDate>Thu, 22 Oct 2026 15:06:10 -0500</pubDate>
             <sparkle:version>11</sparkle:version>
