@@ -291,7 +291,7 @@
 <h3>Reading mutes and faders on connecting <span class="new">New in 0.9.7</span></h3>
 <p>With <strong>Read input mutes and faders on connecting</strong> switched on for a board, the hub makes one short extra visit to the console as it connects, on the connection Avantis Director uses. It reads where things are and leaves. It only reads, and it never changes anything.</p>
 <ul>
-<li>It fills in the inputs' mutes and fader levels, the DCAs' mutes and levels, the mute groups' mutes, the mutes and levels of the stereo auxes, the mains and the stereo matrices, and <span class="new">New in 0.9.8</span> each input's send levels to the UFX units.</li>
+<li>It fills in the inputs' mutes and fader levels, the DCAs' mutes and levels, the mute groups' mutes, the mutes and levels of the stereo auxes, the mains and the stereo matrices, <span class="new">New in 0.9.8</span> each input's send levels to the UFX units, and <span class="new">New in 0.9.11</span> whether each input is on the main mix (its LR main assign).</li>
 <li>It only fills in what the hub does not already know. Anything that changed on this connection keeps its live value.</li>
 <li>If the visit fails for any reason, nothing changes and the hub carries on as it would without it. The Monitor says what happened.</li>
 <li>It is available on <strong>V2.0 and later</strong> only, and can only be switched while disconnected.</li>
@@ -541,6 +541,7 @@
 <tr><td>MIDI trigger</td><td>Click, then play the note or send the CC or program change that should press the button. Nothing is sent to the console while it waits.</td></tr>
 <tr><td>OSC address</td><td>Made from the name when the button is first saved, such as <code>/hub/trigger/pastor-up</code>. It stays the same if you rename the button later, so cues built on it keep working.</td></tr>
 <tr><td>Require confirm (press twice)</td><td>The button needs two presses from a person: a click, a shortcut or a tap on a phone. The second press must follow within two seconds. MIDI and OSC always fire on the first, because whatever sends them cannot press twice.</td></tr>
+<tr><td>Second press undoes it</td><td>A press while the button is in effect sets it back instead. For buttons such as a talk back. See below. <span class="new">New in 0.9.11</span></td></tr>
 <tr><td>Runs these buttons first</td><td>Other buttons this one runs before its own actions.</td></tr>
 <tr><td>Actions</td><td>The changes it makes, in order. Click <strong>+ Add action</strong>, then pick a target. A mute action is set to Muted or Unmuted. A fader or send action is set to a level in dB or to -inf, with <strong>Set to</strong>, <strong>Remember, then set to</strong> or <strong>Put back</strong> (below), and its own Snap or Glide. The x removes an action.</td></tr>
 <tr><td>Test</td><td>Sends the actions to the console once. Needs the hub armed and connected.</td></tr>
@@ -558,6 +559,16 @@
 <li>Kept levels are kept with the board and survive quitting the hub.</li>
 <li>The hub must know the level to keep it. If it does not, the button shows a <strong>warning triangle</strong> in Show view, and a press leaves that level alone instead of guessing. The Monitor says "left as it is: the hub does not know its level yet". Moving it once at the desk with the hub connected, or <a href="#console">reading the levels on connecting</a>, fixes that.</li>
 <li>A Put back with nothing kept does nothing, and the Monitor says "nothing to put back".</li>
+</ul>
+<h3>Second press undoes it <span class="new">New in 0.9.11</span></h3>
+<p>A button can undo itself on its next press, so one key or pad goes into talk back and comes out again. Turn on <strong>Second press undoes it</strong> in the button's editor.</p>
+<ul>
+<li>The button is <strong>in effect</strong> while every mute and assign it sets is as it sets it, however it got that way. A Talk Back that takes a singer off the mains is in effect while that singer is off the mains, and no longer once anything, such as Sing or Band On, puts them back.</li>
+<li>A press while it is in effect sets its mutes and assigns the other way, puts back every level it set with <strong>Remember, then set to</strong>, and puts each UFX parameter it changed back to what it was before.</li>
+<li>Levels set with plain <strong>Set to</strong> and scene recalls stay where they are, and so does anything done by the buttons it runs.</li>
+<li>A press while it is not in effect does the button as usual. So does a press while the hub does not know all its mutes and assigns yet, and a button with no mutes or assigns never undoes.</li>
+<li>If the hub had not sent a UFX parameter before the first press, the undo leaves it as it is, and the Monitor says so.</li>
+<li>It works the same from every way of pressing: a click, a shortcut, MIDI, OSC, a clip in Live or a phone.</li>
 </ul>
 <h3>Pressing</h3>
 <p>Click the tile, use its shortcut, send its MIDI trigger or OSC address, tap it on a phone, or use the menu bar panel. A tile is dimmed when the hub is disarmed or not connected. Hover over a tile to see its OSC address.</p>
@@ -584,6 +595,7 @@
 <ul>
 <li><strong>A UFX parameter</strong>, such as one tuner's bypass: on while the hub last sent it 0 (tuner in), or while it last sent 127.</li>
 <li><strong>A quick button</strong> that can be in effect (one that only sets UFX parameters): on while it shows NOW.</li>
+<li><span class="new">New in 0.9.11</span> <strong>An input's main assign</strong>: on while the input is on the main mix. A SoftStep key can show whether a singer is singing (green) or in talk back (red).</li>
 <li><strong>A Live track</strong>, by name: on while it plays, or while it is muted. Needs the Ableton Live link.</li>
 </ul></li>
 <li>Click <strong>Test</strong>: each one is sent on for a second, then off for a second, then as things are. With a SoftStep, if the wrong key lights, change the key.</li>
@@ -819,6 +831,14 @@
 <p>If another Mac changes the profile in use, or the settings of the board in use, while this hub is <strong>armed</strong>, the change waits. A banner says so and offers to reload it. Nothing is swapped under you mid-service. When the hub is disarmed, a change to the board's settings is taken at once. Saving a change to that profile on this Mac before reloading keeps this Mac's version of it instead.</p>
 <h3>Conflicted copies</h3>
 <p>If two Macs edit while one is offline, the sync service may make a "conflicted copy". The hub brings those in as separate profiles so nothing is lost, and you can delete the one you do not want.</p>
+<h3>Macs on different versions <span class="new">New in 0.9.12</span></h3>
+<p>Two Macs sharing a folder can run different versions of the hub. When it saves the boards, the settings or a profile, the hub keeps anything a newer version added that it does not understand, such as a new kind of MIDI feedback or a new quick button option, instead of dropping it. Each save also records which version wrote it.</p>
+<ul>
+<li>If the setup was saved in a newer format than this hub knows, it still opens and runs from it, but saves nothing to it, and a banner at the top of the window asks you to update. Nothing you change on this Mac is kept until you do.</li>
+<li>The same happens if the boards file cannot be read at all, so the hub never puts a new board over boards it could not see. Update the hub, or restore the file from a backup.</li>
+<li>The banner goes once the hub can save again, and the Monitor says so.</li>
+<li>This protects only from 0.9.12 on. An older hub can still drop what it does not know when it saves, so update every Mac that shares the folder.</li>
+</ul>
 <h3>Stopping</h3>
 <p><strong>Stop Sharing</strong> offers to keep a copy of the shared boards and profiles on this Mac, or to go back to this Mac's own setup from before. Keeping a copy adds the shared boards and profiles to the ones this Mac had before sharing. The folder is left as it is for the other Macs. Choosing or leaving a shared folder disconnects from the console and disarms.</p>
 
@@ -865,6 +885,8 @@
 <li>The update also shows in Settings &gt; Updates, and as an <strong>Update</strong> marker in the menu bar panel for when the window is closed.</li>
 </ul>
 <p>Choosing <strong>Check for Updates</strong> yourself opens the update window straight away.</p>
+<h3>If the hub cannot update itself <span class="new">New in 0.9.11</span></h3>
+<p>If Avantis Hub was opened before Finder finished moving it to Applications, macOS runs a protected copy of it from a hidden place, and that copy cannot be updated. The hub then says so in a banner at the top of the window and in Settings &gt; Updates, where Check Now is switched off. To fix it, quit Avantis Hub, then in Finder drag it out of Applications and back in, and open it again. <strong>Later</strong> hides the banner until the hub next opens.</p>
 <p>Installing restarts the hub. If it is armed, it asks first. Your boards, profiles, quick buttons and paired devices are kept apart from the app and are not touched by an update.</p>
 <p>The iPhone and iPad app updates separately, the way your other apps do.</p>
 
@@ -896,6 +918,8 @@
 <tr><td>The Monitor says the Avantis Hub MIDI port could not be opened</td><td>Something held MIDI on the Mac as the hub started. <span class="new">New in 0.9.8</span> The hub tries again every 2 seconds. If it says it gave up after 10 tries, quit and reopen the hub.</td></tr>
 <tr><td>The Monitor says it could not set the console's tap tempo</td><td>The console did not take it. The hub tries again at the next tempo change. See <a href="#inputs">The console's tap tempo</a>.</td></tr>
 <tr><td>Ableton link says another app is using the port</td><td>Another app on the Mac is already listening on that reply port. Use AvantisHubOSC on 11006 and 11007.</td></tr>
+<tr><td>A banner says the hub can't update itself from here</td><td>macOS is running a protected copy. Quit, drag the app out of Applications and back in with Finder, and open it again. See <a href="#updates">Updates</a>.</td></tr>
+<tr><td>A banner says the setup was changed by a newer Avantis Hub</td><td>Another Mac sharing the folder is on a newer version. This hub runs but saves nothing until it is updated. See <a href="#sharing">Using more than one Mac</a>.</td></tr>
 </table>
 <nav class="pager" aria-label="More topics"><a class="prev" href="#keys"><small>Previous</small>Keyboard shortcuts</a></nav></section>
 <div id="empty" class="empty hidden">Nothing in the manual matches. Try a different word.</div>

@@ -250,7 +250,7 @@
 </div></details><details class="qa"><summary>What does "MUTE ?" mean?</summary><div class="body">
 <p>The console has not said whether that channel is muted since the hub connected. Pressing it mutes. Once the mute changes, by the hub or at the console, the button shows the real state.</p>
 </div></details><details class="qa"><summary>Can the hub read the mutes when it connects? <span class="new">New in 0.9.7</span></summary><div class="body">
-<p>Yes, on firmware V2.0 and later. Each board has an option, "Read input mutes and faders on connecting", that is off unless you turn it on. With it on, the hub makes one short read-only visit on the connection Avantis Director uses and fills in the mutes and fader levels of the inputs, DCAs, stereo auxes, mains and stereo matrices, the mute groups' mutes, and each input's send levels to the UFX units. It works with Avantis Director open at the same time. It was worked out by watching Director, not from Allen &amp; Heath's documents, so try it at a quiet console first.</p>
+<p>Yes, on firmware V2.0 and later. Each board has an option, "Read input mutes and faders on connecting", that is off unless you turn it on. With it on, the hub makes one short read-only visit on the connection Avantis Director uses and fills in the mutes and fader levels of the inputs, DCAs, stereo auxes, mains and stereo matrices, the mute groups' mutes, each input's send levels to the UFX units, and whether each input is on the main mix. It works with Avantis Director open at the same time. It was worked out by watching Director, not from Allen &amp; Heath's documents, so try it at a quiet console first.</p>
 </div></details><details class="qa"><summary>Why does "turn up" from my phone say it needs the fader's level?</summary><div class="body">
 <p>Moving a fader "up by 3 dB" needs a known starting point. If the console has not reported that fader since the hub connected, the hub refuses instead of guessing. Move the fader once, or set it to a level instead.</p>
 </div></details><details class="qa"><summary>Why doesn't the hub know the current scene?</summary><div class="body">
@@ -340,6 +340,10 @@
 <p>The later one.</p>
 </div></details><details class="qa"><summary>What do Remember and Put back do? <span class="new">New in 0.9.8</span></summary><div class="body">
 <p>A level action set to "Remember, then set to" keeps the level as it is, then sets the new one. Another button's "Put back" sets it back to the kept level. It suits talk back: one button takes a send down, Sing puts it back to wherever it was. See <a href="manual.html#buttons">the manual</a>.</p>
+</div></details><details class="qa"><summary>Can one button go into talk back and come out again? <span class="new">New in 0.9.11</span></summary><div class="body">
+<p>Yes. Turn on "Second press undoes it" in the button's editor. While the button is in effect, meaning its mutes and assigns are as it sets them, the next press sets them back, puts back the levels it remembered and puts back any UFX values it changed. Fixed levels stay where they are. See <a href="manual.html#buttons">the manual</a>.</p>
+</div></details><details class="qa"><summary>Can a pedal light show whether a singer is in talk back? <span class="new">New in 0.9.11</span></summary><div class="body">
+<p>Yes. In Window &gt; MIDI Feedback, add feedback that follows "An input's main assign". It is on while that input is on the main mix, so a SoftStep key shows green while the singer is heard in the room and red while they are in talk back.</p>
 </div></details><details class="qa"><summary>Why does a quick button show a warning triangle?</summary><div class="body">
 <p>It has a Remember action on a level the hub does not know yet, so a press would leave that level alone instead of guessing. Move that fader or send once at the desk with the hub connected, or turn on "Read input mutes and faders on connecting" for the board.</p>
 </div></details><details class="qa"><summary>Can I reorder buttons?</summary><div class="body">
@@ -409,6 +413,8 @@
 <p>For a one-off, Export to File and Import from File in the Profile menu. To keep two Macs in step, share a folder under Settings &gt; Sharing.</p>
 </div></details><details class="qa"><summary>Someone changed the profile on another Mac while I was running a service.</summary><div class="body">
 <p>While your hub is armed the change waits, and a banner offers to reload it when you are ready. The same goes for the board's settings. Saving a change to the profile on your Mac first keeps your version of it instead.</p>
+</div></details><details class="qa"><summary>Can two Macs on different versions share a setup? <span class="new">New in 0.9.12</span></summary><div class="body">
+<p>Yes, from 0.9.12 on. Each hub keeps what a newer one added instead of dropping it when it saves. A hub that finds the setup was saved by a newer format runs from it but saves nothing, and a banner asks you to update. An older copy than 0.9.12 can still drop what it does not know, so update every Mac that shares the folder.</p>
 </div></details><details class="qa"><summary>A profile called "(conflicted copy)" has appeared.</summary><div class="body">
 <p>Two Macs edited the same profile while out of touch. The hub kept both so nothing was lost. Compare them and delete the one you do not want.</p>
 </div></details><details class="qa"><summary>I moved a channel on the console and my mappings followed it. Is that right?</summary><div class="body">
@@ -419,6 +425,8 @@
 </div></details></section><section class="group" id="upd"><h2>Updates and the app itself</h2>
 <details class="qa"><summary>A banner says a new version is ready. <span class="new">New in 0.9.7</span></summary><div class="body">
 <p>The daily check found one. The hub never opens a window over a service by itself, so it shows the banner and waits. Click Show Update to see what is new, or Later to hide it until the hub next opens. Nothing installs until you say so.</p>
+</div></details><details class="qa"><summary>A banner says the hub can't update itself from here. <span class="new">New in 0.9.11</span></summary><div class="body">
+<p>The app was opened before Finder finished moving it to Applications, so macOS is running a protected copy that cannot be updated. Quit Avantis Hub, then in Finder drag it out of Applications and back in, and open it again.</p>
 </div></details><details class="qa"><summary>The manual describes something my copy does not have.</summary><div class="body">
 <p>The manual and FAQ describe the newest version, which the top of the sidebar names. Features added in a recent version are tagged, for example "New in 0.9.7". From 0.9.8, opening a page from the Help menu of an older copy also shows a note saying which version you have. To get the newest, choose Avantis Hub &gt; Check for Updates. The release notes list what changed in each version.</p>
 </div></details><details class="qa"><summary>Can an update restart the hub in the middle of a service?</summary><div class="body">
